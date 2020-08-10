@@ -221,7 +221,7 @@ body {
       font-size: 20px;
       color: #0A3BFF;
       top: 59px;
-      right: 170px;
+      right: 115px;
       cursor: pointer;
     }
     .num {
@@ -230,7 +230,7 @@ body {
       font-size: 12px;
       color: #fff;
       top: 59px;
-      right: 176px;
+      right: 122px;
       cursor: pointer;
     }
   }
@@ -240,7 +240,7 @@ body {
       font-size: 20px;
       color: #0A3BFF;
       top: 59px;
-      right: 220px;
+      right: 170px;
       cursor: pointer;
     }
     .num1 {
@@ -249,7 +249,7 @@ body {
       font-size: 12px;
       color: #fff;
       top: 59px;
-      right: 227px;
+      right: 177px;
       cursor: pointer;
     }
   }
@@ -605,7 +605,7 @@ main{
 @media (max-width: 420px) {
   .blackimagebg {
     height: 100px;
-    width: 380px;
+    width: 325px;
     background-image: url(../img/dash.png);
     border-radius: 10px;
     margin-left: 15px;
@@ -641,12 +641,12 @@ main{
   .filtertext {
     position: absolute;
     top: 30px;
-    left: 70px;
+    left: 50px;
   }
   .btnpre {
     position: absolute;
     top: 70px;
-    left: 70px;
+    left: 50px;
   }
   .btn-preview {
     background: transparent;
@@ -670,7 +670,7 @@ main{
       padding-left: 20px;
       margin-top: 20px;
       box-shadow: 0px 0px 15px -8px #C4C4C4;
-      margin-left: 60px;
+      margin-left: 30px;
      }
   }
 
@@ -1097,6 +1097,6 @@ main{
     margin-top: 20px;
     margin-bottom: 40px;
     box-shadow: 0px 0px 15px -5px #C4C4C4;
-    margin-left: 20px;
+    margin-left: -10px;
   }
 }
