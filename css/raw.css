@@ -1,0 +1,130 @@
+/* PIXEL2 750 */
+@media screen and (max-width: 750px){
+    .navbar-brand {
+      font-size: 20px;
+      font-weight: 300px;
+      text-align: center;
+    }
+    .navbar-toggler {
+      background-color: transparent;
+      color: #fff;
+      margin-top: 7px;
+  
+    }
+    .fa-bars {
+      font-size: 25px;
+    }
+    .navigation {
+    margin-left: 220px;
+    }
+    .dropdown {
+      padding: 0;
+    }
+    .bars {
+      visibility: hidden;
+    }
+    .fa-circle {
+      position: absolute;
+      font-size: 20px;
+      color: #0A3BFF;
+      top: 59px;
+      right: 381px;
+      cursor: pointer;
+    }
+    .num {
+      position: absolute;
+      font-weight: 500px;
+      font-size: 12px;
+      color: #fff;
+      top: 59px;
+      right: 387px;
+      cursor: pointer;
+    }
+    .circle1 {
+      position: absolute;
+      font-size: 20px;
+      color: #0A3BFF;
+      top: 59px;
+      right: 327px;
+      cursor: pointer;
+    }
+    .num1 {
+      position: absolute;
+      font-weight: 500px;
+      font-size: 12px;
+      color: #fff;
+      top: 59px;
+      right: 332px;
+      cursor: pointer;
+    }
+  }
+  
+  /* PIXEL2 750 END*/
+
+  /* Tablet 750 */
+@media (max-width: 750px) {
+    #sidebarMenu {
+      padding: 0;
+    }
+    .profileimgbig {
+      height: 90px;
+      width: 90px;
+      margin-left: 320px;
+  
+    }
+  .hello {
+    font-size: 16px;
+    font-weight: bold;
+    opacity: 50%;
+    text-align: center;
+    margin-top: 5px;
+  }
+  .ayo {
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: -20px;
+  }
+  .btn-primary {
+    background-color: #0A3BFF;
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: center;
+    margin-left: 295px;
+  }
+  .fa-fire {
+    margin-right: 5px;
+  }
+  .navfade {
+    font-size: 14px;
+    margin-top: -10px;
+    opacity: 40%;
+    margin-left: 250px;
+  }
+  
+  .dashtop {
+    font-size: 16px;
+    margin-top: 20px;
+    opacity: 100%;
+    margin-left: 250px;
+  }
+  .report {
+    font-size: 16px;
+    margin-top: 10px;
+    opacity: 100%;
+    margin-left: 250px;
+  }
+  .more {
+    align-content: right;
+    text-align: right;
+    float: right;
+    margin-top: -20px;
+  }
+  .doc {
+    margin-left: 250px;
+  }
+  }
+  
+  
+
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"></div>

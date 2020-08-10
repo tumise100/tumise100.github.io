@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="../Web/css/bootstrap.css">
+    <link rel="stylesheet" href="../Web/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../Web/css/main.css">
+    <link rel="stylesheet" href="../Web/css/awesome/all.min.css">
+    <link rel="stylesheet" href="../Web/css/bootstrap-grid.min.css">
+    <link rel="stylesheet" href="../Web/css/bootstrap-reboot.min.css">
+</head>
+<body>
+    <!--TOP NAVBAR-->
+    
+    <nav class="navbar sticky-top flex-md-nowrap p-0 shadow-sm">
+        <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3 tumitech" href="#">TUMITECH <span class="badge badge-pill badge-info v1">V1.0</span><span class="fa fa-bars bars" style="margin-left: 40px;"></span></a>
+        <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse" data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="fa fa-bars"></span>
+        </button>
+        <ul class="nav nav-pills navigation">
+          <li class="nav-item item1">
+            <a class="globe"><i class="fa fa-plus"></i>
+              <span class="num3">Add</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="globe"><i class="fa fa-bell bell"></i>
+          </li>
+          <li class="nav-item item1">
+            <a class="globe"><i class="fa fa-comments comments"></i>
+              <span class="fa fa-circle circle1"></span>
+              <span class="num1">4</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="globe"><i class="fa fa-globe"></i>
+              <span class="fa fa-circle"></span>
+              <span class="num">2</span>
+            </a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+              <span class="rounded-circle"><img class="rounded-circle profileimg" src="../Web/img/profilepic.png" alt="20x20" data-holder-rendered="true"></span>
+            </a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item" href="#">Something else here</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">Separated link</a>
+            </div>
+          </li>
+        </ul>
+      </nav>
+      <!--TOP NAVBAR END-->
+
+      <!--SIDE NAVBAR-->
+      
+      <div class="container-fluid">
+        <div class="row">
+          <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+            <div class="sidebar-sticky pt-2">
+              <div>
+                <span class="rounded-circle"><img class="rounded-circle profileimgbig" src="../Web/img/profilepic.png" alt="20x20" data-holder-rendered="true"></span>
+              </div>
+              <div class="name">
+                <p class="hello">Hello,</p>
+                <p class="ayo">Ajayi Ayobami <span class="fa fa-caret-down"></span></p>
+                <button type="button" class="btn btn-primary btn-sm livemetrics"><span class="fa fa-fire"></span> Live Metrics</button>
+              </div>
+              <ul class="nav flex-column active">
+                <li class="nav-item dashtop">
+                  <a class="nav-link" href="#">
+                    <span data-feather="home"></span>
+                    Dashboard
+                  </a>
+                </li>
+                <li class="nav-item navfade">
+                  <a class="nav-link" href="#">
+                    <span class="fa fa-briefcase"></span>
+                    Overview
+                  </a>
+                </li>
+                <li class="nav-item navfade">
+                  <a class="nav-link" href="#">
+                    <span class="fa fa-calendar"></span>
+                    Calender
+                  </a>
+                </li>
+                <li class="nav-item navfade">
+                  <a class="nav-link" href="#">
+                    <span class="fa fa-clock"></span>
+                    Schedule Actions
+                  </a>
+                </li>
+                <li class="nav-item active navfade">
+                  <a class="nav-link" href="#">
+                    <span class="fa fa-bell"></span>
+                    Live Alerts  <span class="sr-only">(current)</span>
+                  </a>
+                </li>
+              </ul>
+
+              <ul class="nav flex-column active">
+                <li class="nav-item report">
+                  <a class="nav-link" href="#">
+                    <span data-feather="home"></span>
+                    Reports
+                  </a>
+                </li>
+                <li class="nav-item navfade">
+                  <a class="nav-link" href="#">
+                    <span class="fa fa-thumb-tack" aria-hidden="true"></span>
+                    Pinned
+                  </a>
+                </li>
+                <li class="nav-item navfade">
+                  <a class="nav-link" href="#">
+                    <span class="fa fa-flag"></span>
+                    Current
+                  </a>
+                </li>
+                <li class="nav-item navfade">
+                  <a class="nav-link" href="#">
+                    <span class="fa fa-download"></span>
+                    Export Reports
+                  </a>
+                </li>
+                <li class="nav-item active navfade">
+                  <a class="nav-link" href="#">
+                    <span class="fa fa-lock"></span>
+                    Security
+                  </a>
+                </li>
+              </ul>
+      
+              <ul class="nav flex-column mb-2 doc">
+                <li class="nav-item more1">
+                  <a class="nav-link more1" href="#">
+                    DOCUMENTATION
+                    <span class="fa fa-caret-down more"></span>
+                  </a>
+                  <hr>
+                </li>
+                <li class="nav-item more1">
+                  <a class="nav-link more1" href="#">
+                    BLOG
+                    <span class="fa fa-caret-down more"></span>
+                  </a>
+                  <hr>
+                </li>
+                <li class="nav-item more1">
+                  <a class="nav-link more1" href="#">
+                    NEED HELP?
+                    <span class="fa fa-caret-down more"></span>
+                  </a>
+                  <hr>
+                </li>
+                <hr>
+              </ul>
+            </div>
+          </nav>
+          <!--SIDE NAVBAR END-->
+
+          <!--MAIN-->
+      
+          <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 "></div>
+            <div class="row">
+              <div class="col-md-5 col-sm-6-inline">
+                <div class="bigbell">
+                <i class="fa fa-bell bigbelli"> </i>
+              </div>
+              <div class="livetext">
+                <span class="live">Live Alerts</span> <br>
+                <span class="tumit">Tumitech |</span> <span class="mail">  Export to Mail</span>
+              </div>
+                
+              </div>
+              <div class="col-md-3">
+              </div>
+              <div class="col-md-4 col-sm-6 btn4">
+                <button type="button" class="btn btn-primary btn-sm calen"><span class="fa fa-calendar calendarm"></span>Due Alerts</button>
+                <button type="button" class="btn btn-primary btn-sm chaa"><span class="fa fa-chart-bar"></span>Live Alerts</button>
+           
+              </div>
+            </div>
+
+            <!--MAIN NAVBAR-->
+            <div class="row">
+              <div class="col-md-12">
+                <ul class="nav nav-tabs secondul">
+                  <li class="nav-item seconditem">
+                    <a class="nav-link seconditem" href="#">ACTIVE REPORTS</a>
+                  </li>
+                  <li class="nav-item seconditem">
+                    <a class="nav-link seconditem" href="#">CALENDAR</a>
+                  </li>
+                  <li class="nav-item seconditem">
+                    <a class="nav-link seconditem" href="#">RECENT REPORTS</a>
+                  </li>
+                  <li class="nav-item seconditem livestat">
+                    <a class="nav-link active" href="#">LIVE STATS</a>
+                  </li>
+                  <li class="nav-item seconditem">
+                    <a class="nav-link seconditem" href="#">EXPORT REPORTS</a>
+                  </li>
+                  <li class="nav-item seconditem">
+                    <a class="nav-link seconditem" href="#">FLAGGED</a>
+                  </li>
+                </ul>
+              </div>
+              <!--MAIN NAVBAR END-->
+
+              <!--OVERLAY-->
+              <div class="row">
+                <div class="col-md-12 col-sm-12">
+                <div class="blackimagebg"></div>
+                <div class="blackimgecnt">
+                  <div class="filtertext">
+                  <span class="filter">Alert filters by: </span><span class="enterprise">An Enterprise   | </span>
+                  <span class="preview"> Preview</span></div>
+                  <div class="btnpre">
+                  <span><button type="button" class="btn btn-primary btn-sm btn-preview"> <span class="fa fa-star"></span> Preview Reports</button></span>
+                  <span> <button type="button" class="btn btn-primary btn-sm btn-generate"><span class="fa fa-fire"></span>Generate Reports</button></span>
+                  </div>
+                </div>
+              </div>
+            </div>     
+            </div>
+            <!--OVERLAY END-->
+
+            <!--4 COLUMN-->
+            <div class="row">
+              <div class="col-md-3">
+                <div class="datacol">
+                  <p class="operat">Performed Operations</p>
+                  <div class="midcase center"><span class="bcase fa fa-briefcase"></span><span class="fourr">24</span></div>
+                  <span class="fa fa-arrow-up"></span><span class="incre">23% Increase </span><span>in Operations</span>
+                
+                </div>
+               </div>
+              <div class="col-md-3">
+                <div class="datacol">
+                  <p class=progg>Progressive Impacts</p>
+                  <div class="midcase center"><span class="bcase fa fa-chart-line"></span><span class="fourr">11</span></div>
+                  <span class="fa fa-arrow-down"></span><span class="decre">4% lead less </span><span>than last week</span>
+                
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="datacol">
+                  <p class="markp">Market Progress</p>
+                  <div class="midcase center"><span class="bcase fa fa-chart-pie"></span><span class="fourr">97</span></div>
+                  <span class="fa fa-arrow-down"></span><span class="decre">3.25% less </span><span>market 1yr ago</span>
+                
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="datacol">
+                  <p class="hotp">Active Hotpoints</p>
+                  <div class="midcase center"><span class="bcase fa fa-chart-pie"></span><span class="fourr">78</span></div>
+                  <span class="fa fa-arrow-up"></span><span class="incre">4 new points </span><span>than yesterday</span>
+                
+                </div>
+              </div>
+
+            </div>
+            <div class="row">
+              <div class="col-md-4 col-sm-12">
+                <div class="datacol2">
+                  <div class="topred">
+                    <div class="xmark"><span class="xxmark">!</span></div>
+                    <div class="neww"><span class="newtt">3 New Live Alerts</span>
+                    <div class="datenew">last due 20/07/2020</div></div>
+                    <button type="button" class="btn btn-primary btn-sm newttbtn"></span>View Alerts</button>
+                  </div>
+                  <div class="adobexd"><span class="xd">XD</span></div>
+                  <div class="adobe"><span class="adobee">Adobe XD</span>
+                    <a href="#"><div class="adobew">www.adobe.com/xd</div></a>
+                    <div class="smallline"></div>
+                    <div class="adobes">support@adobe.com</div></div>
+                    <hr>
+                    <div class="asspe">Assigned People:</div>
+                    <div class="namedetails"><span class="rounded-circle">
+                      <img class="rounded-circle detailsimg" src="../Web/img/profilepic.png" alt="20x20" data-holder-rendered="true">
+                      <span class="myname">Ajayi Ayobami</span></span>
+                    <span class="mailtext fa fa-comments"></span><span class="mailtext1 fa fa-comments"></span>
+                  </div>
+                  <div class="namedetails1"><span class="rounded-circle">
+                    <img class="rounded-circle detailsimg" src="../Web/img/profilepic.png" alt="20x20" data-holder-rendered="true">
+                    <span class="myname">Osijo Emmanu</span></span>
+                  <span class="mailtext fa fa-comments"></span><span class="mailtext1 fa fa-comments"></span>
+                </div>
+                <div class="morepeo"><p id="morepeo">+5 more persons</p></div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="datacol2">
+                  <div class="topgrey">
+                    <div class="xmark1"><span class="xxmark1">!</span></div>
+                    <div class="neww1"><span class="newtt1">3 New Live Alerts</span>
+                    <div class="datenew1">last due 20/07/2020</div></div>
+                    <button type="button" class="btn btn-primary btn-sm newttbtn1"></span>View Alerts</button>
+                  </div>
+                  <div class="figma"><span class="fig">FM</span></div>
+                  <div class="adobe"><span class="adobee">Figma</span>
+                    <a href="#"><div class="adobew">www.figma.com</div></a>
+                    <div class="smallline"></div>
+                    <div class="adobes">admin@figma.com</div></div>
+                    <hr>
+                    <div class="asspe">Assigned People:</div>
+                    <div class="namedetails"><span class="rounded-circle">
+                      <img class="rounded-circle detailsimg" src="../Web/img/profilepic.png" alt="20x20" data-holder-rendered="true">
+                      <span class="myname">Adetoyi Yinka</span></span>
+                    <span class="mailtext fa fa-comments"></span><span class="mailtext1 fa fa-comments"></span>
+                  </div>
+                  <div class="namedetails1"><span class="rounded-circle">
+                    <img class="rounded-circle detailsimg" src="../Web/img/profilepic.png" alt="20x20" data-holder-rendered="true">
+                    <span class="myname">Babayemi Ladi</span></span>
+                  <span class="mailtext fa fa-comments"></span><span class="mailtext1 fa fa-comments"></span>
+                </div>
+                <div class="morepeo"><p id="morepeo">+3 more persons</p></div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="datacol2">
+                  <div class="topred">
+                    <div class="xmark"><span class="xxmark">!</span></div>
+                    <div class="neww"><span class="newtt">3 New Live Alerts</span>
+                    <div class="datenew">last due 20/07/2020</div></div>
+                    <button type="button" class="btn btn-primary btn-sm newttbtn"></span>View Alerts</button>
+                  </div>
+                  <div class="adobexd"><span class="xd">IN</span></div>
+                  <div class="adobe"><span class="adobee">Invision Studio</span>
+                    <a href="#"><div class="adobew">www.invision.com</div></a>
+                    <div class="smallline"></div>
+                    <div class="adobes">support@invision.com</div></div>
+                    <hr>
+                    <div class="asspe">Assigned People:</div>
+                    <div class="namedetails"><span class="rounded-circle">
+                      <img class="rounded-circle detailsimg" src="../Web/img/profilepic.png" alt="20x20" data-holder-rendered="true">
+                      <span class="myname">Ajayi Olutosin</span></span>
+                    <span class="mailtext fa fa-comments"></span><span class="mailtext1 fa fa-comments"></span>
+                  </div>
+                  <div class="namedetails1"><span class="rounded-circle">
+                    <img class="rounded-circle detailsimg" src="../Web/img/profilepic.png" alt="20x20" data-holder-rendered="true">
+                    <span class="myname">Yekinni Tunde</span></span>
+                  <span class="mailtext fa fa-comments"></span><span class="mailtext1 fa fa-comments"></span>
+                </div>
+                <div class="morepeo"><p id="morepeo">+5 more persons</p></div>
+                </div>
+              </div>
+            </div>
+            </div>
+            </div>
+           
+          </main>
+        </div>
+      </div>
+    
+</body>
+<script src="../Web/js/jquery-3.5.1.min.js"></script>
+<script src="../Web/js/bootstrap.min.js"></script>
+<script src="../Web/js/main.js"></script>
+<script src="../Web/js/awesomejs/all.min.js"></script>
+<script src="../Web/js/bootstrap.bundle.min.js"></script>
+
+</html>
