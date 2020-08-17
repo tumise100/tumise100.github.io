@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="957" height="1049.515" viewBox="0 0 957 1049.515">
+  <defs>
+    <clipPath id="clip-path">
+      <path id="Path_185" data-name="Path 185" d="M-76.227,4347.258,309.99,4244.485v157.182L-76.227,4519.553v78.591L538.86,4450.031,413.7,4631.4l-475.619,99.75v84.636l640.119-133-11.522,513.134-683.388-36.044-13.155-812.613Z" transform="translate(23 16)" fill="none" stroke="#707070" stroke-width="1"/>
+    </clipPath>
+  </defs>
+  <g id="deliv_group" data-name="deliv group" transform="translate(231 -4267.485)">
+    <g id="deliv-back" transform="translate(0 7)" clip-path="url(#clip-path)">
+      <image id="_032818031301" data-name="032818031301" width="1627" height="1017" transform="translate(-497 4260)" xlink:href="../../032818031301.jpg"/>
+    </g>
+    <image id="deliv" width="957" height="1009" transform="translate(-231 4308)" xlink:href="../../deliv.png"/>
+  </g>
+</svg>

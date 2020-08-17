@@ -1,0 +1,539 @@
+body {
+    font-family: 'Segoe UI';
+    overflow-x: hidden;
+}
+.navheader {
+    position: flex;
+    z-index: 1;
+}
+
+#tumi {
+    font-size: 35px;
+    font-weight: bold;
+    color: #1BBC9B;
+    font-style: italic;
+    padding-left: 100px;
+}
+#tech {
+    font-size: 35px;
+    font-weight: bold;
+    color: #252525;
+    font-style: italic;
+}
+.contents {
+    position: flex;
+    justify-content: left;
+    color: #252525;
+}
+.nav-item {
+    font-size: 14px;
+    font-weight: 500;
+    color: #252525;
+    font-style: italic;
+    margin-left: 50px;
+    top: 30px;
+}
+a.nav-link {
+    color: #252525;
+}
+#tumivision {
+    margin-left: 150px;
+}
+a.about {
+    margin-left: 230px;
+    margin-right: 20px;
+}
+.intouch {
+    margin-right: 40px;
+    background-color: #1DCDA9;
+    border-color: #1DCDA9;
+    border-radius: 2px;
+}
+.intouch:hover {
+    background-color: #13E1B7;
+    color: #fff;
+}
+
+/*Header */
+.unlock {
+    font-size: 70px;
+    font-weight: 1000;
+    margin-left: 105px;
+    margin-top: 20px;
+}
+.unlock1 {
+    padding-top: -10px;
+    
+}
+.unlock-text {
+    font-size: 18px;
+    margin-left: 105px;
+    margin-top: 30px;
+    
+}
+.unlock-text1 {
+    margin-top: 5px;
+}
+.headerbg {
+    position: relative;
+}
+.headersvgbg {
+    position: absolute;
+    top: -420px;
+    overflow: hidden;
+    z-index: -105;
+}
+.headersvgill {
+    position: absolute;
+    left: 90px;
+    top: 35px;
+}
+
+.learnmore {
+    font-size: 14px;
+    margin-left: 105px;
+    background-color: #1DCDA9;
+    border-color: #1DCDA9;
+    border-radius: 2px;
+    padding: 0 20px 0 500px 0;
+}
+.learnmore:hover {
+    background-color: #13E1B7;
+    color: #fff;
+}
+.or {
+    font-size: 14px;
+    font-weight: semibold;
+    padding-left: 20px;
+}
+.contact {
+    font-size: 14px;
+    color: #1DCDA9;
+    text-decoration: underline;
+    padding-left: 20px;
+}
+/* Partners */
+
+.partner {
+    width: 100%;
+    margin-top: 50px;
+    background: rgb(238,253,250);
+    background: linear-gradient(180deg, rgba(238,253,250,1) 50%, rgba(255,255,255,1) 100%);
+    padding-left: 115px;
+    padding-top: 50px;
+}
+/* Partners ends */
+
+/*Undertand and Card */
+.under {
+    position: absolute;
+    top: 80px;
+    left: 650px;
+}
+.opp {
+    font-size: 18px;
+    font-weight: 500;
+    color: #1BBC9B;
+}
+.reco {
+    font-size: 38px;
+    font-weight: 1000;
+}
+.goal {
+    width: 420px;
+    margin-top: 20px;
+}
+.bigm {
+    position: relative;
+    padding-top: 70px;
+}
+.bigmm {
+    position: relative;
+}
+.cards {
+    position: absolute;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding-left: -30px;
+    top: 50px;
+    left: 20px;
+}
+.card {
+    flex-basis: 25%;
+    width: 235px;
+    height: 365px;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 10px 20px -8px #C4C4C4;
+    margin-right: 30px;
+    margin-top: 30px;
+}
+.card-img {
+    width: 38px;
+    height: 48px;
+    margin-left: 30px;
+    margin-top: 30px;
+}
+.card-title {
+    font-size: 22px;
+    font-weight: bold;
+    margin-left: 30px;
+    padding-top: 20px;
+}
+.card-text {
+    font-size: 14px;
+    margin-left: 30px;
+    margin-top: 20px;
+    margin-right: 40px;
+    color: #252525;
+    opacity: 50%;
+}
+.card2 {
+    height: 328px;
+}
+.card-img2 {
+    margin-top: 30px;
+}
+.card3 {
+    height: 298px;
+    margin-top: 200px;
+}
+.card33 {
+    margin-top: 30px;
+}
+.card4 {
+    height: 328px;
+    margin-top: 350px;
+}
+
+/* Our Solution */
+.solution {
+    margin-top: 90px;
+   
+}
+.solu {
+    font-size: 20px;
+    color: #1BBC9B; 
+    margin-left: 370px;
+}
+.help {
+    font-weight: 1000;
+    margin-left: 30px;
+}
+.our {
+    width: 500px;
+    margin-left: 200px;
+    text-align: center;
+}
+
+/* Our Solution Tumi */
+.vision {
+    margin-left: -100px;
+}
+.visiontext {
+    margin-left: -100px;
+    margin-top: 100px;
+}
+.visionbg {
+    font-weight: 1000;
+    font-style: italic;
+}
+.design {
+    margin-top: 20px;
+}
+.fuready {
+    font-size: 13px;
+    margin-top: 20px;
+    opacity: 80%;
+}
+.tumiill {
+    margin-top: 170px;
+}
+.icontext {
+    font-size: 18px;
+    font-weight: 700;
+    margin-left: 20px;
+}
+.visionicon {
+    display: flex;
+    flex-wrap: wrap;
+}
+.icon {
+    margin-top: 30px;
+
+}
+.icon2 {
+    margin-left: 10px;
+}
+.morebtn {
+    margin-top: 40px;
+}
+.sendrequest {
+    font-size: 14px;
+    background-color: #1DCDA9;
+    border-color: #1DCDA9;
+    border-radius: 2px;
+    padding: 0 20px 0 500px 0;
+}
+.sendrequest:hover {
+    background-color: #13E1B7;
+    color: #fff;
+}
+.orr {
+    font-size: 14px;
+    font-weight: semibold;
+    padding-left: 20px;
+}
+.moree {
+    font-size: 14px;
+    font-weight: 500;
+    color: #1DCDA9;
+    text-decoration: underline;
+    padding-left: 20px;
+    margin-top: 80px;
+}
+
+/* COnsumer cases */
+.consumer {
+    padding-top: 150px;
+}
+.people {
+    width: 700px;
+    height: 800px;
+    margin-left: -300px;
+}
+.case {
+    font-size: 20px;
+    font-weight: 1000;
+    color: #1BBC9B;
+}
+.consume {
+    font-size: 40px;
+    font-weight: 1000;
+}
+.setup {
+    width: 400px;
+    font-size: 16px;
+    font-weight: 500px;
+}
+
+.divide {
+    width: 79px;
+    height: 4px;
+    background-color: #1BBC9B;
+}
+.five {
+    font-size: 30px;
+    font-weight: 1000;
+}
+.dig {
+    width: 150px;
+    font-weight: bold;
+}
+.countss {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 70px; 
+}
+.counts {
+    margin-right: 20px;
+}
+.goods {
+    margin-left: -100px;
+    margin-top: 150px;
+}
+.box {
+   width: 8px;
+   height: 8px;
+   background-color: #F4F6F6; 
+   margin-bottom: 20px;
+}
+.box1 {
+    width: 8px;
+    height: 8px;
+    background-color: #DEE1E0; 
+    margin-bottom: 20px;
+ }
+.box2 {
+    width: 8px;
+    height: 8px;
+    background-color: #64E9CE; 
+    margin-bottom: 20px;
+ }
+.boxes {
+    margin-left: -60px;  
+ }
+.boxess {
+     margin-top: 200px;
+ }
+
+ /* COnsumer cases */
+.abtt {
+     margin-left: -60px;
+ }
+.abt {
+     font-size: 20px;
+     font-weight: 1000;
+     color: #1BBC9B;
+ }
+.webuild {
+     font-weight: 1000;
+ }
+.mission {
+     font-weight: 500;
+     width: 550px;
+     margin-top: 20px;
+ }
+.there {
+    margin-top: 20px;
+     font-size: 12px;
+     font-weight: bold;
+     width: 500px;
+}
+/*About Us */
+.see {
+    font-size: 20px;
+    font-weight: bold;
+}
+.lll {
+    color: #1DCDA9;
+    padding-top: 20px;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.linked {
+    margin-top: 20px;
+}
+.lin {
+    font-size: 20px;
+    font-weight: 500;
+    margin-left: 15px;
+}
+.seeus {
+    margin-top: 80px;
+}
+
+/*Footer */
+.footer {
+    position: relative;
+    top: 100px;
+    left: -200px;
+    margin: 0px;
+    background-color: #252525;
+    width: 2000px;
+    color: #fff;
+
+}
+.mbig {
+    position: relative;
+    left: -200px;
+    opacity: 30%;
+}
+.contactt {
+    position: absolute;
+    top: 50px;
+    margin-left: 130px;
+}
+.cont {
+    font-size: 20px;
+    font-weight: 1000;
+    color: #1BBC9B;
+}
+.take {
+    font-size: 35px;
+    font-weight:1000;
+}
+.feel {
+    margin-top: 20px;
+    opacity: 50%;
+}
+.mail {
+    color: #1BBC9B;
+    margin-top: 20px;
+}
+.no {
+    color: #1BBC9B;
+    margin-top: 20px;
+    margin-left: 200px;
+}
+.talk {
+    position: absolute;
+    top: 80px;
+    left: 950px;
+    width: 150px;
+    background-color: #1DCDA9;
+    border-color: #1DCDA9;
+    border-radius: 2px;
+}
+.talk:hover {
+    background-color: #13E1B7;
+    color: #fff;
+}
+.line {
+    background-color: #fff;
+    width: 1100px;
+    margin-top: 150px;
+}
+.twidr {
+    margin-left: 20px;
+    margin-top: 20px;
+}
+.techh {
+    font-style: italic;
+    font-size: 35px;
+    font-weight: 1000;
+    margin-top: 20px;
+}
+.linkdr {
+    margin-top: 20px;
+}
+.copy {
+    margin-top: 20px;
+    opacity: 50%;
+}
+
+.lastft {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+.pro {
+    opacity: 30%;
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+.mii {
+    margin-top: 20px;
+    color: #fff;
+}
+.miii {
+    margin-top: 20px;
+    color: #fff;
+}
+.boos {
+    margin-top: 20px;
+    color: #fff;
+}
+.form-group {
+    margin-top: 40px;
+}
+.form-control {
+    background-color: transparent;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-radius: none;
+}
+
+.send {
+    position: absolute;
+    padding-left: 350px;
+}
+
+
+
+
+
