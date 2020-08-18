@@ -1,9 +1,14 @@
-$(function () {
-  $(document).scroll(function () {
-	  var $nav = $(".sticky-topt");
-	  $nav.toggleClass('scrolled', $(this).scrollTop() > $nav.height());
-	});
-});
+$(document).ready(function() {
+	var scrollLink = $('.nav-link');
 
-const element = document.querySelector('.unlock-text');
-element.classList.add('animate_animate', 'animate_zoomIn');
+	//Smooth scrolling
+
+	scrollLink.click(function(e) {
+		e.preventDefault();
+		$('body,html').animate({
+			scrollTop: $(this.hash).offset().top
+		}, 1000);
+
+
+	})
+})
