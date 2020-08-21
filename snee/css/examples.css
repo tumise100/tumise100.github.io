@@ -242,7 +242,7 @@ img {
 }
 .btn {
 	margin-top: 100px;
-	
+
 	animation: bounce;
 	animation-duration: 3s;
 }
@@ -251,6 +251,12 @@ h1 {
 }
 p {
 	color: #49afcd;
+}
+@media only screen and (max-width : 480px) {
+	.photo1 {
+		width: 150%;
+		height: 150%;
+	}
 }
 
 
