@@ -240,8 +240,8 @@ img {
 	font-weight: bolder;
 }
 }
-.btn {
-	margin-top: 100px;
+.swipe {
+	margin-top: 200px;
 
 	animation: bounce;
 	animation-duration: 3s;
@@ -252,11 +252,23 @@ h1 {
 p {
 	color: #49afcd;
 }
+.ayo {
+	margin-top: 300px;
+	color: #fff;
+	font-style: italic;
+	opacity: 50%;
+}
 @media only screen and (max-width : 480px) {
-	.photo1 {
-		width: 150%;
-		height: 150%;
+	.photo2 {
+		width: 550%;
+		height: 550%;
 	}
+	body {
+		background-image: url(/img/bg.png);
+	}
+	.btn {
+		margin-top: 200px;
+		padding-top: 200px;
 }
 
 
