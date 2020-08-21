@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>CSS3 - fullPage.js</title>
+	<meta name="author" content="Alvaro Trigo Lopez" />
+	<meta name="description" content="fullPage.js using CSS3 transformations." />
+	<meta name="keywords"  content="fullpage,jquery,anchor,links,inside,demo,css,css3" />
+	<meta name="Resource-type" content="Document" />
+
+
+	<link rel="stylesheet" type="text/css" href="css/fullpage.css" />
+	<link rel="stylesheet" type="text/css" href="css/examples.css" />
+	<link rel="stylesheet" href="css/animate.min.css">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+
+	<!--[if IE]>
+		<script type="text/javascript">
+			 var console = { log: function() {} };
+		</script>
+	<![endif]-->
+</head>
+<body>
+	<audio  autoplay>
+		<source src="birthday.mp3"  type="audio/ogg">
+	   Your browser does not support the audio element.
+	   </audio>
+	<div id="fullpage">
+		<div class="section photo1" id="section0">
+			<div class="intro">
+				
+				<img src="img/Group 1.png" alt="">
+			</div>
+			
+			<button type="button" class="btn btn-secondary btn-sm">SwipeUp</button>
+		</div>
+		<div class="section" id="section1">
+			<div class="slide" id="slide1">
+				<div class="intro">
+					<img src="img/_DSC1995.jpg" alt="iphone" id="photo1" />
+				</div>
+			</div>
+			<div class="slide" id="slide2">
+				<div class="intro">
+					<img src="img/_DSC1988.jpg" alt="iphone" id="iphone-two" />
+				</div>
+			</div>
+			<div class="slide" id="slide3">
+				<div class="intro">
+					<img src="img/_DSC1996.jpg" alt="iphone" id="iphone-two" />
+				</div>
+			</div>
+			<div class="slide" id="slide4">
+				<div class="intro">
+					<img src="img/_DSC2034.jpg" alt="iphone" id="iphone-two" />
+				</div>
+			</div>
+		</div>
+		<div class="section" id="section2">
+			<div class="intro">
+				<h1>No limitations!</h1>
+				<p>To my awesome brother, HAPPY BIRTHDAY! Today we celebrate you!</p>
+			</div>
+		</div>
+	</div>
+	
+
+<script src="js/jquery-3.5.1.min.js"></script>
+<script type="text/javascript" src="js/fullpage.js"></script>
+<script type="text/javascript" src="js/examples.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script type="text/javascript">
+    var myFullpage = new fullpage('#fullpage', {
+        sectionsColor: ['#020013','#650048','#020013'],
+        css3: false
+    });
+</script>
+
+</body>
+</html>
