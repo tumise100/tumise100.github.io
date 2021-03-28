@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="Responsive Admin &amp;">
+	<meta name="author" content="SchoolMS">
+
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link rel="shortcut icon" href="img/icons/icon-48x48.png" />
+	<script src="https://kit.fontawesome.com/e882a89b0e.js" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
+
+	<title>SchoolMS Dashboard</title>
+
+	<link href="css/app.css" rel="stylesheet">
+	<link rel="stylesheet" href="css/style.css">
+
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+	<div class="wrapper">
+		<nav id="sidebar" class="sidebar">
+			<div class="sidebar-content js-simplebar">
+				<a class="sidebar-brand" href="index.html">
+					<img src="img/avatars/avatar.jpg" class="avatar img-fluid rounded me-1" alt="Charles Hall" />
+          <span class="align-middle">SCHOOLMS</span></a> 
+          <div class="add"><span class="addschool"><a href="#"><i class="fa fa-plus"></i></a></span></div>
+
+				<ul class="sidebar-nav">
+
+					<li class="sidebar-item active">
+						<a class="sidebar-link" href="index.html">
+              <i class="fa fa-sliders"></i> <span class="align-middle">Dashboard</span>
+            </a>
+					</li>
+
+					<li class="sidebar-item">
+						<a href="#students" data-bs-toggle="collapse" class="sidebar-link collapsed">
+              <i class="fa fa-user-graduate"></i> <span class="align-middle">Students</span>
+            </a>
+						<ul id="students" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
+							<li class="sidebar-item"><a class="sidebar-link" href="admisions.html">Admissions</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="manage-students.html">Manage Students</a></li>
+						</ul>
+					</li>
+
+						<li class="sidebar-item">
+						<a href="#staffs" data-bs-toggle="collapse" class="sidebar-link collapsed">
+              <i class="fa fa-user-friends"></i> <span class="align-middle">Staffs</span>
+            </a>
+						<ul id="staffs" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
+							<li class="sidebar-item"><a class="sidebar-link" href="admisions.html">Teaching</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="manage-students.html">Non-teaching</a></li>
+						</ul>
+					</li>
+
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="pages-profile.html">
+              <i class="fa fa-user-lock"></i> <span class="align-middle">Guardians</span>
+            </a>
+					</li>
+						<li class="sidebar-item">
+						<a href="#fees" data-bs-toggle="collapse" class="sidebar-link collapsed">
+              <i class="fa fa-money-bill"></i> <span class="align-middle">Fees</span>
+            </a>
+						<ul id="fees" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
+							<li class="sidebar-item"><a class="sidebar-link" href="admisions.html">Payments</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="manage-students.html">Income and Expenses</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="manage-students.html">Fee Management</a></li>
+						</ul>
+					</li>
+
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="pages-settings.html">
+              <i class="fa fa-th-list"></i> <span class="align-middle">Classes</span>
+            </a>
+					</li>
+
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="pages-invoice.html">
+              <i class="fa fa-layer-group"></i> <span class="align-middle">Sessions</span>
+            </a>
+					</li>
+
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="pages-blank.html">
+              <i class="fa fa-calendar-check"></i> <span class="align-middle">Attendance</span>
+            </a>
+					</li>
+
+					<li class="sidebar-item">
+						<a href="#exams" data-bs-toggle="collapse" class="sidebar-link collapsed">
+              <i class="fa fa-window-maximize"></i> <span class="align-middle">Examination</span>
+            </a>
+						<ul id="exams" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
+							<li class="sidebar-item"><a class="sidebar-link" href="pages-sign-in.html">Manage Exams</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="pages-sign-up.html">Results</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="pages-sign-up.html">Question Banks</a></li>
+						</ul>
+					</li>
+
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="icons-feather.html">
+              <i class="fa fa-inbox"></i> <span class="align-middle">Messages</span>
+            </a>
+					</li>
+
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="forms-basic-inputs.html">
+              <i class="fa fa-video"></i> <span class="align-middle">Live Class</span>
+            </a>
+					</li>
+
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="charts-chartjs.html">
+              <i class="fa fa-address-card"></i> <span class="align-middle">Report Cards</span>
+            </a>
+					</li>
+
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="maps-google.html">
+              <i class="fa fa-cog"></i> <span class="align-middle">Settings</span>
+            </a>
+					</li>
+				</ul>
+
+				
+			</div>
+		</nav>
+
+		<div class="main">
+			<nav class="navbar navbar-expand navbar-light navbar-bg">
+				<a class="sidebar-toggle d-flex">
+          <i class="hamburger align-self-center"></i>
+        </a>
+
+				<form class="d-none d-sm-inline-block">
+					<div class="input-group input-group-navbar">
+						<button class="btn btn-search" type="button">
+              <i class="align-middle" data-feather="search"></i>
+            </button>
+						<input type="text" class="form-control" placeholder="Search…" aria-label="Search">
+						
+					</div>
+				</form>
+
+				<div class="navbar-collapse collapse">
+					<ul class="navbar-nav navbar-align">
+						<li class="nav-item dropdown">
+							<a class="nav-icon dropdown-toggle" href="#" id="messagesDropdown" data-bs-toggle="dropdown">
+								<div class="position-relative">
+									<i class="fa fa-calendar icons"></i>
+								</div>
+							</a>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-icon dropdown-toggle" href="#" id="messagesDropdown" data-bs-toggle="dropdown">
+								<div class="position-relative">
+									<i class="fa fa-comment-alt icons"></i>
+									<span class="indicator"></span>
+								</div>
+							</a>
+							<div class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0" aria-labelledby="messagesDropdown">
+								<div class="dropdown-menu-header">
+									<div class="position-relative">
+										4 New Messages
+									</div>
+								</div>
+								<div class="list-group">
+									<a href="#" class="list-group-item">
+										<div class="row g-0 align-items-center">
+											<div class="col-2">
+												<img src="img/avatars/avatar-5.jpg" class="avatar img-fluid rounded-circle" alt="Vanessa Tucker">
+											</div>
+											<div class="col-10 ps-2">
+												<div class="text-dark">Vanessa Tucker</div>
+												<div class="text-muted small mt-1">Nam pretium turpis et arcu. Duis arcu tortor.</div>
+												<div class="text-muted small mt-1">15m ago</div>
+											</div>
+										</div>
+									</a>
+									<a href="#" class="list-group-item">
+										<div class="row g-0 align-items-center">
+											<div class="col-2">
+												<img src="img/avatars/avatar-2.jpg" class="avatar img-fluid rounded-circle" alt="William Harris">
+											</div>
+											<div class="col-10 ps-2">
+												<div class="text-dark">William Harris</div>
+												<div class="text-muted small mt-1">Curabitur ligula sapien euismod vitae.</div>
+												<div class="text-muted small mt-1">2h ago</div>
+											</div>
+										</div>
+									</a>
+									<a href="#" class="list-group-item">
+										<div class="row g-0 align-items-center">
+											<div class="col-2">
+												<img src="img/avatars/avatar-4.jpg" class="avatar img-fluid rounded-circle" alt="Christina Mason">
+											</div>
+											<div class="col-10 ps-2">
+												<div class="text-dark">Christina Mason</div>
+												<div class="text-muted small mt-1">Pellentesque auctor neque nec urna.</div>
+												<div class="text-muted small mt-1">4h ago</div>
+											</div>
+										</div>
+									</a>
+									<a href="#" class="list-group-item">
+										<div class="row g-0 align-items-center">
+											<div class="col-2">
+												<img src="img/avatars/avatar-3.jpg" class="avatar img-fluid rounded-circle" alt="Sharon Lessman">
+											</div>
+											<div class="col-10 ps-2">
+												<div class="text-dark">Sharon Lessman</div>
+												<div class="text-muted small mt-1">Aenean tellus metus, bibendum sed, posuere ac, mattis non.</div>
+												<div class="text-muted small mt-1">5h ago</div>
+											</div>
+										</div>
+									</a>
+								</div>
+								<div class="dropdown-menu-footer">
+									<a href="#" class="text-muted">Show all messages</a>
+								</div>
+							</div>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-icon dropdown-toggle" href="#" id="alertsDropdown" data-bs-toggle="dropdown">
+								<div class="position-relative">
+									<i class="fa fa-bell icons"></i>
+									<span class="indicator"></span>
+								</div>
+							</a>
+							<div class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0" aria-labelledby="alertsDropdown">
+								<div class="dropdown-menu-header">
+									4 New Notifications
+								</div>
+								<div class="list-group">
+									<a href="#" class="list-group-item">
+										<div class="row g-0 align-items-center">
+											<div class="col-2">
+												<i class="text-danger" data-feather="alert-circle"></i>
+											</div>
+											<div class="col-10">
+												<div class="text-dark">Update completed</div>
+												<div class="text-muted small mt-1">Restart server 12 to complete the update.</div>
+												<div class="text-muted small mt-1">30m ago</div>
+											</div>
+										</div>
+									</a>
+									<a href="#" class="list-group-item">
+										<div class="row g-0 align-items-center">
+											<div class="col-2">
+												<i class="text-warning" data-feather="bell"></i>
+											</div>
+											<div class="col-10">
+												<div class="text-dark">Lorem ipsum</div>
+												<div class="text-muted small mt-1">Aliquam ex eros, imperdiet vulputate hendrerit et.</div>
+												<div class="text-muted small mt-1">2h ago</div>
+											</div>
+										</div>
+									</a>
+									<a href="#" class="list-group-item">
+										<div class="row g-0 align-items-center">
+											<div class="col-2">
+												<i class="text-primary" data-feather="home"></i>
+											</div>
+											<div class="col-10">
+												<div class="text-dark">Login from 192.186.1.8</div>
+												<div class="text-muted small mt-1">5h ago</div>
+											</div>
+										</div>
+									</a>
+									<a href="#" class="list-group-item">
+										<div class="row g-0 align-items-center">
+											<div class="col-2">
+												<i class="text-success" data-feather="user-plus"></i>
+											</div>
+											<div class="col-10">
+												<div class="text-dark">New connection</div>
+												<div class="text-muted small mt-1">Christina accepted your request.</div>
+												<div class="text-muted small mt-1">14h ago</div>
+											</div>
+										</div>
+									</a>
+								</div>
+								<div class="dropdown-menu-footer">
+									<a href="#" class="text-muted">Show all notifications</a>
+								</div>
+							</div>
+						</li>
+						
+						<li class="nav-item dropdown">
+							<a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#" data-bs-toggle="dropdown">
+                <i class="fa fa-cog icons"></i>
+              </a>
+
+							<a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
+                <img src="img/avatars/avatar.jpg" class="avatar img-fluid rounded me-1" alt="Charles Hall" /> <span class="text-dark">Babayemi Ladi</span>
+              </a>
+							<div class="dropdown-menu dropdown-menu-end">
+								<a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1" data-feather="user"></i> Profile</a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item" href="pages-settings.html"><i class="align-middle me-1" data-feather="settings"></i> Settings</a>
+								<a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="help-circle"></i> Help Center</a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item" href="#">Log out</a>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</nav>
+
+			<main class="content">
+				<div class="container-fluid p-0">
+
+					<div class="row mb-2 mb-xl-3">
+						<div class="col-auto d-none d-sm-block">
+							
+						</div>
+					</div>
+
+<!-- General Statistics -->
+
+					<div class="row">
+						<h4><strong>General Statistics</strong></h4>
+						<div class="col-xl-4 d-flex mt-2">
+							<div class="card">
+								<div class="card-body card1">
+									<div class="cardicon">
+										<i class="fa fa-user"></i>
+									</div>
+									<div class="cardtext">
+										<h5>Students</h5>
+										<div class="cardnumber">
+											<div class="cardnumbers">453</div>
+											<div class="cardarrow"><i class="fa fa-arrow-down">-4</i></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xl-4 d-flex">
+							<div class="card card2">
+								<div class="card-body">
+									<div class="cardicon">
+										<i class="fa fa-indent"></i>
+									</div>
+									<div class="cardtext">
+										<h5>Total Income</h5>
+										<div class="cardnumber">
+											<div class="cardnumbers"><img src="img/naira.png">980,000</div>
+											<div class="cardarrow"><i class="fa fa-arrow-up arrow1">13.8%</i></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xl-4 d-flex">
+							<div class="card card2">
+								<div class="card-body">
+									<div class="cardicon">
+										<i class="fa fa-outdent"></i>
+									</div>
+									<div class="cardtext">
+										<h5>Total Expenses</h5>
+										<div class="cardnumber">
+											<div class="cardnumbers"><img src="img/naira.png">657,000</div>
+											<div class="cardarrow"><i class="fa fa-arrow-down arrow2">1.4%</i></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+<!-- income and expenses trends -->
+					<div class="row mt-2">
+						<div class="col-xl-8">
+							<div><h4><strong>Income/Expenses Trends</strong></h4></div>
+								<div class="card mt-2 cardchart">
+									<div class="row">
+										<div class="col-md-8">
+										</div>
+										<div class="col-md-4 mt-4 mb-6">
+											<div class="btn-group">
+											<button type="button" class="btn btn-secondary chartbtn dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Last 6 Months <span> </span><span> </span></button>
+											<div class="dropdown-menu">
+												<a class="dropdown-item" href="#">Last 1 Week</a>
+												<a class="dropdown-item" href="#">Last 6 Months</a>
+												<a class="dropdown-item" href="#">Last 1 Years</a>
+												
+											</div>
+										</div>
+										</div>
+									</div>
+
+									<div class="row chartrow">
+										<div id="chart"></div>
+									</div>
+								</div>
+						</div>
+
+						<!-- New Students -->
+						<div class="col-xl-4">
+						<div><h4><strong>New Students</strong></h4></div>
+						<div class="card newstudentcard">
+							<table class="table table-borderless">
+							  <thead>
+							      <th scope="col">NAME</th>
+							      <th scope="col" id="class1">CLASS</th>
+							  </thead>
+							  <tbody>
+							    <tr>
+							      <td scope="row"><a href="#">Babayemi Oladipupo</a></td>
+							      <td>SSS 2A</td>
+						   		</tr>
+						   		<tr>
+							      <td scope="row"><a href="#">Obadare Ayomide</a></td>
+							      <td>SSS 1C</td>
+						   		</tr>
+						   		<tr>
+							      <td scope="row"><a href="#">Osijo Emmanuel</a></td>
+							      <td>Pry 4</td>
+						   		</tr>
+						   		<tr>
+							      <td scope="row"><a href="#">Lawal Samuel</a></td>
+							      <td>KG 1</td>
+						   		</tr>
+						   		<tr>
+							      <td scope="row"><a href="#">Ezeche Lanre</a></td>
+							      <td>JSS 3B</td>
+						   		</tr>
+							  </tbody>
+							</table>
+							<div class="row">
+								<div class="col-md-6">
+								
+								</div>
+								<div class="col-md-6">
+									<button type="button" class="btn btn-primary btn-table">Show More</button>
+								</div>
+							</div>
+						</div>			
+						</div>
+					</div>	
+
+					<!-- Absences -->
+					<div class="row mt-2">
+						<div class="col-xl-4">
+							<div><h4><strong>Absences</strong></h4></div>
+								<div class="card mt-2">
+									<table class="table table-borderless">
+									  <tbody>
+									    <tr class="abbold">
+									      <td scope="row">Employees</td>
+									      <td ><a href="#">2</a></td>
+								   		</tr>
+								   		<tr class="abbold">
+									      <td scope="row">Students</td>
+									      <td><a href="#">6</a></td>
+								   		</tr>
+									  </tbody>
+							</table>
+								</div>
+						</div>
+
+						<!-- Student Absentees -->
+						<div class="col-xl-8">
+						<div><h4><strong>Student Absentees Details</strong></h4></div>
+						<div class="card cardtable">
+							<div class="table-responsive-sm">
+								<table class="table table-borderless">
+								  <thead>
+								      <th scope="col">NAME</th>
+								      <th scope="col" id="class1">CLASS</th>
+								       <th scope="col">NO OF DAYS ABSENT</th>
+								  </thead>
+								  <tbody>
+								    <tr>
+								      <td scope="row">Babayemi Oladipupo</td>
+								      <td>SSS 2A</td>
+								      <td>1</td>
+								      <td><a href="#">View Contact Infomation</a></td>
+							   		</tr>
+							   		<tr>
+								      <td scope="row">Obadare Ayomide</td>
+								      <td>SSS 1C</td>
+								      <td>2</td>
+								      <td><a href="#">View Contact Infomation</a></td>
+							   		</tr>
+							   		
+								  </tbody>
+								</table>
+							</div>
+							<div class="row">
+								<div class="col-md-9">
+								
+								</div>
+								<div class="col-md-3">
+									<button type="button" class="btn btn-primary btn-table">Show More</button>
+								</div>
+							</div>
+						</div>			
+						</div>
+					</div>	
+
+					<!-- Announcement -->
+					<div class="row mt-2">
+						<div class="col-xl-5">
+							<div><h4><strong>Annoucements</strong></h4></div>
+								<div class="card mt-2 cardann">
+									<div class="fa fa-inbox inbox2"></div>
+									<div class="ann-text">No Announcement</div>
+							</table>
+								</div>
+						</div>
+
+						<!-- Debtors -->
+						<div class="col-xl-7">
+						<div><h4><strong>Debtors</strong></h4></div>
+						<div class="card cardtable cardann">
+							<div class="table-responsive-sm">
+								<table class="table table-borderless">
+								  <thead>
+								      <th scope="col">NAME</th>
+								      <th scope="col" id="class1">NO OF STUDENTS</th>
+								       <th scope="col">AMOUNT</th>
+								  </thead>
+								  <tbody>
+								    <tr>
+								      <td scope="row"><a href="#">Babayemi Oladipupo</a></td>
+								      <td>5</td>
+								      <td><img src="img/naira.png" class="naira">230,000.00</td>
+								      <td><a href="#">View List</a></td>
+							   		</tr>
+							   		<tr>
+								      <td scope="row"><a href="#">Obadare Ayomide</a></td>
+								      <td>10</td>
+								      <td><img src="img/naira.png" class="naira">104,510.00</td>
+								      <td><a href="#">View List</a></td>
+							   		</tr>
+							   		
+								  </tbody>
+								</table>
+							</div>
+							<div class="row">
+								<div class="col-md-8">
+								
+								</div>
+								<div class="col-md-4">
+									<button type="button" class="btn btn-primary btn-table">Show More</button>
+								</div>
+							</div>
+						</div>			
+						</div>
+					</div>	
+
+					</div>
+				</div>
+			</main>
+
+			
+		</div>
+	</div>
+	<script>
+      window.Promise ||
+        document.write(
+          '<script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.min.js"><\/script>'
+        )
+      window.Promise ||
+        document.write(
+          '<script src="https://cdn.jsdelivr.net/npm/eligrey-classlist-js-polyfill@1.2.20171210/classList.min.js"><\/script>'
+        )
+      window.Promise ||
+        document.write(
+          '<script src="https://cdn.jsdelivr.net/npm/findindex_polyfill_mdn"><\/script>'
+        )
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+	<script src="js/app.js"></script>
+	<script src="js/jsscr.js"></script>
+</body>
+
+</html>

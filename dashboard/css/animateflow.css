@@ -1,0 +1,51 @@
+.bgimg1 {
+		-webkit-animation: rotation 6s infinite linear;
+}
+
+@-webkit-keyframes rotation {
+		from {
+				-webkit-transform: rotate(0deg);
+		}
+		to {
+				-webkit-transform: rotate(360deg);
+		}
+}
+.bgimg2 {
+		-webkit-animation: rotation 6s infinite linear;
+}
+
+@-webkit-keyframes rotation {
+		from {
+				-webkit-transform: rotate(360deg);
+		}
+		to {
+				-webkit-transform: rotate(0deg);
+		}
+}
+
+.bgimg3 {
+		-webkit-animation: rotation 6s infinite linear;
+}
+
+@-webkit-keyframes rotation {
+		from {
+				-webkit-transform: rotate(0deg);
+		}
+		to {
+				-webkit-transform: rotate(360deg);
+		}
+}
+.bgimg4 {
+		-webkit-animation: rotation 6s infinite linear;
+}
+
+@-webkit-keyframes rotation {
+		from {
+				-webkit-transform: rotate(-360deg);
+		}
+		to {
+				-webkit-transform: rotate(0deg);
+		}
+}
+
+

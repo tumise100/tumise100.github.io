@@ -1,0 +1,204 @@
+body {
+    padding: 100px 138px 0px 138px;
+}
+.main {
+    margin: 100px 138px 0px 138px;
+}
+.navbar {
+    background: #fff !important;
+}
+.navbar-brand {
+    font-size: 30px;
+    font-weight: 1000;
+    color: #45BF55 !important;
+    font-style: italic;
+}
+.nav-item {
+    color: #000 !important;
+    font-weight: bold;
+    margin-right: 50px;
+}
+
+.nav-link:hover {
+    color: #74D581;
+}
+.navbar-nav {
+    margin-left: 100px;
+}
+.btn {
+    background: #45BF55;
+    border-radius: 20px;
+    border: none;
+}
+.btn:hover {
+    background: #74D581;
+    border: none;
+}
+.contactbtn {
+    background: #fff;
+    border-radius: 20px;
+    border: 1px solid;
+    border-color: #000;
+    margin-right: 20px;
+    color: #000;
+}
+.cusbtn:hover {
+    background: #fff;
+    color: #000;
+    border: 1px solid;
+    border-color: #000;
+}
+
+/* Header */
+.deliv {
+    margin-left: 20px;
+    margin-top: 50px;
+}
+.deli {
+    font-size: 40px;
+    font-weight: bold;
+}
+.vee {
+    font-size: 14px;
+    margin-left: 40px;
+    width: 300px;
+    margin-top: 30px;
+}
+.gs {
+    margin-top: 20px;
+}
+.svghead {
+    margin-top: 50px;
+}
+
+/* Value */
+.value {
+    margin-top: 100px;
+    margin-left: 90px;
+    margin-right: 150px;
+    
+}
+.bring {
+    font-size: 40px;
+    font-weight: 1000;
+    text-align: center;
+}
+.learn {
+    text-align: center;
+    margin-left: 190px;
+    margin-right: 200px;   
+    margin-top: 20px;
+}
+
+.brand {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 50px;
+}
+#brandimg {
+    margin-right: 70px;
+    margin-left: 40px;
+}
+.brand2 {
+    width: 253px;
+    height: 282px;
+    background: #6C63FF;
+    border-radius: 15px;
+    color: #fff;
+    margin-right: 70px;
+}
+.retailer{
+    margin-top: 30px;
+    margin-left: 30px;
+}
+.helpp{
+    margin-top: 20px;
+    margin-left: 30px;
+    margin-right: 20px;
+}
+.lm{
+    margin-top: 30px;
+    margin-left: 30px;
+    background: #fff;
+    color: #000;
+}
+.brand3 {
+    width: 253px;
+    height: 282px;
+    background: #E8D905;
+    border-radius: 15px;
+    color: #000;
+}
+.bratxt{
+    margin-top: 30px;
+    margin-left: 30px;
+}
+/* Brandlogo */
+.brandlogos {
+    margin-top: 100px;
+    margin-left: 120px;
+    justify-content: center;
+    margin-bottom: 50px;
+}
+
+/*How it Works */
+.itworks {
+    text-align: center;
+    margin-top: 50px;
+    margin-left: 110px;
+}
+.uplo {
+    margin-left: 30px;
+    margin-top: 30px;
+}
+.work1 {
+    width: 235px;
+    height: 282px;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 5px 5px 30px -12px  #707070;
+    margin-right: 20px;
+    margin-left: 20px;
+}
+.load {
+    color: #45BF55;
+    margin-left: 30px;
+    font-size: 18px;
+    font-weight: bold;
+    width: 105px;
+    margin-top: 30px;
+}
+.take {
+    width: 183px;
+    margin-top: 10px;
+    margin-left: 30px;
+    margin-bottom: 10px;
+    font-size: 12px;
+    color: #707070;
+}
+.worklist {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 50px;
+}
+
+.works {
+    background: #707070;
+    padding-bottom: 50px;
+    width: 100%;
+}
+
+/* Main features */
+.mainf {
+    text-align: center;
+}
+.order {
+    display: flex;
+    flex-wrap: wrap;
+}
+.
+.ordercont {
+    width: 300px;
+    margin-left: 30px;
+}

@@ -1,0 +1,52 @@
+@media only screen and (max-width : 480px) {
+    body {
+        padding: 10px 10px 0px 10px;
+    }
+    .headersvg {
+        width: 90%;
+        height: 90%;
+    }
+    .vee {
+        font-size: 14px;
+        margin-left: 20px;
+        width: 250px;
+        margin-top: 30px;
+    }
+    /*Value */
+    .value {
+        margin-top: 100px;
+        margin-left: 0px;
+        
+    }
+    .bring {
+        font-size: 20px;
+        font-weight: 1000;
+        text-align: center;
+        width: 250px;
+    }
+    .learn {
+        text-align: center;
+        width: 250px;
+        margin-left: 0px;  
+        margin-top: 20px;
+    }
+    #brandimg {
+        margin-left: 10px;
+        width: 70%;
+        height: 70%;
+    }
+    .brand2 {
+        width: 253px;
+        height: 282px;
+        background: #6C63FF;
+        border-radius: 15px;
+        color: #fff;
+        margin-right: 0px;
+    }
+    /* BrandLogo */
+    .brandlogos {
+        width: 70%;
+        height: 70%;
+        margin-left: 0px;
+    }
+}

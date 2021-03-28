@@ -1,0 +1,246 @@
+:root {
+  --bgcolor: #F5F5F5;
+  --hoverbg: #F1CB10;
+  --activetext: #0152CC;
+  --upgreen: #04D512;
+  --downred: #F60404;
+  --tableheader: #A3A6B4;
+  --tabletext: #4D4F5C;
+  --textheader: #43425D;
+  --btncolor: #6C6CE6;
+  --altbtncolor: #65BF6B;
+  --sidebarbg: #333951;
+  --textwhite: #fff;
+}
+html,body{
+  
+  }
+  main {
+	background-color: var(--bgcolor);
+}
+.navbar {
+	background-color: var(--bgcolor);
+}
+
+.active {
+	background-color: var(--hoverbg);
+	width: 95%;
+	border-top-right-radius: 40px;
+	border-bottom-right-radius: 40px;
+}
+.sidebar-nav {
+	margin-top: 2.1rem;
+}
+.bi {
+	font-size: 18px;
+}
+
+.form-control {
+	border-radius: 40px;
+	padding-right: 200px;
+}
+span.indicator {
+	width: 7px !important;
+	height: 7px !important;
+	margin-top: 3px;
+	margin-right: 13px;
+}
+.icons {
+	opacity: 80%;
+	margin-right: 1rem;
+	font-size: 20px;
+}
+.rounded {
+	border-radius: 50px !important;
+}
+.add {
+	position: relative;
+}
+.addschool {
+	position: absolute;
+	top: -3rem;
+	right: 1rem;
+}
+.addschool i {
+	color: #fff;
+	opacity: 70%;
+}
+.addschool i:hover {
+	opacity: 100%;
+}
+
+/* General Statistics */
+.card {
+	border-radius: 20px;
+	width: 100%;
+	box-shadow: -1px 2px 7px 0px rgba(0,0,0,0.04);
+	-webkit-box-shadow: -1px 2px 7px 0px rgba(0,0,0,0.04);
+	-moz-box-shadow: -1px 2px 7px 0px rgba(0,0,0,0.04);
+}
+div.card-body {
+	padding: 1rem;
+}
+.cardicon i {
+	background-color: #0152CC;
+	font-size: 2rem;
+	padding: 1rem;
+	border-radius: 20px;
+	color: var(--textwhite);
+}
+i.fa-indent {
+	background-color: #F1CB10;
+}
+i.outdent {
+	background-color: #65BF6B;
+}
+.card-body {
+	display: flex;
+}
+.cardtext h5 {
+	font-size: 18px;
+	font-weight: 700;
+	margin-left: 1rem;
+	color: var(--tabletext);
+	opacity: 40%;
+	margin-top: 0.2rem;
+}
+.cardnumber {
+	display: flex;
+	flex-wrap: wrap;
+}
+.cardnumbers {
+	font-size: 20px;
+	color: var(--activetext);
+	margin-left: 1rem;
+	font-weight: bold;
+}
+.cardarrow i {
+	font-size: 14px;
+	color: var(--downred);
+	font-weight: bold;
+	margin-left: 1rem;
+	margin-top: 10px;
+}
+.card1 {
+	margin-right: 7rem;
+}
+.cardnumbers img {
+	width: 15%;
+	margin-right: 5px;
+}
+i.arrow1 {
+	color: var(--upgreen);
+}
+h4 strong {
+	opacity: 60%;
+}
+
+/* income and expenses trends */
+.chartbtn {
+	background-color: transparent;
+	border: 2px solid #D7DAE2;
+	color: #000;
+	border-radius: 5px;
+}
+.chartbtn:active {
+	background-color: #000;
+}
+.chartbtn:hover {
+	background-color: var(--activetext);
+	color: #fff
+	border: none !important;
+}
+#chart {
+    max-width: 650px;
+ }
+ .chartrow {
+ 	margin-top: -50px;
+ 	margin-left: 0.7rem;
+ }
+ .cardchart {
+ 	height: 350px;
+ }
+
+ /* New Students*/
+ .newstudentcard {
+ 	height: 350px;
+ }
+ table {
+ 	margin: 1rem;
+ }
+ 
+ tr {
+ 	margin-bottom: 1rem;
+ 	font-weight: 500;
+ } 
+ .btn-table {
+ 	background-color: var(--btncolor);
+ 	border-radius: 20px;
+ 	margin-left: 2rem;
+ }
+
+  /* Absences*/
+  .abbold {
+  	font-weight: bold;
+  	font-size: 18px;
+  }
+  .cardtable {
+  	padding-bottom: 1rem;
+  }
+  .btn-table {
+ 	background-color: var(--btncolor);
+ 	border-radius: 20px;
+ }
+
+ /* Announcement*/
+ .cardann {
+ 	height: 230px;
+ }
+ .inbox2 {
+ 	font-size: 100px;
+ 	text-align: center;
+ 	margin-top: 3rem;
+ 	opacity: 10%;
+ }
+ .ann-text {
+ 	font-size: 20px;
+ 	text-align: center;
+ 	font-weight: 700;
+ 	opacity: 20%;
+ 	margin-top: 1rem;
+ 	margin-bottom: 2rem;
+ }
+ /* Debtors*/
+ .naira {
+ 	width: 8%;
+ 	margin-right: 5px;
+ }
+ .table-responsive {
+ 	display: hidden;
+ }
+
+
+
+
+
+@media only screen and (max-width: 768px) {
+  html,body{
+      overflow-x: hidden;
+  }
+ 
+  .cardarrow .arrow1, .cardarrow .arrow2 {
+  	font-size: 12px;
+  	margin-left: 5px;
+  }
+  .chartbtn {
+  	margin-left: 50%;
+  }
+  .chartrow {
+ 	margin-left: -1rem;
+ }
+
+
+}
+
+
+
