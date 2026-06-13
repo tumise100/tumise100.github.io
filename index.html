@@ -1,0 +1,1623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sax Auto Trading — Interactive Userflow Canvas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ═══════════════════════════════════════════════════════ DESIGN SYSTEM */
+    :root {
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-display: 'Outfit', sans-serif;
+      
+      /* Dark Theme (Default) */
+      --bg-primary: #0a0b0d;
+      --bg-secondary: #12141c;
+      --bg-tertiary: #1a1d29;
+      --bg-glass: rgba(18, 20, 28, 0.85);
+      --border-color: rgba(255, 255, 255, 0.08);
+      --border-glow: rgba(0, 242, 254, 0.15);
+      
+      --text-primary: #ffffff;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      
+      /* Accents */
+      --color-brand: #00f2fe;
+      --color-brand-glow: rgba(0, 242, 254, 0.3);
+      --color-accent: #4facfe;
+      --color-luxury: #d4af37;
+      
+      /* Role Colors (matched with legend) */
+      --role-guest: #166534;
+      --role-buyer: #1e3a8a;
+      --role-dealer: #065f46;
+      --role-seller: #78350f;
+      --role-service: #831843;
+      --role-admin: #4c1d95;
+      --role-shared: #334155;
+      
+      --radius-sm: 6px;
+      --radius-md: 12px;
+      --radius-lg: 20px;
+      
+      --transition-smooth: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .light-mode {
+      --bg-primary: #f8fafc;
+      --bg-secondary: #ffffff;
+      --bg-tertiary: #f1f5f9;
+      --bg-glass: rgba(255, 255, 255, 0.9);
+      --border-color: rgba(0, 0, 0, 0.08);
+      --border-glow: rgba(79, 172, 254, 0.1);
+      
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --text-muted: #94a3b8;
+      
+      --color-brand: #0284c7;
+      --color-brand-glow: rgba(2, 132, 199, 0.2);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* ═══════════════════════════════════════════════════════ HEADER */
+    header {
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border-color);
+      padding: 0.75rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 10;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-badge {
+      background: linear-gradient(135deg, var(--color-accent), var(--color-brand));
+      color: #000;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.1rem;
+      padding: 4px 12px;
+      border-radius: var(--radius-sm);
+      box-shadow: 0 0 15px var(--color-brand-glow);
+    }
+
+    .brand-info h1 {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    .brand-info p {
+      font-size: 0.7rem;
+      color: var(--text-secondary);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .search-box {
+      position: relative;
+    }
+
+    .search-input {
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      padding: 8px 12px 8px 32px;
+      border-radius: var(--radius-sm);
+      font-size: 0.8rem;
+      width: 220px;
+      outline: none;
+      transition: var(--transition-smooth);
+    }
+
+    .search-input:focus {
+      border-color: var(--color-brand);
+      width: 280px;
+      box-shadow: 0 0 10px var(--border-glow);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      pointer-events: none;
+    }
+
+    .btn-toggle {
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-size: 0.75rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: var(--transition-smooth);
+    }
+
+    .btn-toggle:hover {
+      border-color: var(--color-brand);
+      background: var(--bg-secondary);
+    }
+
+    /* ═══════════════════════════════════════════════════════ MAIN CONTENT */
+    .app-layout {
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      flex: 1;
+      height: calc(100vh - 58px);
+      overflow: hidden;
+    }
+
+    /* FLOW VIEWPORT */
+    .canvas-container {
+      position: relative;
+      background: var(--bg-primary);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Tab bar above canvas */
+    .flow-navigation {
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border-color);
+      padding: 8px 16px;
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .flow-navigation::-webkit-scrollbar {
+      display: none;
+    }
+
+    .flow-tab {
+      background: transparent;
+      border: none;
+      color: var(--text-secondary);
+      padding: 6px 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: var(--transition-smooth);
+    }
+
+    .flow-tab:hover {
+      color: var(--text-primary);
+      background: rgba(255,255,255,0.03);
+    }
+
+    .flow-tab.active {
+      background: var(--bg-tertiary);
+      color: var(--color-brand);
+      border: 1px solid var(--border-color);
+    }
+
+    /* Interactive Legend */
+    .legend-toolbar {
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border-color);
+      padding: 6px 16px;
+      display: flex;
+      gap: 14px;
+      font-size: 0.7rem;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .legend-chip {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-secondary);
+      cursor: pointer;
+      user-select: none;
+      padding: 2px 6px;
+      border-radius: 4px;
+      transition: var(--transition-smooth);
+    }
+    .legend-chip:hover {
+      color: var(--text-primary);
+      background: rgba(255, 255, 255, 0.05);
+    }
+    .legend-chip.active {
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+    }
+    .legend-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    /* Canvas Viewport */
+    .viewport {
+      flex: 1;
+      width: 100%;
+      height: 100%;
+      cursor: grab;
+      position: relative;
+      overflow: hidden;
+    }
+    .viewport:active {
+      cursor: grabbing;
+    }
+
+    .viewport-content {
+      position: absolute;
+      transform-origin: 0 0;
+      width: 100%;
+      height: 100%;
+      display: none;
+    }
+    .viewport-content.active {
+      display: block;
+    }
+
+    .viewport-content svg {
+      width: 100%;
+      height: 100%;
+      user-select: none;
+    }
+
+    /* Zoom Controls Floating Toolbar */
+    .canvas-controls {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      background: var(--bg-glass);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 6px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      z-index: 5;
+      backdrop-filter: blur(8px);
+    }
+
+    .control-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-primary);
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.95rem;
+      font-weight: 700;
+      transition: var(--transition-smooth);
+    }
+
+    .control-btn:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--color-brand);
+    }
+
+    /* Hint text */
+    .canvas-hint {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      background: var(--bg-glass);
+      border: 1px solid var(--border-color);
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      pointer-events: none;
+      backdrop-filter: blur(8px);
+    }
+
+    /* ═══════════════════════════════════════════════════════ DETAIL INSPECTOR PANEL */
+    .inspector-panel {
+      background: var(--bg-secondary);
+      border-left: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      padding: 1.25rem;
+      z-index: 5;
+    }
+
+    .inspector-empty {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      text-align: center;
+      font-size: 0.8rem;
+      gap: 12px;
+    }
+    .inspector-empty-icon {
+      font-size: 2.2rem;
+      opacity: 0.5;
+    }
+
+    .inspector-card {
+      display: none;
+      animation: fadeIn 0.2s ease-out forwards;
+    }
+    .inspector-card.active {
+      display: block;
+    }
+
+    .inspector-header {
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .inspector-role-badge {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-bottom: 8px;
+      letter-spacing: 0.5px;
+    }
+
+    .inspector-title {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+
+    .inspector-subtitle {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+    }
+
+    .inspector-section {
+      margin-bottom: 1.25rem;
+    }
+
+    .inspector-section-title {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+
+    .inspector-body {
+      font-size: 0.8rem;
+      line-height: 1.5;
+      color: var(--text-secondary);
+    }
+
+    .connection-pill {
+      display: inline-flex;
+      align-items: center;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-color);
+      padding: 4px 10px;
+      border-radius: var(--radius-sm);
+      font-size: 0.7rem;
+      color: var(--text-primary);
+      margin-right: 6px;
+      margin-bottom: 6px;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+    }
+    .connection-pill:hover {
+      border-color: var(--color-brand);
+      color: var(--color-brand);
+    }
+
+    /* SVG Node Interactions & Glows */
+    svg g[onclick] {
+      cursor: pointer;
+      pointer-events: all;
+    }
+    
+    svg g[onclick] rect {
+      transition: var(--transition-smooth);
+      stroke: var(--border-color);
+      stroke-width: 0.5px;
+    }
+
+    svg g[onclick]:hover rect {
+      filter: drop-shadow(0 0 8px var(--color-brand-glow));
+      stroke: var(--color-brand) !important;
+      stroke-width: 1.5px !important;
+      fill-opacity: 0.8;
+    }
+
+    /* Highlight matching nodes from search or details */
+    svg g.searched-highlight rect {
+      stroke: var(--color-brand) !important;
+      stroke-width: 2.5px !important;
+      filter: drop-shadow(0 0 15px var(--color-brand-glow)) !important;
+      animation: pulseGlow 1.5s infinite alternate;
+    }
+
+    @keyframes pulseGlow {
+      from { filter: drop-shadow(0 0 5px var(--color-brand-glow)); }
+      to { filter: drop-shadow(0 0 20px var(--color-brand-glow)); }
+    }
+
+    /* Fading mechanism for filters */
+    svg g.dimmed {
+      opacity: 0.15 !important;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+
+    svg line.dimmed {
+      opacity: 0.05 !important;
+      transition: opacity 0.3s ease;
+    }
+
+    svg g.active-node rect {
+      stroke: var(--color-brand) !important;
+      stroke-width: 2px !important;
+      filter: drop-shadow(0 0 12px var(--color-brand-glow)) !important;
+    }
+
+    /* Text coloring adjustments inside SVGs */
+    svg text {
+      font-family: var(--font-sans);
+      fill: var(--text-primary);
+    }
+    svg text.th {
+      font-size: 11px;
+      font-weight: 700;
+      fill: var(--text-primary);
+    }
+    svg text.ts {
+      font-size: 8.5px;
+      font-weight: 500;
+      fill: var(--text-secondary);
+    }
+    svg line.arr {
+      stroke: var(--text-muted);
+      stroke-width: 1.2px;
+      transition: var(--transition-smooth);
+    }
+
+    /* SVG Colors matched with legend styling */
+    svg .c-gray rect { fill: #1e293b; }
+    svg .c-blue rect { fill: #1e3a8a; }
+    svg .c-teal rect { fill: #065f46; }
+    svg .c-green rect { fill: #166534; }
+    svg .c-amber rect { fill: #78350f; }
+    svg .c-pink rect { fill: #831843; }
+    svg .c-purple rect { fill: #4c1d95; }
+    svg .c-coral rect { fill: #7c2d12; }
+    svg .c-red rect { fill: #991b1b; }
+
+    .light-mode svg .c-gray rect { fill: #e2e8f0; }
+    .light-mode svg .c-blue rect { fill: #dbeafe; }
+    .light-mode svg .c-teal rect { fill: #d1fae5; }
+    .light-mode svg .c-green rect { fill: #dcfce7; }
+    .light-mode svg .c-amber rect { fill: #fef3c7; }
+    .light-mode svg .c-pink rect { fill: #fce7f3; }
+    .light-mode svg .c-purple rect { fill: #ede9fe; }
+    .light-mode svg .c-coral rect { fill: #ffedd5; }
+    .light-mode svg .c-red rect { fill: #ffe4e6; }
+    
+    .light-mode svg text { fill: #0f172a; }
+    .light-mode svg text.ts { fill: #475569; }
+    
+    .light-mode svg line.arr { stroke: #cbd5e1; }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════════════ HEADER -->
+  <header>
+    <div class="brand-group">
+      <div class="logo-badge">SAX</div>
+      <div class="brand-info">
+        <h1>Userflow Canvas</h1>
+        <p>Interactive Architecture &amp; State Diagrams</p>
+      </div>
+    </div>
+    <div class="header-actions">
+      <!-- Search -->
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" class="search-input" id="canvas-search" placeholder="Search flowchart nodes..." oninput="handleSearch(this.value)">
+      </div>
+      <!-- Mode Toggle -->
+      <button class="btn-toggle" onclick="toggleTheme()">
+        <span id="theme-icon">☀️</span> <span id="theme-text">Light Mode</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════════════════ APP LAYOUT -->
+  <div class="app-layout">
+    
+    <!-- CANVAS VIEWPORT -->
+    <div class="canvas-container">
+      
+      <!-- Flow Tabs -->
+      <div class="flow-navigation">
+        <button class="flow-tab active" onclick="switchFlow('onboard')">1 · Onboarding</button>
+        <button class="flow-tab" onclick="switchFlow('browse')">2 · Browse &amp; Search</button>
+        <button class="flow-tab" onclick="switchFlow('buyer')">3 · Buyer dashboard</button>
+        <button class="flow-tab" onclick="switchFlow('dealer')">4 · Dealer portal</button>
+        <button class="flow-tab" onclick="switchFlow('seller')">5 · Private seller</button>
+        <button class="flow-tab" onclick="switchFlow('services')">6 · Services &amp; rental</button>
+        <button class="flow-tab" onclick="switchFlow('special')">7 · Raffle &amp; auction</button>
+        <button class="flow-tab" onclick="switchFlow('finance')">8 · Finance &amp; escrow</button>
+        <button class="flow-tab" onclick="switchFlow('admin')">9 · Mobile App Screens</button>
+      </div>
+
+      <!-- Interactive Legend Toolbar -->
+      <div class="legend-toolbar">
+        <div class="legend-chip" id="leg-guest" onclick="toggleRoleFilter('guest', '#166534')">
+          <span class="legend-dot" style="background:#166534"></span> Guest
+        </div>
+        <div class="legend-chip" id="leg-buyer" onclick="toggleRoleFilter('buyer', '#1e3a8a')">
+          <span class="legend-dot" style="background:#1e3a8a"></span> Buyer
+        </div>
+        <div class="legend-chip" id="leg-dealer" onclick="toggleRoleFilter('dealer', '#065f46')">
+          <span class="legend-dot" style="background:#065f46"></span> Dealer
+        </div>
+        <div class="legend-chip" id="leg-seller" onclick="toggleRoleFilter('seller', '#78350f')">
+          <span class="legend-dot" style="background:#78350f"></span> Private seller
+        </div>
+        <div class="legend-chip" id="leg-service" onclick="toggleRoleFilter('service', '#831843')">
+          <span class="legend-dot" style="background:#831843"></span> Service / Rental
+        </div>
+        <div class="legend-chip" id="leg-admin" onclick="toggleRoleFilter('admin', '#4c1d95')">
+          <span class="legend-dot" style="background:#4c1d95"></span> Admin
+        </div>
+        <div class="legend-chip" id="leg-shared" onclick="toggleRoleFilter('shared', '#334155')">
+          <span class="legend-dot" style="background:#334155"></span> Shared / System
+        </div>
+      </div>
+
+      <!-- Viewport Area -->
+      <div class="viewport" id="canvas-viewport">
+        
+        <!-- Zoom controls -->
+        <div class="canvas-controls">
+          <button class="control-btn" onclick="zoomCanvas(0.1)" title="Zoom In">+</button>
+          <button class="control-btn" onclick="zoomCanvas(-0.1)" title="Zoom Out">-</button>
+          <button class="control-btn" onclick="resetZoom()" title="Reset Zoom">⟲</button>
+          <button class="control-btn" onclick="fitCanvasToScreen()" title="Fit Screen">⛶</button>
+        </div>
+
+        <div class="canvas-hint">Drag to Pan • Wheel to Zoom • Click nodes for Details</div>
+
+        <!-- 1. ONBOARDING -->
+        <div id="flow-onboard" class="viewport-content active">
+          <svg width="100%" height="100%" viewBox="0 0 680 760" id="svg-onboard">
+            <defs><marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+            
+            <g class="c-gray" role-type="shared" onclick="inspectNode('Splash Screen', 'Splashscreen of the app showing company identity logo and launching trigger animations.', 'shared', ['Onboarding Carousel'])">
+              <rect x="230" y="20" width="220" height="48" rx="8"/><text class="th" x="340" y="40" text-anchor="middle" dominant-baseline="central">Splash screen</text><text class="ts" x="340" y="56" text-anchor="middle" dominant-baseline="central">Logo + loading animation</text>
+            </g>
+            
+            <line x1="340" y1="68" x2="340" y2="92" class="arr" marker-end="url(#ar)"/>
+            
+            <g class="c-gray" role-type="shared" onclick="inspectNode('Onboarding Carousel', 'Introductory slides explaining key app values. Can be skipped.', 'shared', ['Splash Screen'], ['Auth Gateway'])">
+              <rect x="230" y="92" width="220" height="48" rx="8"/><text class="th" x="340" y="112" text-anchor="middle" dominant-baseline="central">Onboarding carousel</text><text class="ts" x="340" y="128" text-anchor="middle" dominant-baseline="central">3 intro slides · skip options</text>
+            </g>
+            
+            <line x1="340" y1="140" x2="340" y2="164" class="arr" marker-end="url(#ar)"/>
+            
+            <g class="c-gray" role-type="shared" onclick="inspectNode('Auth Gateway', 'First entry selection where user chooses to log in, register, or browse as a guest.', 'shared', ['Onboarding Carousel'], ['Sign In', 'Create Account', 'Guest Mode'])">
+              <rect x="160" y="164" width="360" height="48" rx="8"/><text class="th" x="340" y="184" text-anchor="middle" dominant-baseline="central">Auth gateway</text><text class="ts" x="340" y="200" text-anchor="middle" dominant-baseline="central">Sign in · Sign up · Browse as guest</text>
+            </g>
+            
+            <line x1="220" y1="212" x2="130" y2="248" class="arr" marker-end="url(#ar)"/>
+            <line x1="340" y1="212" x2="340" y2="248" class="arr" marker-end="url(#ar)"/>
+            <line x1="460" y1="212" x2="550" y2="248" class="arr" marker-end="url(#ar)"/>
+            
+            <g class="c-blue" role-type="buyer" onclick="inspectNode('Sign In', 'Direct credential validation form supporting email + passwords, Google or Apple SSO keys.', 'buyer', ['Auth Gateway'], ['Forgot Password'])">
+              <rect x="40" y="248" width="170" height="56" rx="8"/><text class="th" x="125" y="268" text-anchor="middle" dominant-baseline="central">Sign in</text><text class="ts" x="125" y="285" text-anchor="middle" dominant-baseline="central">Email · Google · Apple</text>
+            </g>
+            
+            <g class="c-teal" role-type="dealer" onclick="inspectNode('Create Account', 'Initial role signup portal routing individual profiles.', 'dealer', ['Auth Gateway'], ['Role Selection'])">
+              <rect x="250" y="248" width="180" height="56" rx="8"/><text class="th" x="340" y="268" text-anchor="middle" dominant-baseline="central">Create account</text><text class="ts" x="340" y="285" text-anchor="middle" dominant-baseline="central">Select role first</text>
+            </g>
+            
+            <g class="c-green" role-type="guest" onclick="inspectNode('Guest Mode', 'Allows browsing available luxury listings without needing to complete registration.', 'guest', ['Auth Gateway'], ['App Home Page'])">
+              <rect x="470" y="248" width="170" height="56" rx="8"/><text class="th" x="555" y="268" text-anchor="middle" dominant-baseline="central">Guest mode</text><text class="ts" x="555" y="285" text-anchor="middle" dominant-baseline="central">Browse only · no login</text>
+            </g>
+            
+            <line x1="125" y1="304" x2="125" y2="332" class="arr" marker-end="url(#ar)"/>
+            <g class="c-blue" role-type="buyer" onclick="inspectNode('Forgot Password', 'Allows email recovery resets to be fired for forgotten profile keys.', 'buyer', ['Sign In'])">
+              <rect x="40" y="332" width="170" height="44" rx="8"/><text class="th" x="125" y="350" text-anchor="middle" dominant-baseline="central">Forgot password</text><text class="ts" x="125" y="365" text-anchor="middle" dominant-baseline="central">Email reset link</text>
+            </g>
+            
+            <line x1="340" y1="304" x2="340" y2="332" class="arr" marker-end="url(#ar)"/>
+            
+            <g class="c-teal" role-type="dealer" onclick="inspectNode('Role Selection', 'Core classification step. Changes user experience permissions (Buyer vs Dealer vs Owner Seller vs Service provider).', 'dealer', ['Create Account'], ['Buyer Registration', 'Dealer Registration', 'Seller Registration', 'Provider Registration'])">
+              <rect x="230" y="332" width="220" height="48" rx="8"/><text class="th" x="340" y="352" text-anchor="middle" dominant-baseline="central">Role selection</text><text class="ts" x="340" y="368" text-anchor="middle" dominant-baseline="central">Buyer · Dealer · Seller · Provider</text>
+            </g>
+            
+            <line x1="270" y1="380" x2="80" y2="418" class="arr" marker-end="url(#ar)"/>
+            <line x1="310" y1="380" x2="230" y2="418" class="arr" marker-end="url(#ar)"/>
+            <line x1="370" y1="380" x2="450" y2="418" class="arr" marker-end="url(#ar)"/>
+            <line x1="410" y1="380" x2="590" y2="418" class="arr" marker-end="url(#ar)"/>
+            
+            <g class="c-blue" role-type="buyer" onclick="inspectNode('Buyer Registration', 'Registration for buyers collecting phone, name, email and state locations.', 'buyer', ['Role Selection'], ['App Home Page'])">
+              <rect x="20" y="418" width="140" height="56" rx="8"/><text class="th" x="90" y="438" text-anchor="middle" dominant-baseline="central">Buyer reg.</text><text class="ts" x="90" y="455" text-anchor="middle" dominant-baseline="central">Name · phone · location</text>
+            </g>
+            
+            <g class="c-teal" role-type="dealer" onclick="inspectNode('Dealer Registration', 'Registration form for official dealerships requesting company registry info.', 'dealer', ['Role Selection'], ['Doc Upload'])">
+              <rect x="170" y="418" width="150" height="56" rx="8"/><text class="th" x="245" y="438" text-anchor="middle" dominant-baseline="central">Dealer reg.</text><text class="ts" x="245" y="455" text-anchor="middle" dominant-baseline="central">Business details</text>
+            </g>
+            
+            <g class="c-amber" role-type="seller" onclick="inspectNode('Seller Registration', 'Scan setup for private owners requesting biometric photo ID matches.', 'seller', ['Role Selection'], ['ID Verification'])">
+              <rect x="370" y="418" width="150" height="56" rx="8"/><text class="th" x="445" y="438" text-anchor="middle" dominant-baseline="central">Seller reg.</text><text class="ts" x="445" y="455" text-anchor="middle" dominant-baseline="central">ID · selfie · proof</text>
+            </g>
+            
+            <g class="c-pink" role-type="service" onclick="inspectNode('Provider Registration', 'CAC business file upload forms for services partners.', 'service', ['Role Selection'], ['CAC Docs'])">
+              <rect x="530" y="418" width="130" height="56" rx="8"/><text class="th" x="595" y="438" text-anchor="middle" dominant-baseline="central">Provider reg.</text><text class="ts" x="595" y="455" text-anchor="middle" dominant-baseline="central">CAC · profile</text>
+            </g>
+            
+            <line x1="245" y1="474" x2="245" y2="510" class="arr" marker-end="url(#ar)"/>
+            <line x1="445" y1="474" x2="445" y2="510" class="arr" marker-end="url(#ar)"/>
+            <line x1="595" y1="474" x2="595" y2="510" class="arr" marker-end="url(#ar)"/>
+            
+            <g class="c-teal" role-type="dealer" onclick="inspectNode('Doc Upload', 'Business operation certificate uploads (e.g. state license file or tax records).', 'dealer', ['Dealer Registration'], ['Admin Review'])">
+              <rect x="170" y="510" width="150" height="56" rx="8"/><text class="th" x="245" y="530" text-anchor="middle" dominant-baseline="central">Doc upload</text><text class="ts" x="245" y="547" text-anchor="middle" dominant-baseline="central">JPG/PNG · max 5 MB</text>
+            </g>
+            
+            <g class="c-amber" role-type="seller" onclick="inspectNode('ID Verification', 'Verifies identity matching details using NIN or passport file records.', 'seller', ['Seller Registration'], ['Admin Review'])">
+              <rect x="370" y="510" width="150" height="56" rx="8"/><text class="th" x="445" y="530" text-anchor="middle" dominant-baseline="central">ID + selfie</text><text class="ts" x="445" y="547" text-anchor="middle" dominant-baseline="central">Ownership proof</text>
+            </g>
+            
+            <g class="c-pink" role-type="service" onclick="inspectNode('CAC Docs', 'CAC registration scans to authorize service wash / rentals on platform.', 'service', ['Provider Registration'], ['Admin Review'])">
+              <rect x="530" y="510" width="130" height="56" rx="8"/><text class="th" x="595" y="530" text-anchor="middle" dominant-baseline="central">CAC docs</text><text class="ts" x="595" y="547" text-anchor="middle" dominant-baseline="central">Business verify</text>
+            </g>
+            
+            <line x1="245" y1="566" x2="340" y2="604" class="arr" marker-end="url(#ar)"/>
+            <line x1="445" y1="566" x2="375" y2="604" class="arr" marker-end="url(#ar)"/>
+            <line x1="595" y1="566" x2="420" y2="604" class="arr" marker-end="url(#ar)"/>
+            
+            <g class="c-purple" role-type="admin" onclick="inspectNode('Admin Review', 'Backoffice verification checks to approve or reject registration records.', 'admin', ['Doc Upload', 'ID Verification', 'CAC Docs'], ['Access Granted', 'Registration Rejected'])">
+              <rect x="240" y="604" width="200" height="48" rx="8"/><text class="th" x="340" y="624" text-anchor="middle" dominant-baseline="central">Admin review</text><text class="ts" x="340" y="640" text-anchor="middle" dominant-baseline="central">Approve or reject</text>
+            </g>
+            
+            <line x1="295" y1="652" x2="200" y2="686" class="arr" marker-end="url(#ar)"/>
+            <line x1="385" y1="652" x2="480" y2="686" class="arr" marker-end="url(#ar)"/>
+            
+            <g class="c-teal" role-type="dealer" onclick="inspectNode('Access Granted', 'Credentials validated successfully. Seller panels are unlocked.', 'dealer', ['Admin Review'], ['App Home Page'])">
+              <rect x="110" y="686" width="170" height="44" rx="8"/><text class="th" x="195" y="708" text-anchor="middle" dominant-baseline="central">Verified · access granted</text>
+            </g>
+            
+            <g class="c-red" role-type="shared" onclick="inspectNode('Registration Rejected', 'Incomplete registration notification containing re-upload links.', 'shared', ['Admin Review'])">
+              <rect x="395" y="686" width="170" height="44" rx="8"/><text class="th" x="480" y="708" text-anchor="middle" dominant-baseline="central">Rejected · notification</text>
+            </g>
+            
+            <line x1="90" y1="474" x2="90" y2="730" class="arr" marker-end="url(#ar)"/>
+            <line x1="555" y1="304" x2="555" y2="730" class="arr" marker-end="url(#ar)"/>
+            <line x1="195" y1="730" x2="200" y2="730" class="arr"/>
+            <line x1="480" y1="730" x2="470" y2="730" class="arr"/>
+            
+            <g class="c-gray" role-type="shared" onclick="inspectNode('App Home Page', 'Consolidated home hub showing persistent navigation bars and category items.', 'shared', ['Access Granted', 'Buyer Registration', 'Guest Mode'], [])">
+              <rect x="200" y="710" width="280" height="48" rx="8"/><text class="th" x="340" y="730" text-anchor="middle" dominant-baseline="central">Home / app dashboard</text><text class="ts" x="340" y="746" text-anchor="middle" dominant-baseline="central">Tab bar · search · featured</text>
+            </g>
+          </svg>
+        </div>
+
+        <!-- 2. BROWSE & SEARCH -->
+        <div id="flow-browse" class="viewport-content">
+          <svg width="100%" height="100%" viewBox="0 0 680 720" id="svg-browse">
+            <defs><marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+            
+            <g class="c-gray" role-type="shared" onclick="inspectNode('Home Screen', 'General discovery portal with featured banners, hot auctions and quick services.', 'shared', [], ['Category Browse', 'Search Screen', 'Sax AI Chat'])">
+              <rect x="140" y="20" width="400" height="64" rx="8"/><text class="th" x="340" y="42" text-anchor="middle" dominant-baseline="central">Home screen</text><text class="ts" x="340" y="58" text-anchor="middle" dominant-baseline="central">Search bar · category tiles · featured listings</text><text class="ts" x="340" y="73" text-anchor="middle" dominant-baseline="central">Sax AI button · rentals · services · dealer of month</text>
+            </g>
+            
+            <line x1="225" y1="84" x2="130" y2="124" class="arr" marker-end="url(#ar)"/>
+            <line x1="340" y1="84" x2="340" y2="124" class="arr" marker-end="url(#ar)"/>
+            <line x1="455" y1="84" x2="555" y2="124" class="arr" marker-end="url(#ar)"/>
+            
+            <g class="c-blue" role-type="buyer" onclick="inspectNode('Category Browse', 'Quick filtering buttons isolating Cars, Bikes, Marine assets or parts.', 'buyer', ['Home Screen'], ['Filter & Sort Sheet'])">
+              <rect x="40" y="124" width="170" height="56" rx="8"/><text class="th" x="125" y="144" text-anchor="middle" dominant-baseline="central">Category browse</text><text class="ts" x="125" y="161" text-anchor="middle" dominant-baseline="central">Cars · Bikes · Boats · Air</text>
+            </g>
+            
+            <g class="c-blue" role-type="buyer" onclick="inspectNode('Search Screen', 'Text match search with dynamic autosuggestions.', 'buyer', ['Home Screen'], ['Filter & Sort Sheet'])">
+              <rect x="250" y="124" width="180" height="56" rx="8"/><text class="th" x="340" y="144" text-anchor="middle" dominant-baseline="central">Search screen</text><text class="ts" x="340" y="161" text-anchor="middle" dominant-baseline="central">Keyword · smart suggestions</text>
+            </g>
+            
+            <g class="c-teal" role-type="dealer" onclick="inspectNode('Sax AI Chat', 'Chat assistant that understands specs in natural language and recommends fitting listings.', 'dealer', ['Home Screen'], ['Search Results Grid'])">
+              <rect x="470" y="124" width="170" height="56" rx="8"/><text class="th" x="555" y="144" text-anchor="middle" dominant-baseline="central">Sax AI chat</text><text class="ts" x="555" y="161" text-anchor="middle" dominant-baseline="central">Budget · type · purpose</text>
+            </g>
+            
+            <line x1="340" y1="180" x2="340" y2="214" class="arr" marker-end="url(#ar)"/>
+            <line x1="125" y1="180" x2="270" y2="214" class="arr" marker-end="url(#ar)"/>
+            
+            <g class="c-blue" role-type="buyer" onclick="inspectNode('Filter & Sort Sheet', 'Sliding filter panel regulating make, price range, transmission, condition, state, and city.', 'buyer', ['Category Browse', 'Search Screen'], ['Search Results Grid'])">
+              <rect x="100" y="214" width="480" height="64" rx="8"/><text class="th" x="340" y="234" text-anchor="middle" dominant-baseline="central">Filter &amp; sort sheet</text><text class="ts" x="340" y="252" text-anchor="middle" dominant-baseline="central">Make · model · year · price · body type · fuel · transmission</text><text class="ts" x="340" y="268" text-anchor="middle" dominant-baseline="central">Condition · location · distance · most viewed · price dropped</text>
+            </g>
+            
+            <line x1="555" y1="180" x2="555" y2="296" class="arr" marker-end="url(#ar)"/>
+            <line x1="340" y1="278" x2="340" y2="296" class="arr" marker-end="url(#ar)"/>
+            
+            <g class="c-blue" role-type="buyer" onclick="inspectNode('Search Results Grid', 'Listing cards showing essential specs, prices, and premium visual tags.', 'buyer', ['Filter & Sort Sheet', 'Sax AI Chat'], ['Vehicle Detail Page'])">
+              <rect x="60" y="296" width="560" height="56" rx="8"/><text class="th" x="340" y="316" text-anchor="middle" dominant-baseline="central">Search results / listing grid</text><text class="ts" x="340" y="333" text-anchor="middle" dominant-baseline="central">Vehicle cards with badges: Featured · Luxury · Rare · Sponsored · Price dropped · Modified</text>
+            </g>
+            
+            <line x1="340" y1="352" x2="340" y2="380" class="arr" marker-end="url(#ar)"/>
+            
+            <g class="c-blue" role-type="buyer" onclick="inspectNode('Vehicle Detail Page', 'Complete specification sheets with verification status checks, images, and CTAs.', 'buyer', ['Search Results Grid'], ['Wishlist', 'Compare', 'Contact Seller', 'View4You', 'Price Alert'])">
+              <rect x="60" y="380" width="560" height="128" rx="8"/><text class="th" x="340" y="404" text-anchor="middle" dominant-baseline="central">Vehicle detail page</text><text class="ts" x="340" y="423" text-anchor="middle" dominant-baseline="central">Photo gallery · video · price · full specs · mileage (Mi/Km)</text><text class="ts" x="340" y="441" text-anchor="middle" dominant-baseline="central">Condition · service history · colour · ownership count · distance</text><text class="ts" x="340" y="459" text-anchor="middle" dominant-baseline="central">Dealer card or Private seller card · verified badge · safety notice</text><text class="ts" x="340" y="477" text-anchor="middle" dominant-baseline="central">Wishlist · Share · Compare · Price alert · Finance · View4You · Protected purchase</text>
+            </g>
+            
+            <line x1="110" y1="508" x2="70" y2="548" class="arr" marker-end="url(#ar)"/>
+            <line x1="210" y1="508" x2="190" y2="548" class="arr" marker-end="url(#ar)"/>
+            <line x1="340" y1="508" x2="340" y2="548" class="arr" marker-end="url(#ar)"/>
+            <line x1="470" y1="508" x2="490" y2="548" class="arr" marker-end="url(#ar)"/>
+            <line x1="570" y1="508" x2="610" y2="548" class="arr" marker-end="url(#ar)"/>
+            
+            <g class="c-teal" role-type="dealer" onclick="inspectNode('Wishlist', 'Saves the vehicle listing to the buyer profile bookmarks.', 'dealer', ['Vehicle Detail Page'])">
+              <rect x="30" y="548" width="110" height="52" rx="8"/><text class="th" x="85" y="566" text-anchor="middle" dominant-baseline="central">Wishlist</text><text class="ts" x="85" y="582" text-anchor="middle" dominant-baseline="central">Save to list</text>
+            </g>
+            
+            <g class="c-teal" role-type="dealer" onclick="inspectNode('Compare', 'Loads comparative charts showing specs, prices, and side-by-side attributes.', 'dealer', ['Vehicle Detail Page'], ['Comparison Screen'])">
+              <rect x="150" y="548" width="110" height="52" rx="8"/><text class="th" x="205" y="566" text-anchor="middle" dominant-baseline="central">Compare</text><text class="ts" x="205" y="582" text-anchor="middle" dominant-baseline="central">2 or 3 cars</text>
+            </g>
+            
+            <g class="c-teal" role-type="dealer" onclick="inspectNode('Contact Seller', 'Initial messaging trigger launching chat threads, voice calls, or direct WhatsApp queries.', 'dealer', ['Vehicle Detail Page'])">
+              <rect x="275" y="548" width="130" height="52" rx="8"/><text class="th" x="340" y="566" text-anchor="middle" dominant-baseline="central">Contact seller</text><text class="ts" x="340" y="582" text-anchor="middle" dominant-baseline="central">Chat · Call · WhatsApp</text>
+            </g>
+            
+            <g class="c-teal" role-type="dealer" onclick="inspectNode('View4You', 'Inspection bookings sending mechanics to review vehicles and upload status reports.', 'dealer', ['Vehicle Detail Page'])">
+              <rect x="415" y="548" width="120" height="52" rx="8"/><text class="th" x="475" y="566" text-anchor="middle" dominant-baseline="central">View4You</text><text class="ts" x="475" y="582" text-anchor="middle" dominant-baseline="central">Book inspection</text>
+            </g>
+            
+            <g class="c-teal" role-type="dealer" onclick="inspectNode('Price Alert', 'Alert subscriptions monitoring listing price drops.', 'dealer', ['Vehicle Detail Page'])">
+              <rect x="545" y="548" width="110" height="52" rx="8"/><text class="th" x="600" y="566" text-anchor="middle" dominant-baseline="central">Price alert</text><text class="ts" x="600" y="582" text-anchor="middle" dominant-baseline="central">Track drops</text>
+            </g>
+            
+            <line x1="205" y1="600" x2="205" y2="638" class="arr" marker-end="url(#ar)"/>
+            <g class="c-teal" role-type="dealer" onclick="inspectNode('Comparison Screen', 'AI-assisted side-by-side comparison screen highlighting key specs.', 'dealer', ['Compare'])">
+              <rect x="80" y="638" width="250" height="56" rx="8"/><text class="th" x="205" y="658" text-anchor="middle" dominant-baseline="central">Comparison screen</text><text class="ts" x="205" y="675" text-anchor="middle" dominant-baseline="central">Side-by-side specs + AI summary</text>
+            </g>
+            
+            <g class="c-gray" role-type="shared" onclick="inspectNode('Dealer Profile Page', 'Public dealer page listing catalog, store locations, and trust scores.', 'shared', ['Vehicle Detail Page'])">
+              <rect x="360" y="638" width="280" height="56" rx="8"/><text class="th" x="500" y="658" text-anchor="middle" dominant-baseline="central">Dealer profile page</text><text class="ts" x="500" y="675" text-anchor="middle" dominant-baseline="central">All listings · reviews · contact</text>
+            </g>
+            <line x1="340" y1="600" x2="450" y2="638" class="arr" marker-end="url(#ar)"/>
+          </svg>
+        </div>
+
+        <!-- 3. BUYER DASHBOARD -->
+        <div id="flow-buyer" class="viewport-content">
+          <svg width="100%" height="100%" viewBox="0 0 680 660" id="svg-buyer">
+            <defs><marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+            <g class="c-blue" role-type="buyer" onclick="inspectNode('Buyer Dashboard', 'Buyer profile central hub displaying inbox alerts, requests status and saved listings.', 'buyer', [], ['Buyer Wishlist', 'Recently Viewed', 'Buyer Price Alerts', 'My Chats', 'Buyer Requests'])">
+              <rect x="140" y="20" width="400" height="56" rx="8"/><text class="th" x="340" y="42" text-anchor="middle" dominant-baseline="central">Buyer dashboard</text><text class="ts" x="340" y="59" text-anchor="middle" dominant-baseline="central">Saved · recent · alerts · chats · requests · notifications</text>
+            </g>
+            <line x1="195" y1="76" x2="70" y2="118" class="arr" marker-end="url(#ar)"/>
+            <line x1="255" y1="76" x2="205" y2="118" class="arr" marker-end="url(#ar)"/>
+            <line x1="340" y1="76" x2="340" y2="118" class="arr" marker-end="url(#ar)"/>
+            <line x1="425" y1="76" x2="475" y2="118" class="arr" marker-end="url(#ar)"/>
+            <line x1="485" y1="76" x2="590" y2="118" class="arr" marker-end="url(#ar)"/>
+            
+            <g class="c-blue" role-type="buyer" onclick="inspectNode('Buyer Wishlist', 'Bookmark management for quick reference.', 'buyer', ['Buyer Dashboard'])">
+              <rect x="20" y="118" width="130" height="52" rx="8"/><text class="th" x="85" y="136" text-anchor="middle" dominant-baseline="central">Wishlist</text><text class="ts" x="85" y="152" text-anchor="middle" dominant-baseline="central">Saved vehicles</text>
+            </g>
+            <g class="c-blue" role-type="buyer" onclick="inspectNode('Recently Viewed', 'Local browsing history lookup.', 'buyer', ['Buyer Dashboard'])">
+              <rect x="160" y="118" width="140" height="52" rx="8"/><text class="th" x="230" y="136" text-anchor="middle" dominant-baseline="central">Recently viewed</text><text class="ts" x="230" y="152" text-anchor="middle" dominant-baseline="central">History list</text>
+            </g>
+            <g class="c-blue" role-type="buyer" onclick="inspectNode('Buyer Price Alerts', 'Configuration panels adjusting alert parameters.', 'buyer', ['Buyer Dashboard'])">
+              <rect x="310" y="118" width="140" height="52" rx="8"/><text class="th" x="380" y="136" text-anchor="middle" dominant-baseline="central">Price alerts</text><text class="ts" x="380" y="152" text-anchor="middle" dominant-baseline="central">Tracked drops</text>
+            </g>
+            <g class="c-blue" role-type="buyer" onclick="inspectNode('My Chats', 'Real-time chat inbox directory.', 'buyer', ['Buyer Dashboard'], ['Chat Thread'])">
+              <rect x="460" y="118" width="110" height="52" rx="8"/><text class="th" x="515" y="136" text-anchor="middle" dominant-baseline="central">My chats</text><text class="ts" x="515" y="152" text-anchor="middle" dominant-baseline="central">Inbox list</text>
+            </g>
+            <g class="c-blue" role-type="buyer" onclick="inspectNode('Buyer Requests', 'Directory listing buyer vehicle custom requests.', 'buyer', ['Buyer Dashboard'], ['Vehicle Request Form'])">
+              <rect x="580" y="118" width="90" height="52" rx="8"/><text class="th" x="625" y="136" text-anchor="middle" dominant-baseline="central">Requests</text><text class="ts" x="625" y="152" text-anchor="middle" dominant-baseline="central">My list</text>
+            </g>
+          </svg>
+        </div>
+
+        <!-- 4. DEALER PORTAL -->
+        <div id="flow-dealer" class="viewport-content">
+          <svg width="100%" height="100%" viewBox="0 0 680 800" id="svg-dealer">
+            <defs><marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+            <g class="c-teal" role-type="dealer" onclick="inspectNode('Dealer Dashboard', 'Hub for dealers listing active inventory stats and lead reports.', 'dealer', [], ['Upload Vehicle', 'My Vehicles', 'Dealer Chat Inbox', 'Dealer Analytics', 'Staff Management'])">
+              <rect x="140" y="20" width="400" height="56" rx="8"/><text class="th" x="340" y="42" text-anchor="middle" dominant-baseline="central">Dealer dashboard</text><text class="ts" x="340" y="59" text-anchor="middle" dominant-baseline="central">Active listings · leads · unread chats · analytics snapshot</text>
+            </g>
+            <line x1="195" y1="76" x2="60" y2="118" class="arr" marker-end="url(#ar)"/>
+            <line x1="255" y1="76" x2="185" y2="118" class="arr" marker-end="url(#ar)"/>
+            <line x1="340" y1="76" x2="340" y2="118" class="arr" marker-end="url(#ar)"/>
+            <line x1="425" y1="76" x2="490" y2="118" class="arr" marker-end="url(#ar)"/>
+            <line x1="485" y1="76" x2="600" y2="118" class="arr" marker-end="url(#ar)"/>
+            
+            <g class="c-teal" role-type="dealer" onclick="inspectNode('Upload Vehicle', 'Initial stepper starting new listing uploads.', 'dealer', ['Dealer Dashboard'], ['Upload Step 1'])">
+              <rect x="20" y="118" width="120" height="56" rx="8"/><text class="th" x="80" y="138" text-anchor="middle" dominant-baseline="central">Upload vehicle</text><text class="ts" x="80" y="155" text-anchor="middle" dominant-baseline="central">New listing</text>
+            </g>
+            <g class="c-teal" role-type="dealer" onclick="inspectNode('My Vehicles', 'Inventory management logs supporting edits &amp; deletions.', 'dealer', ['Dealer Dashboard'], ['Dealer Services'])">
+              <rect x="150" y="118" width="130" height="56" rx="8"/><text class="th" x="215" y="138" text-anchor="middle" dominant-baseline="central">My vehicles</text><text class="ts" x="215" y="155" text-anchor="middle" dominant-baseline="central">Manage listings</text>
+            </g>
+            <g class="c-teal" role-type="dealer" onclick="inspectNode('Dealer Chat Inbox', 'Dealers messaging index responding to active buyers.', 'dealer', ['Dealer Dashboard'])">
+              <rect x="290" y="118" width="120" height="56" rx="8"/><text class="th" x="350" y="138" text-anchor="middle" dominant-baseline="central">Chat inbox</text><text class="ts" x="350" y="155" text-anchor="middle" dominant-baseline="central">Buyer messages</text>
+            </g>
+            <g class="c-teal" role-type="dealer" onclick="inspectNode('Dealer Analytics', 'Deep view trackers on listed item engagements.', 'dealer', ['Dealer Dashboard'])">
+              <rect x="420" y="118" width="120" height="56" rx="8"/><text class="th" x="480" y="138" text-anchor="middle" dominant-baseline="central">Analytics</text><text class="ts" x="480" y="155" text-anchor="middle" dominant-baseline="central">Views · leads</text>
+            </g>
+            <g class="c-teal" role-type="dealer" onclick="inspectNode('Staff Management', 'Permissions configuration interface mapping sub-dealers.', 'dealer', ['Dealer Dashboard'])">
+              <rect x="550" y="118" width="110" height="56" rx="8"/><text class="th" x="605" y="138" text-anchor="middle" dominant-baseline="central">Staff</text><text class="ts" x="605" y="155" text-anchor="middle" dominant-baseline="central">Team accounts</text>
+            </g>
+            
+            <line x1="80" y1="174" x2="80" y2="214" class="arr" marker-end="url(#ar)"/>
+            <g class="c-teal" role-type="dealer" onclick="inspectNode('Upload Step 1', 'Phase 1: Configure pricing, car details, badges (featured/luxury/rare), and specifications.', 'dealer', ['Upload Vehicle'], ['Upload Step 2'])">
+              <rect x="20" y="214" width="220" height="60" rx="8"/><text class="th" x="130" y="236" text-anchor="middle" dominant-baseline="central">Upload step 1</text><text class="ts" x="130" y="253" text-anchor="middle" dominant-baseline="central">Price · Car details · Badges &amp; Featured</text>
+            </g>
+            
+            <line x1="215" y1="174" x2="370" y2="214" class="arr" marker-end="url(#ar)"/>
+            <g class="c-teal" role-type="dealer" onclick="inspectNode('Dealer Services', 'Allows dealerships to also act as service providers or rental fleet operators, offering detailing, washes, modifications, or rentals directly linked to their dealer profile.', 'dealer', ['My Vehicles'], ['Services Marketplace'])">
+              <rect x="260" y="214" width="220" height="60" rx="8"/><text class="th" x="370" y="236" text-anchor="middle" dominant-baseline="central">Offer Services &amp; Rentals</text><text class="ts" x="370" y="253" text-anchor="middle" dominant-baseline="central">List detailing · wash · rental fleets</text>
+            </g>
+            <line x1="130" y1="274" x2="130" y2="308" class="arr" marker-end="url(#ar)"/>
+            <g class="c-teal" role-type="dealer" onclick="inspectNode('Upload Step 2', 'Phase 2: Input dealership contact details and communication channels (WhatsApp, Phone, Chat).', 'dealer', ['Upload Step 1'], ['Upload Step 3'])">
+              <rect x="20" y="308" width="220" height="60" rx="8"/><text class="th" x="130" y="330" text-anchor="middle" dominant-baseline="central">Upload step 2</text><text class="ts" x="130" y="347" text-anchor="middle" dominant-baseline="central">Contact information</text>
+            </g>
+            <line x1="130" y1="368" x2="130" y2="402" class="arr" marker-end="url(#ar)"/>
+            <g class="c-teal" role-type="dealer" onclick="inspectNode('Upload Step 3', 'Phase 3: Image and gallery upload, with options for auto-publishing to connected social accounts.', 'dealer', ['Upload Step 2'], ['Pending Review'])">
+              <rect x="20" y="402" width="220" height="64" rx="8"/><text class="th" x="130" y="422" text-anchor="middle" dominant-baseline="central">Upload step 3</text><text class="ts" x="130" y="440" text-anchor="middle" dominant-baseline="central">Image upload</text><text class="ts" x="130" y="456" text-anchor="middle" dominant-baseline="central">Auto publishing settings</text>
+            </g>
+            <line x1="130" y1="466" x2="130" y2="500" class="arr" marker-end="url(#ar)"/>
+            <g class="c-gray" role-type="shared" onclick="inspectNode('Pending Review', 'Awaiting review queue checks before publishing listing.', 'shared', ['Upload Step 3'])">
+              <rect x="20" y="500" width="220" height="48" rx="8"/><text class="th" x="130" y="520" text-anchor="middle" dominant-baseline="central">Pending admin approval</text><text class="ts" x="130" y="536" text-anchor="middle" dominant-baseline="central">Listing goes live after review</text>
+            </g>
+          </svg>
+        </div>
+
+        <!-- 5. PRIVATE SELLER -->
+        <div id="flow-seller" class="viewport-content">
+          <svg width="100%" height="100%" viewBox="0 0 680 740" id="svg-seller">
+            <defs><marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+            <g class="c-amber" role-type="seller" onclick="inspectNode('Private Seller Registration', 'Self registration for private individual owners.', 'seller', [], ['Private Identity Verification'])">
+              <rect x="140" y="20" width="400" height="56" rx="8"/><text class="th" x="340" y="42" text-anchor="middle" dominant-baseline="central">Private seller registration</text><text class="ts" x="340" y="59" text-anchor="middle" dominant-baseline="central">Name · phone · email · address · city · state</text>
+            </g>
+            <line x1="340" y1="76" x2="340" y2="110" class="arr" marker-end="url(#ar)"/>
+            
+            <g class="c-amber" role-type="seller" onclick="inspectNode('Private Identity Verification', 'NIN verify checks scanning selfies and document matches.', 'seller', ['Private Seller Registration'], ['Admin Review Queue'])">
+              <rect x="100" y="110" width="480" height="64" rx="8"/><text class="th" x="340" y="132" text-anchor="middle" dominant-baseline="central">Identity verification</text><text class="ts" x="340" y="150" text-anchor="middle" dominant-baseline="central">Selfie · Government ID / driver\'s licence / passport</text><text class="ts" x="340" y="167" text-anchor="middle" dominant-baseline="central">Vehicle ownership proof · JPG/PNG only · max 5 MB</text>
+            </g>
+            <line x1="340" y1="174" x2="340" y2="208" class="arr" marker-end="url(#ar)"/>
+            
+            <g class="c-purple" role-type="admin" onclick="inspectNode('Admin Review Queue', 'Backoffice verification checks verifying ownership certificates.', 'admin', ['Private Identity Verification'], ['Seller Badge Granted', 'Verification Rejected'])">
+              <rect x="220" y="208" width="240" height="52" rx="8"/><text class="th" x="340" y="228" text-anchor="middle" dominant-baseline="central">Admin review queue</text><text class="ts" x="340" y="245" text-anchor="middle" dominant-baseline="central">Approve or reject with reason</text>
+            </g>
+            <line x1="275" y1="260" x2="150" y2="300" class="arr" marker-end="url(#ar)"/>
+            <line x1="405" y1="260" x2="530" y2="300" class="arr" marker-end="url(#ar)"/>
+            
+            <g class="c-teal" role-type="seller" onclick="inspectNode('Seller Badge Granted', 'Assigned badge. Private sellers can publish individual vehicle listings.', 'seller', ['Admin Review Queue'], ['Private Step 1'])">
+              <rect x="60" y="300" width="180" height="52" rx="8"/><text class="th" x="150" y="318" text-anchor="middle" dominant-baseline="central">Verified badge granted</text><text class="ts" x="150" y="335" text-anchor="middle" dominant-baseline="central">Can upload listings</text>
+            </g>
+            <g class="c-red" role-type="seller" onclick="inspectNode('Verification Rejected', 'Rejection notification triggered containing verification links.', 'seller', ['Admin Review Queue'])">
+              <rect x="440" y="300" width="180" height="52" rx="8"/><text class="th" x="530" y="318" text-anchor="middle" dominant-baseline="central">Rejected</text><text class="ts" x="530" y="335" text-anchor="middle" dominant-baseline="central">Push + email notification</text>
+            </g>
+            
+            <line x1="150" y1="352" x2="150" y2="390" class="arr" marker-end="url(#ar)"/>
+            <g class="c-amber" role-type="seller" onclick="inspectNode('Private Step 1', 'Phase 1: Configure pricing, car details, badges (featured/luxury/rare), and specifications.', 'seller', ['Seller Badge Granted'], ['Private Step 2'])">
+              <rect x="20" y="390" width="290" height="60" rx="8"/><text class="th" x="165" y="410" text-anchor="middle" dominant-baseline="central">Upload step 1</text><text class="ts" x="165" y="428" text-anchor="middle" dominant-baseline="central">Price · Car details · Badges &amp; Featured</text>
+            </g>
+            <line x1="165" y1="450" x2="165" y2="480" class="arr" marker-end="url(#ar)"/>
+            <g class="c-amber" role-type="seller" onclick="inspectNode('Private Step 2', 'Phase 2: Input private seller contact details and communication channels (WhatsApp, Phone, Chat).', 'seller', ['Private Step 1'], ['Private Step 3'])">
+              <rect x="20" y="480" width="290" height="60" rx="8"/><text class="th" x="165" y="500" text-anchor="middle" dominant-baseline="central">Upload step 2</text><text class="ts" x="165" y="518" text-anchor="middle" dominant-baseline="central">Contact information</text>
+            </g>
+            <line x1="165" y1="540" x2="165" y2="570" class="arr" marker-end="url(#ar)"/>
+            <g class="c-amber" role-type="seller" onclick="inspectNode('Private Step 3', 'Phase 3: Image and gallery upload, with options for auto-publishing to connected social accounts.', 'seller', ['Private Step 2'], ['Public Listing Display'])">
+              <rect x="20" y="570" width="290" height="60" rx="8"/><text class="th" x="165" y="590" text-anchor="middle" dominant-baseline="central">Upload step 3</text><text class="ts" x="165" y="608" text-anchor="middle" dominant-baseline="central">Image upload &amp; auto publishing</text>
+            </g>
+            <line x1="165" y1="630" x2="165" y2="660" class="arr" marker-end="url(#ar)"/>
+            <g class="c-amber" role-type="seller" onclick="inspectNode('Public Listing Display', 'Listing details displaying a dedicated Private Owner warning box. Leads route directly to WhatsApp.', 'seller', ['Private Step 3'], [])">
+              <rect x="20" y="660" width="290" height="70" rx="8"/><text class="th" x="165" y="680" text-anchor="middle" dominant-baseline="central">Listing public display</text><text class="ts" x="165" y="696" text-anchor="middle" dominant-baseline="central">"Private Seller" label only · WhatsApp route</text><text class="ts" x="165" y="710" text-anchor="middle" dominant-baseline="central">No public profile page · safety warning</text>
+            </g>
+          </svg>
+        </div>
+
+        <!-- 6. SERVICES & RENTALS -->
+        <div id="flow-services" class="viewport-content">
+          <svg width="100%" height="100%" viewBox="0 0 680 700" id="svg-services">
+            <defs><marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+            
+            <g class="c-pink" role-type="service" onclick="inspectNode('Provider Registration', 'Initial registration for wash, detail, modification, or rental partners. Captures business category and uploads CAC document files.', 'service', [], ['Admin Verification Audit'])">
+              <rect x="200" y="20" width="280" height="52" rx="8"/><text class="th" x="340" y="40" text-anchor="middle" dominant-baseline="central">1 · Provider Registration</text><text class="ts" x="340" y="57" text-anchor="middle" dominant-baseline="central">Select category · enter business details · upload CAC</text>
+            </g>
+            
+            <line x1="340" y1="72" x2="340" y2="110" class="arr" marker-end="url(#ar)"/>
+            
+            <g class="c-purple" role-type="admin" onclick="inspectNode('Admin Verification Audit', 'Admin review process auditing provider registration details and CAC documents to activate the provider profile.', 'admin', ['Provider Registration'], ['Paystack Subscription Setup'])">
+              <rect x="200" y="110" width="280" height="52" rx="8"/><text class="th" x="340" y="130" text-anchor="middle" dominant-baseline="central">2 · Admin Verification Audit</text><text class="ts" x="340" y="147" text-anchor="middle" dominant-baseline="central">Verify business registration &amp; credentials</text>
+            </g>
+            
+            <line x1="340" y1="162" x2="340" y2="200" class="arr" marker-end="url(#ar)"/>
+            
+            <g class="c-pink" role-type="service" onclick="inspectNode('Paystack Subscription Setup', 'Service providers pay recurring subscription fees via Paystack to activate listing capability.', 'service', ['Admin Verification Audit'], ['Car Wash Profile', 'Auto Detailing Profile', 'Vehicle Modification Profile', 'Manage Rental Fleet'])">
+              <rect x="200" y="200" width="280" height="52" rx="8"/><text class="th" x="340" y="220" text-anchor="middle" dominant-baseline="central">3 · Paystack Subscription Setup</text><text class="ts" x="340" y="237" text-anchor="middle" dominant-baseline="central">Subscribe to listing plan to unlock dashboard</text>
+            </g>
+            
+            <!-- Splits at y=252 -->
+            <line x1="340" y1="252" x2="87" y2="290" class="arr" marker-end="url(#ar)"/>
+            <line x1="340" y1="252" x2="252" y2="290" class="arr" marker-end="url(#ar)"/>
+            <line x1="340" y1="252" x2="417" y2="290" class="arr" marker-end="url(#ar)"/>
+            <line x1="340" y1="252" x2="582" y2="290" class="arr" marker-end="url(#ar)"/>
+            
+            <!-- Col 1: Car Wash -->
+            <g class="c-pink" role-type="service" onclick="inspectNode('Car Wash Profile', 'Car wash providers are strictly limited to exactly 1 public shop profile listing (e.g. Saki Global). They CANNOT create multiple shop listings. Inside this single profile, they can add unlimited wash price packages (e.g. Basic, Deluxe, Executive packages).', 'service', ['Paystack Subscription Setup'], ['Listing Moderation Queue'])">
+              <rect x="15" y="290" width="145" height="95" rx="8"/><text class="th" x="87" y="310" text-anchor="middle" dominant-baseline="central">Car Wash Profile</text><text class="ts" x="87" y="330" text-anchor="middle" dominant-baseline="central">Strict Limit: Exactly 1</text><text class="ts" x="87" y="344" text-anchor="middle" dominant-baseline="central">Public Shop Profile</text><text class="ts" x="87" y="358" text-anchor="middle" dominant-baseline="central">Add Unlimited Wash</text><text class="ts" x="87" y="372" text-anchor="middle" dominant-baseline="central">Price/Wash Packages</text>
+            </g>
+            
+            <!-- Col 2: Auto Detailing -->
+            <g class="c-pink" role-type="service" onclick="inspectNode('Auto Detailing Profile', 'Auto detailing providers are strictly limited to exactly 1 public shop profile listing (e.g. Seff Premium Auto Care). They CANNOT create multiple shop listings. Inside this single profile, they can add unlimited detailing price packages (e.g. Interior, Exterior, Ceramic Coating packages).', 'service', ['Paystack Subscription Setup'], ['Listing Moderation Queue'])">
+              <rect x="180" y="290" width="145" height="95" rx="8"/><text class="th" x="252" y="310" text-anchor="middle" dominant-baseline="central">Detailing Profile</text><text class="ts" x="252" y="330" text-anchor="middle" dominant-baseline="central">Strict Limit: Exactly 1</text><text class="ts" x="252" y="344" text-anchor="middle" dominant-baseline="central">Public Shop Profile</text><text class="ts" x="252" y="358" text-anchor="middle" dominant-baseline="central">Add Unlimited Detail</text><text class="ts" x="252" y="372" text-anchor="middle" dominant-baseline="central">Price/Detail Packages</text>
+            </g>
+            
+            <!-- Col 3: Vehicle Modification -->
+            <g class="c-pink" role-type="service" onclick="inspectNode('Vehicle Modification Profile', 'Vehicle modification/customization shops are strictly limited to exactly 1 public shop profile listing. They CANNOT create multiple shop listings. Inside this single profile, they can add unlimited mod/wrap/armor pricing packages.', 'service', ['Paystack Subscription Setup'], ['Listing Moderation Queue'])">
+              <rect x="345" y="290" width="145" height="95" rx="8"/><text class="th" x="417" y="310" text-anchor="middle" dominant-baseline="central">Mod Shop Profile</text><text class="ts" x="417" y="330" text-anchor="middle" dominant-baseline="central">Strict Limit: Exactly 1</text><text class="ts" x="417" y="344" text-anchor="middle" dominant-baseline="central">Public Shop Profile</text><text class="ts" x="417" y="358" text-anchor="middle" dominant-baseline="central">Add Unlimited Mod</text><text class="ts" x="417" y="372" text-anchor="middle" dominant-baseline="central">Price/Mod Packages</text>
+            </g>
+            
+            <!-- Col 4: Car Rental Fleet -->
+            <g class="c-pink" role-type="service" onclick="inspectNode('Manage Rental Fleet', 'Car Rental operators can list multiple distinct vehicles for rentage. Each car is uploaded individually with daily rates, specifications, and terms (e.g. Toyota Camry 2021). No single profile restriction for listings.', 'service', ['Paystack Subscription Setup'], ['Listing Moderation Queue'])">
+              <rect x="510" y="290" width="145" height="95" rx="8"/><text class="th" x="582" y="310" text-anchor="middle" dominant-baseline="central">Manage Rental Fleet</text><text class="ts" x="582" y="330" text-anchor="middle" dominant-baseline="central">Multi-Listing Allowed</text><text class="ts" x="582" y="344" text-anchor="middle" dominant-baseline="central">Dynamic Car Fleet</text><text class="ts" x="582" y="358" text-anchor="middle" dominant-baseline="central">Upload each car with</text><text class="ts" x="582" y="372" text-anchor="middle" dominant-baseline="central">daily rates &amp; specs</text>
+            </g>
+
+            <!-- Merges back at y=385 -->
+            <line x1="87" y1="385" x2="340" y2="415" class="arr" marker-end="url(#ar)"/>
+            <line x1="252" y1="385" x2="340" y2="415" class="arr" marker-end="url(#ar)"/>
+            <line x1="417" y1="385" x2="340" y2="415" class="arr" marker-end="url(#ar)"/>
+            <line x1="582" y1="385" x2="340" y2="415" class="arr" marker-end="url(#ar)"/>
+            
+            <g class="c-purple" role-type="admin" onclick="inspectNode('Listing Moderation Queue', 'Backoffice listing checks auditing vehicle details or shop profile specifications before they are published to live users.', 'admin', ['Car Wash Profile', 'Auto Detailing Profile', 'Vehicle Modification Profile', 'Manage Rental Fleet'], ['Live Marketplace Status'])">
+              <rect x="200" y="415" width="280" height="52" rx="8"/><text class="th" x="340" y="435" text-anchor="middle" dominant-baseline="central">5 · Listing Moderation Queue</text><text class="ts" x="340" y="452" text-anchor="middle" dominant-baseline="central">Admin reviews listing data before publishing</text>
+            </g>
+            
+            <line x1="340" y1="452" x2="340" y2="490" class="arr" marker-end="url(#ar)"/>
+            
+            <g class="c-gray" role-type="shared" onclick="inspectNode('Live Marketplace Status', 'Listing goes live on the platform. Users can search, filter, and view the profiles or rental vehicles.', 'shared', ['Listing Moderation Queue'])">
+              <rect x="200" y="490" width="280" height="52" rx="8"/><text class="th" x="340" y="510" text-anchor="middle" dominant-baseline="central">6 · Live Marketplace Status</text><text class="ts" x="340" y="527" text-anchor="middle" dominant-baseline="central">Activated listing visible to clients in search results</text>
+            </g>
+          </svg>
+        </div>
+
+        <!-- 7. RAFFLE & AUCTION -->
+        <div id="flow-special" class="viewport-content">
+          <svg width="100%" height="100%" viewBox="0 0 680 680" id="svg-special">
+            <defs><marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+            <text class="th" x="175" y="18" text-anchor="middle">Raffle system</text>
+            <text class="th" x="505" y="18" text-anchor="middle">Auction / bid system</text>
+            
+            <g class="c-amber" role-type="dealer" onclick="inspectNode('Raffle Submission', 'Dealer configures raffle draw parameters, proposing vehicles and ticket pricing.', 'dealer', [], ['Raffle Admin Approval'])">
+              <rect x="40" y="30" width="270" height="52" rx="8"/><text class="th" x="175" y="50" text-anchor="middle" dominant-baseline="central">Dealer submits raffle request</text><text class="ts" x="175" y="67" text-anchor="middle" dominant-baseline="central">Vehicle + ticket price</text>
+            </g>
+            
+            <g class="c-coral" role-type="dealer" onclick="inspectNode('Auction Creation', 'Dealer sets up auction campaign specifying starting bids and countdown clocks.', 'dealer', [], ['Auction Admin Approval'])">
+              <rect x="370" y="30" width="270" height="52" rx="8"/><text class="th" x="505" y="50" text-anchor="middle" dominant-baseline="central">Dealer creates auction</text><text class="ts" x="505" y="67" text-anchor="middle" dominant-baseline="central">Min bid · duration</text>
+            </g>
+            <line x1="175" y1="82" x2="175" y2="116" class="arr" marker-end="url(#ar)"/>
+            <line x1="505" y1="82" x2="505" y2="116" class="arr" marker-end="url(#ar)"/>
+            
+            <g class="c-purple" role-type="admin" onclick="inspectNode('Raffle Admin Approval', 'Backoffice verification to review proposing raffles.', 'admin', ['Raffle Submission'], ['Raffle Live'])">
+              <rect x="75" y="116" width="200" height="48" rx="8"/><text class="th" x="175" y="136" text-anchor="middle" dominant-baseline="central">Admin approval</text><text class="ts" x="175" y="153" text-anchor="middle" dominant-baseline="central">Review and approve</text>
+            </g>
+            <g class="c-purple" role-type="admin" onclick="inspectNode('Auction Admin Approval', 'Backoffice verification to review proposing auctions.', 'admin', ['Auction Creation'], ['Auction Live'])">
+              <rect x="405" y="116" width="200" height="48" rx="8"/><text class="th" x="505" y="136" text-anchor="middle" dominant-baseline="central">Admin approval</text><text class="ts" x="505" y="153" text-anchor="middle" dominant-baseline="central">Review and approve</text>
+            </g>
+          </svg>
+        </div>
+
+        <!-- 8. FINANCE & ESCROW -->
+        <div id="flow-finance" class="viewport-content">
+          <svg width="100%" height="100%" viewBox="0 0 680 640" id="svg-finance">
+            <defs><marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+            <text class="th" x="175" y="18" text-anchor="middle">Vehicle finance</text>
+            <text class="th" x="505" y="18" text-anchor="middle">Protected purchase (escrow)</text>
+            
+            <g class="c-blue" role-type="buyer" onclick="inspectNode('Finance Application Trigger', 'Starts financing calculations on vehicle detail screen.', 'buyer', [], ['Select Finance Partner'])">
+              <rect x="20" y="30" width="310" height="52" rx="8"/><text class="th" x="175" y="50" text-anchor="middle" dominant-baseline="central">Tap "Finance this car"</text><text class="ts" x="175" y="67" text-anchor="middle" dominant-baseline="central">From vehicle detail page</text>
+            </g>
+            
+            <g class="c-blue" role-type="buyer" onclick="inspectNode('Protected Escrow Trigger', 'Launches Paystack escrow locks for secure purchasing.', 'buyer', [], ['Confirm Escrow Terms'])">
+              <rect x="350" y="30" width="310" height="52" rx="8"/><text class="th" x="505" y="50" text-anchor="middle" dominant-baseline="central">Tap "Protected purchase"</text><text class="ts" x="505" y="67" text-anchor="middle" dominant-baseline="central">From vehicle detail page</text>
+            </g>
+            <line x1="175" y1="82" x2="175" y2="116" class="arr" marker-end="url(#ar)"/>
+            <line x1="505" y1="82" x2="505" y2="116" class="arr" marker-end="url(#ar)"/>
+            
+            <g class="c-blue" role-type="buyer" onclick="inspectNode('Select Finance Partner', 'Displays partner banks and loan parameters.', 'buyer', ['Finance Application Trigger'], ['Submit Finance Form'])">
+              <rect x="20" y="116" width="310" height="64" rx="8"/><text class="th" x="175" y="138" text-anchor="middle" dominant-baseline="central">Select finance provider</text><text class="ts" x="175" y="156" text-anchor="middle" dominant-baseline="central">Bank / finance company list</text><text class="ts" x="175" y="173" text-anchor="middle" dominant-baseline="central">View loan terms</text>
+            </g>
+            
+            <g class="c-blue" role-type="buyer" onclick="inspectNode('Confirm Escrow Terms', 'Contract review screen containing safety terms &amp; fee structures.', 'buyer', ['Protected Escrow Trigger'], ['Deposit to Escrow Wallet'])">
+              <rect x="350" y="116" width="310" height="64" rx="8"/><text class="th" x="505" y="138" text-anchor="middle" dominant-baseline="central">Confirm escrow terms</text><text class="ts" x="505" y="156" text-anchor="middle" dominant-baseline="central">Review fee + conditions</text><text class="ts" x="505" y="173" text-anchor="middle" dominant-baseline="central">Agree and proceed</text>
+            </g>
+          </svg>
+        </div>
+
+        <!-- 9. MOBILE APP SCREENS -->
+        <div id="flow-admin" class="viewport-content">
+          <svg width="100%" height="100%" viewBox="0 0 780 950" id="svg-admin">
+            <defs><marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+            
+            <!-- Category Title: Guest & Onboarding -->
+            <text class="th" x="20" y="25" text-anchor="start" fill="var(--color-brand)" font-weight="700">1. GUEST &amp; ONBOARDING SCREENS</text>
+            
+            <g class="c-gray" role-type="shared" onclick="inspectNode('Splash Screen', 'Initial launch view showing animated company logo and checking authentication tokens.', 'shared')">
+              <rect x="20" y="40" width="130" height="46" rx="6"/><text class="th" x="85" y="63" text-anchor="middle" dominant-baseline="central">Splash Screen</text>
+            </g>
+            <g class="c-gray" role-type="shared" onclick="inspectNode('Onboarding Carousel', 'Introductory slides highlighting premium car trading, vehicle modification services, and escrow safety policies.', 'shared')">
+              <rect x="160" y="40" width="130" height="46" rx="6"/><text class="th" x="225" y="63" text-anchor="middle" dominant-baseline="central">Onboarding Slide</text>
+            </g>
+            <g class="c-gray" role-type="shared" onclick="inspectNode('Auth Gateway', 'Main entry screen prompting the user to sign in, create a new profile, or skip to browse as a guest.', 'shared')">
+              <rect x="300" y="40" width="130" height="46" rx="6"/><text class="th" x="365" y="63" text-anchor="middle" dominant-baseline="central">Auth Gateway</text>
+            </g>
+            <g class="c-blue" role-type="buyer" onclick="inspectNode('Sign In', 'Credential input screen with email/password login and external OAuth integrations (Google, Apple).', 'buyer')">
+              <rect x="440" y="40" width="130" height="46" rx="6"/><text class="th" x="505" y="63" text-anchor="middle" dominant-baseline="central">Sign In Form</text>
+            </g>
+            <g class="c-blue" role-type="buyer" onclick="inspectNode('Forgot Password', 'Email-based recovery screen requesting validation links to reset account keys.', 'buyer')">
+              <rect x="580" y="40" width="130" height="46" rx="6"/><text class="th" x="645" y="63" text-anchor="middle" dominant-baseline="central">Password Reset</text>
+            </g>
+            
+            <g class="c-teal" role-type="dealer" onclick="inspectNode('Role Selection', 'Role selection grid to choose between Buyer, Private Seller, Dealer, or Service/Rental Provider profiles.', 'dealer')">
+              <rect x="20" y="96" width="130" height="46" rx="6"/><text class="th" x="85" y="119" text-anchor="middle" dominant-baseline="central">Role Selector</text>
+            </g>
+            <g class="c-blue" role-type="buyer" onclick="inspectNode('Buyer Registration', 'Registration fields capturing buyer name, contact details, and location.', 'buyer')">
+              <rect x="160" y="96" width="130" height="46" rx="6"/><text class="th" x="225" y="119" text-anchor="middle" dominant-baseline="central">Buyer Signup</text>
+            </g>
+            <g class="c-teal" role-type="dealer" onclick="inspectNode('Dealer Registration', 'Corporate registration request gathering CAC registration details and address location coordinates.', 'dealer')">
+              <rect x="300" y="96" width="130" height="46" rx="6"/><text class="th" x="365" y="119" text-anchor="middle" dominant-baseline="central">Dealer Signup</text>
+            </g>
+            <g class="c-amber" role-type="seller" onclick="inspectNode('Seller Registration', 'Private individual seller configuration collecting verification tokens.', 'seller')">
+              <rect x="440" y="96" width="130" height="46" rx="6"/><text class="th" x="505" y="119" text-anchor="middle" dominant-baseline="central">Seller Signup</text>
+            </g>
+            <g class="c-pink" role-type="service" onclick="inspectNode('Provider Registration', 'Onboarding setup form for automotive services listing companies (Car Wash, Detailers, Custom Modification, Car Rental).', 'service')">
+              <rect x="580" y="96" width="130" height="46" rx="6"/><text class="th" x="645" y="119" text-anchor="middle" dominant-baseline="central">Provider Signup</text>
+            </g>
+            
+            <!-- Category Title: Browse & Search -->
+            <text class="th" x="20" y="175" text-anchor="start" fill="var(--color-brand)" font-weight="700">2. SEARCH &amp; VEHICLE DISCOVERY SCREENS</text>
+            
+            <g class="c-gray" role-type="shared" onclick="inspectNode('Home Screen', 'Dynamic dashboard featuring top banners, search widgets, category filters, hot auctions, raffle cards, and curated listings.', 'shared')">
+              <rect x="20" y="190" width="130" height="46" rx="6"/><text class="th" x="85" y="213" text-anchor="middle" dominant-baseline="central">Home / Discovery</text>
+            </g>
+            <g class="c-blue" role-type="buyer" onclick="inspectNode('Category Browse', 'Filtered views isolating vehicle categories: Cars, Bikes, Marine, or Heavy Machinery assets.', 'buyer')">
+              <rect x="160" y="190" width="130" height="46" rx="6"/><text class="th" x="225" y="213" text-anchor="middle" dominant-baseline="central">Category Grid</text>
+            </g>
+            <g class="c-blue" role-type="buyer" onclick="inspectNode('Search Screen', 'Interactive search bar with dynamic auto-completion suggestions, trending tags, and search history.', 'buyer')">
+              <rect x="300" y="190" width="130" height="46" rx="6"/><text class="th" x="365" y="213" text-anchor="middle" dominant-baseline="central">Search Suggest</text>
+            </g>
+            <g class="c-blue" role-type="buyer" onclick="inspectNode('Filter & Sort Sheet', 'Refined filter options setting model constraints, pricing bands, custom colors, condition badges, and local state listings.', 'buyer')">
+              <rect x="440" y="190" width="130" height="46" rx="6"/><text class="th" x="505" y="213" text-anchor="middle" dominant-baseline="central">Filter Sidebar/Sheet</text>
+            </g>
+            <g class="c-blue" role-type="buyer" onclick="inspectNode('Search Results Grid', 'Browse listing layout featuring premium tags, pricing labels, and location info.', 'buyer')">
+              <rect x="580" y="190" width="130" height="46" rx="6"/><text class="th" x="645" y="213" text-anchor="middle" dominant-baseline="central">Results Catalog</text>
+            </g>
+            
+            <g class="c-blue" role-type="buyer" onclick="inspectNode('Vehicle Detail Page', 'Comprehensive vehicle specification listing showcasing high-res galleries, condition alerts, seller card contact portals, and trust indicators.', 'buyer')">
+              <rect x="20" y="246" width="130" height="46" rx="6"/><text class="th" x="85" y="269" text-anchor="middle" dominant-baseline="central">Vehicle Details</text>
+            </g>
+            <g class="c-blue" role-type="buyer" onclick="inspectNode('Sax AI Chat', 'Natural language AI assistant recommending vehicle matches based on budget, type, or styling preferences.', 'buyer')">
+              <rect x="160" y="246" width="130" height="46" rx="6"/><text class="th" x="225" y="269" text-anchor="middle" dominant-baseline="central">Sax AI Chatbot</text>
+            </g>
+            <g class="c-blue" role-type="buyer" onclick="inspectNode('Comparison Screen', 'Side-by-side spec comparison table for up to 3 selected vehicles.', 'buyer')">
+              <rect x="300" y="246" width="130" height="46" rx="6"/><text class="th" x="365" y="269" text-anchor="middle" dominant-baseline="central">Car Comparison</text>
+            </g>
+            <g class="c-gray" role-type="shared" onclick="inspectNode('Dealer Profile Page', 'Public shop dashboard showcasing a dealership\'s active fleet, verified location details, and reviews.', 'shared')">
+              <rect x="440" y="246" width="130" height="46" rx="6"/><text class="th" x="505" y="269" text-anchor="middle" dominant-baseline="central">Public Dealer Page</text>
+            </g>
+            <g class="c-blue" role-type="buyer" onclick="inspectNode('Price Alert', 'Alert configuration screen setting thresholds to notify buyers when listing prices decrease.', 'buyer')">
+              <rect x="580" y="246" width="130" height="46" rx="6"/><text class="th" x="645" y="269" text-anchor="middle" dominant-baseline="central">Price Alert Setup</text>
+            </g>
+            
+            <g class="c-blue" role-type="buyer" onclick="inspectNode('Buy Vehicle Screen', 'Main browse/buy catalog view mapping filters to live listings of verified vehicles in Nigeria (corresponds to /buy-vehicle).', 'buyer')">
+              <rect x="20" y="298" width="130" height="46" rx="6"/><text class="th" x="85" y="321" text-anchor="middle" dominant-baseline="central">Buy Vehicle</text>
+            </g>
+            <g class="c-blue" role-type="buyer" onclick="inspectNode('Find a Dealer Screen', 'Interactive directory of certified vehicle dealers in Nigeria, sorted by city, rating, and brand specialization (corresponds to /find-a-dealer).', 'buyer')">
+              <rect x="160" y="298" width="130" height="46" rx="6"/><text class="th" x="225" y="321" text-anchor="middle" dominant-baseline="central">Find a Dealer</text>
+            </g>
+            <g class="c-blue" role-type="buyer" onclick="inspectNode('Car Finance Calculator', 'In-app loan and monthly payment estimator letting users configure tenure, interest, and downpayment (corresponds to /car-finance-calculator).', 'buyer')">
+              <rect x="300" y="298" width="130" height="46" rx="6"/><text class="th" x="365" y="321" text-anchor="middle" dominant-baseline="central">Finance Calc</text>
+            </g>
+            <g class="c-gray" role-type="shared" onclick="inspectNode('Car Review Updates Screen', 'News feed containing vehicle reviews, luxury car updates, model specs, and industry news in Nigeria (corresponds to /car-review-updates).', 'shared')">
+              <rect x="440" y="298" width="130" height="46" rx="6"/><text class="th" x="505" y="321" text-anchor="middle" dominant-baseline="central">Reviews &amp; News</text>
+            </g>
+            
+            <!-- Category Title: Buyer Dashboard -->
+            <text class="th" x="20" y="435" text-anchor="start" fill="var(--color-brand)" font-weight="700">3. BUYER HUB &amp; INTERACTIVE SCREENS</text>
+            
+            <g class="c-blue" role-type="buyer" onclick="inspectNode('Buyer Dashboard', 'Buyer\'s home profile tab displaying active chats, requests, bookmarks, and account details.', 'buyer')">
+              <rect x="20" y="450" width="130" height="46" rx="6"/><text class="th" x="85" y="473" text-anchor="middle" dominant-baseline="central">Buyer Dashboard</text>
+            </g>
+            <g class="c-blue" role-type="buyer" onclick="inspectNode('Buyer Wishlist', 'Bookmark folder storing interested vehicle listings for later review.', 'buyer')">
+              <rect x="160" y="450" width="130" height="46" rx="6"/><text class="th" x="225" y="473" text-anchor="middle" dominant-baseline="central">Saved Wishlist</text>
+            </g>
+            <g class="c-blue" role-type="buyer" onclick="inspectNode('Recently Viewed', 'Local browsing history tracking recently viewed vehicle detail pages.', 'buyer')">
+              <rect x="300" y="450" width="130" height="46" rx="6"/><text class="th" x="365" y="473" text-anchor="middle" dominant-baseline="central">Browsing History</text>
+            </g>
+            <g class="c-blue" role-type="buyer" onclick="inspectNode('My Chats', 'Active chat inbox directory showing conversation threads with dealers, private sellers, or service providers.', 'buyer')">
+              <rect x="440" y="450" width="130" height="46" rx="6"/><text class="th" x="505" y="473" text-anchor="middle" dominant-baseline="central">Buyer Inbox</text>
+            </g>
+            <g class="c-blue" role-type="buyer" onclick="inspectNode('Buyer Requests', 'Directory tracking custom vehicle requests submitted by the buyer.', 'buyer')">
+              <rect x="580" y="450" width="130" height="46" rx="6"/><text class="th" x="645" y="473" text-anchor="middle" dominant-baseline="central">Custom Requests</text>
+            </g>
+            
+            <g class="c-blue" role-type="buyer" onclick="inspectNode('Vehicle Request Form', 'Custom vehicle locator form specifying target model, year limits, budget range, and location.', 'buyer')">
+              <rect x="20" y="506" width="130" height="46" rx="6"/><text class="th" x="85" y="529" text-anchor="middle" dominant-baseline="central">Submit Request</text>
+            </g>
+            <g class="c-blue" role-type="buyer" onclick="inspectNode('Chat Thread', 'Real-time peer-to-peer messaging panel with quick-reply buttons and image attachment options.', 'buyer')">
+              <rect x="160" y="506" width="130" height="46" rx="6"/><text class="th" x="225" y="529" text-anchor="middle" dominant-baseline="central">Chat Details</text>
+            </g>
+            <g class="c-blue" role-type="buyer" onclick="inspectNode('Contact Seller', 'Action modal allowing direct phone dial, email setup, or launching a WhatsApp chat thread.', 'buyer')">
+              <rect x="300" y="506" width="130" height="46" rx="6"/><text class="th" x="365" y="529" text-anchor="middle" dominant-baseline="central">Contact Options</text>
+            </g>
+            <g class="c-blue" role-type="buyer" onclick="inspectNode('View4You', 'Inspection booking widget requesting a third-party mechanic review of a specific listing.', 'buyer')">
+              <rect x="440" y="506" width="130" height="46" rx="6"/><text class="th" x="505" y="529" text-anchor="middle" dominant-baseline="central">Book Inspection</text>
+            </g>
+            
+            <!-- Category Title: Dealer Portal -->
+            <text class="th" x="20" y="585" text-anchor="start" fill="var(--color-brand)" font-weight="700">4. DEALERSHIP MANAGEMENT SCREENS</text>
+            
+            <g class="c-teal" role-type="dealer" onclick="inspectNode('Dealer Dashboard', 'Dealer control panel summarizing analytics, active listings, lead stats, and staff rosters.', 'dealer')">
+              <rect x="20" y="600" width="130" height="46" rx="6"/><text class="th" x="85" y="623" text-anchor="middle" dominant-baseline="central">Dealer Home</text>
+            </g>
+            <g class="c-teal" role-type="dealer" onclick="inspectNode('Upload Step 1', 'Step 1: Vehicle listing wizard configuring price, specifications, condition badges, and featured status.', 'dealer')">
+              <rect x="160" y="600" width="130" height="46" rx="6"/><text class="th" x="225" y="623" text-anchor="middle" dominant-baseline="central">Vehicle Details (S1)</text>
+            </g>
+            <g class="c-teal" role-type="dealer" onclick="inspectNode('Upload Step 2', 'Step 2: Vehicle listing wizard configuring contact channels, WhatsApp options, and dealer address details.', 'dealer')">
+              <rect x="300" y="600" width="130" height="46" rx="6"/><text class="th" x="365" y="623" text-anchor="middle" dominant-baseline="central">Contact Info (S2)</text>
+            </g>
+            <g class="c-teal" role-type="dealer" onclick="inspectNode('Upload Step 3', 'Step 3: Vehicle listing wizard handling high-res image uploads, auto-publishing settings, and final submission.', 'dealer')">
+              <rect x="440" y="600" width="130" height="46" rx="6"/><text class="th" x="505" y="623" text-anchor="middle" dominant-baseline="central">Gallery Upload (S3)</text>
+            </g>
+            <g class="c-teal" role-type="dealer" onclick="inspectNode('My Vehicles', 'Dealership inventory catalog manager allowing edits, bumps, or status deletions.', 'dealer')">
+              <rect x="580" y="600" width="130" height="46" rx="6"/><text class="th" x="645" y="623" text-anchor="middle" dominant-baseline="central">Inventory Manager</text>
+            </g>
+            
+            <g class="c-teal" role-type="dealer" onclick="inspectNode('Dealer Services', 'Service profile hub allowing dealers to offer wash, detailing, mod packages, or manage their rental fleet.', 'dealer')">
+              <rect x="20" y="656" width="130" height="46" rx="6"/><text class="th" x="85" y="679" text-anchor="middle" dominant-baseline="central">Offered Services</text>
+            </g>
+            <g class="c-teal" role-type="dealer" onclick="inspectNode('Dealer Chat Inbox', 'Dealer\'s direct messaging board grouping buyer conversations.', 'dealer')">
+              <rect x="160" y="656" width="130" height="46" rx="6"/><text class="th" x="225" y="679" text-anchor="middle" dominant-baseline="central">Dealer Inbox</text>
+            </g>
+            <g class="c-teal" role-type="dealer" onclick="inspectNode('Dealer Analytics', 'Performance tracking panels outlining listing views, click-through rates, and leads.', 'dealer')">
+              <rect x="300" y="656" width="130" height="46" rx="6"/><text class="th" x="365" y="679" text-anchor="middle" dominant-baseline="central">Dealer Metrics</text>
+            </g>
+            <g class="c-teal" role-type="dealer" onclick="inspectNode('Staff Management', 'Access permission settings allowing dealership sub-accounts to list inventory.', 'dealer')">
+              <rect x="440" y="656" width="130" height="46" rx="6"/><text class="th" x="505" y="679" text-anchor="middle" dominant-baseline="central">Staff Access</text>
+            </g>
+            
+            <!-- Category Title: Private Seller Portal -->
+            <text class="th" x="20" y="735" text-anchor="start" fill="var(--color-brand)" font-weight="700">5. PRIVATE SELLER SCREENS</text>
+            
+            <g class="c-amber" role-type="seller" onclick="inspectNode('Private Seller Registration', 'Private owner onboarding verifying name, contact details, and location.', 'seller')">
+              <rect x="20" y="750" width="130" height="46" rx="6"/><text class="th" x="85" y="773" text-anchor="middle" dominant-baseline="central">Seller Onboarding</text>
+            </g>
+            <g class="c-amber" role-type="seller" onclick="inspectNode('Private Identity Verification', 'Document verify interface collecting biometrics, NIN database validation, and ownership proof files.', 'seller')">
+              <rect x="160" y="750" width="130" height="46" rx="6"/><text class="th" x="225" y="773" text-anchor="middle" dominant-baseline="central">Identity Verification</text>
+            </g>
+            <g class="c-amber" role-type="seller" onclick="inspectNode('Private Step 1', 'Private seller step 1: Enter details, set price, and toggle featured badge status.', 'seller')">
+              <rect x="300" y="750" width="130" height="46" rx="6"/><text class="th" x="365" y="773" text-anchor="middle" dominant-baseline="central">Vehicle Info (S1)</text>
+            </g>
+            <g class="c-amber" role-type="seller" onclick="inspectNode('Private Step 2', 'Private seller step 2: Input phone and verify WhatsApp communications channels.', 'seller')">
+              <rect x="440" y="750" width="130" height="46" rx="6"/><text class="th" x="505" y="773" text-anchor="middle" dominant-baseline="central">Seller Contact (S2)</text>
+            </g>
+            <g class="c-amber" role-type="seller" onclick="inspectNode('Private Step 3', 'Private seller step 3: Gallery photo uploader and auto-publishing parameters.', 'seller')">
+              <rect x="580" y="750" width="130" height="46" rx="6"/><text class="th" x="645" y="773" text-anchor="middle" dominant-baseline="central">Photo Upload (S3)</text>
+            </g>
+            
+            <!-- Category Title: Services & Rentals -->
+            <text class="th" x="20" y="815" text-anchor="start" fill="var(--color-brand)" font-weight="700">6. SERVICE PROVIDER &amp; RENTAL SCREENS</text>
+            
+            <g class="c-pink" role-type="service" onclick="inspectNode('CAC Docs', 'CAC upload document submission form required to verify active service shops.', 'service')">
+              <rect x="20" y="830" width="130" height="46" rx="6"/><text class="th" x="85" y="853" text-anchor="middle" dominant-baseline="central">CAC Verification</text>
+            </g>
+            <g class="c-pink" role-type="service" onclick="inspectNode('Paystack Subscription Setup', 'Billing selection panel for subscription tiers paid through Paystack gateway.', 'service')">
+              <rect x="160" y="830" width="130" height="46" rx="6"/><text class="th" x="225" y="853" text-anchor="middle" dominant-baseline="central">Subscription Pay</text>
+            </g>
+            <g class="c-pink" role-type="service" onclick="inspectNode('Car Wash Profile', 'Physical car wash shop profile listing location, operating hours, and custom wash package pricing catalog.', 'service')">
+              <rect x="300" y="830" width="130" height="46" rx="6"/><text class="th" x="365" y="853" text-anchor="middle" dominant-baseline="central">Wash Shop profile</text>
+            </g>
+            <g class="c-pink" role-type="service" onclick="inspectNode('Auto Detailing Profile', 'Detailing shop catalog profile displaying detailing packages (paint protection, ceramic coating) and prices.', 'service')">
+              <rect x="440" y="830" width="130" height="46" rx="6"/><text class="th" x="505" y="853" text-anchor="middle" dominant-baseline="central">Detailing profile</text>
+            </g>
+            <g class="c-pink" role-type="service" onclick="inspectNode('Vehicle Modification Profile', 'Mod shop profile listing custom styling, wrap offerings, tuning, or armor package menus.', 'service')">
+              <rect x="580" y="830" width="130" height="46" rx="6"/><text class="th" x="645" y="853" text-anchor="middle" dominant-baseline="central">Mod Shop profile</text>
+            </g>
+            <g class="c-pink" role-type="service" onclick="inspectNode('Manage Rental Fleet', 'Rental company fleet dashboard displaying active listings, uploading rental cars with daily rates.', 'service')">
+              <rect x="20" y="886" width="130" height="46" rx="6"/><text class="th" x="85" y="909" text-anchor="middle" dominant-baseline="central">Fleet Inventory</text>
+            </g>
+            
+            <!-- Category Title: Raffle, Auctions & Finance -->
+            <text class="th" x="20" y="965" text-anchor="start" fill="var(--color-brand)" font-weight="700">7. SPECIAL CAMPAIGNS, FINANCE &amp; UTILITIES</text>
+            
+            <g class="c-amber" role-type="dealer" onclick="inspectNode('Raffle Submission', 'Draw configuration form enabling dealers to nominate raffle vehicles and configure ticket rules.', 'dealer')">
+              <rect x="20" y="980" width="130" height="46" rx="6"/><text class="th" x="85" y="1003" text-anchor="middle" dominant-baseline="central">Create Raffle</text>
+            </g>
+            <g class="c-coral" role-type="dealer" onclick="inspectNode('Auction Creation', 'Auction campaign form setting listing reserve price, bidding thresholds, and time countdowns.', 'dealer')">
+              <rect x="160" y="980" width="130" height="46" rx="6"/><text class="th" x="225" y="1003" text-anchor="middle" dominant-baseline="central">Create Auction</text>
+            </g>
+            <g class="c-blue" role-type="buyer" onclick="inspectNode('Select Finance Partner', 'Finance calculator screen filtering partnered banking institutions and loan schedules.', 'buyer')">
+              <rect x="300" y="980" width="130" height="46" rx="6"/><text class="th" x="365" y="1003" text-anchor="middle" dominant-baseline="central">Finance Calculator</text>
+            </g>
+            <g class="c-blue" role-type="buyer" onclick="inspectNode('Confirm Escrow Terms', 'Contract acceptance screen highlighting purchase protection terms and wallet details.', 'buyer')">
+              <rect x="440" y="980" width="130" height="46" rx="6"/><text class="th" x="505" y="1003" text-anchor="middle" dominant-baseline="central">Escrow Contract</text>
+            </g>
+            <g class="c-purple" role-type="admin" onclick="inspectNode('Listing Queue', 'Admin validation queue review dashboard used to filter, reject or approve listings.', 'admin')">
+              <rect x="580" y="980" width="130" height="46" rx="6"/><text class="th" x="645" y="1003" text-anchor="middle" dominant-baseline="central">Admin Queue</text>
+            </g>
+          </svg>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- DETAIL INSPECTOR SIDEBAR -->
+    <div class="inspector-panel">
+      
+      <!-- Empty state -->
+      <div class="inspector-empty" id="inspector-empty">
+        <div class="inspector-empty-icon">🔍</div>
+        <p>Select a node in the flow diagram to inspect detailed specifications &amp; dependencies.</p>
+      </div>
+
+      <!-- Active card -->
+      <div class="inspector-card" id="inspector-card">
+        <div class="inspector-header">
+          <div class="inspector-role-badge" id="insp-role">Guest</div>
+          <h2 class="inspector-title" id="insp-title">Splash Screen</h2>
+          <div class="inspector-subtitle" id="insp-subtitle">Role: Shared</div>
+        </div>
+
+        <div class="inspector-section">
+          <div class="inspector-section-title">Functional Description</div>
+          <div class="inspector-body" id="insp-desc">
+            Splashscreen of the app showing company identity logo and launching trigger animations.
+          </div>
+        </div>
+
+        <div class="inspector-section">
+          <div class="inspector-section-title">Upstream Steps (Pre-conditions)</div>
+          <div id="insp-upstream">
+            <span class="connection-pill">None</span>
+          </div>
+        </div>
+
+        <div class="inspector-section">
+          <div class="inspector-section-title">Downstream Steps (Post-conditions)</div>
+          <div id="insp-downstream">
+            <span class="connection-pill">Onboarding Carousel</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════ FOOTER -->
+  <footer style="background:var(--bg-secondary); padding: 0.5rem; text-align: center; border-top: 1px solid var(--border-color); font-size: 0.7rem; color: var(--text-muted); z-index: 10;">
+    &copy; 2026 Sax Auto Trading Nigeria. Interactive Mobile App Userflow Canvas.
+  </footer>
+
+  <!-- ═══════════════════════════════════════════════════════ SCRIPTS -->
+  <script>
+    // Theme Management
+    function toggleTheme() {
+      const body = document.body;
+      const themeIcon = document.getElementById('theme-icon');
+      const themeText = document.getElementById('theme-text');
+      body.classList.toggle('light-mode');
+      if (body.classList.contains('light-mode')) {
+        themeIcon.textContent = '🌙';
+        themeText.textContent = 'Dark Mode';
+      } else {
+        themeIcon.textContent = '☀️';
+        themeText.textContent = 'Light Mode';
+      }
+    }
+
+    // Active Flow Tab Navigation
+    let activeFlowId = 'onboard';
+    function switchFlow(flowId) {
+      activeFlowId = flowId;
+      document.querySelectorAll('.flow-tab').forEach(btn => btn.classList.remove('active'));
+      const activeTabBtn = Array.from(document.querySelectorAll('.flow-tab')).find(btn => btn.getAttribute('onclick').includes(flowId));
+      if (activeTabBtn) activeTabBtn.classList.add('active');
+
+      document.querySelectorAll('.viewport-content').forEach(flow => flow.classList.remove('active'));
+      const activeFlow = document.getElementById('flow-' + flowId);
+      if (activeFlow) activeFlow.classList.add('active');
+
+      resetZoom();
+      clearSearch();
+    }
+
+    // Zoom & Pan System
+    const viewport = document.getElementById('canvas-viewport');
+    let zoomScale = 1.0;
+    let panX = 0;
+    let panY = 0;
+    let isPanning = false;
+    let startX = 0;
+    let startY = 0;
+
+    viewport.addEventListener('mousedown', (e) => {
+      // Avoid panning when clicking SVG elements/buttons
+      if (e.target.tagName === 'rect' || e.target.tagName === 'text' || e.target.closest('g[onclick]')) return;
+      isPanning = true;
+      startX = e.clientX - panX;
+      startY = e.clientY - panY;
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (!isPanning) return;
+      panX = e.clientX - startX;
+      panY = e.clientY - startY;
+      applyTransform();
+    });
+
+    window.addEventListener('mouseup', () => {
+      isPanning = false;
+    });
+
+    viewport.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      const zoomFactor = e.deltaY < 0 ? 1.05 : 0.95;
+      zoomScale = Math.min(Math.max(0.4, zoomScale * zoomFactor), 3);
+      applyTransform();
+    });
+
+    function applyTransform() {
+      document.querySelectorAll('.viewport-content').forEach(content => {
+        content.style.transform = `translate(${panX}px, ${panY}px) scale(${zoomScale})`;
+      });
+    }
+
+    function zoomCanvas(factor) {
+      zoomScale = Math.min(Math.max(0.4, zoomScale + factor), 3);
+      applyTransform();
+    }
+
+    function resetZoom() {
+      zoomScale = 1.0;
+      panX = 0;
+      panY = 0;
+      applyTransform();
+    }
+
+    function fitCanvasToScreen() {
+      const activeSvg = document.querySelector('.viewport-content.active svg');
+      if (!activeSvg) return;
+      const svgBox = activeSvg.getBoundingClientRect();
+      const viewBox = viewport.getBoundingClientRect();
+      
+      const scaleX = viewBox.width / svgBox.width;
+      const scaleY = viewBox.height / svgBox.height;
+      zoomScale = Math.min(scaleX, scaleY, 1) * 0.95;
+      
+      panX = (viewBox.width - (svgBox.width * zoomScale)) / 2;
+      panY = 10;
+      applyTransform();
+    }
+
+    // Interactive Legend Filters
+    let activeRoleFilter = null;
+    function toggleRoleFilter(role, color) {
+      const chip = document.getElementById('leg-' + role);
+      const svgs = document.querySelectorAll('.viewport-content svg');
+      
+      if (activeRoleFilter === role) {
+        // Reset filter
+        activeRoleFilter = null;
+        chip.classList.remove('active');
+        chip.style.border = 'none';
+        
+        svgs.forEach(svg => {
+          svg.querySelectorAll('g[role-type]').forEach(g => g.classList.remove('dimmed'));
+          svg.querySelectorAll('line').forEach(line => line.classList.remove('dimmed'));
+        });
+      } else {
+        // Apply filter
+        activeRoleFilter = role;
+        document.querySelectorAll('.legend-chip').forEach(c => {
+          c.classList.remove('active');
+          c.style.border = 'none';
+        });
+        chip.classList.add('active');
+        chip.style.border = `1px solid ${color}`;
+        
+        svgs.forEach(svg => {
+          svg.querySelectorAll('g[role-type]').forEach(g => {
+            if (g.getAttribute('role-type') === role || g.getAttribute('role-type') === 'shared') {
+              g.classList.remove('dimmed');
+            } else {
+              g.classList.add('dimmed');
+            }
+          });
+          // Dim line connectors too
+          svg.querySelectorAll('line.arr').forEach(line => line.classList.add('dimmed'));
+        });
+      }
+    }
+
+    // Detail Inspector System
+    function inspectNode(title, desc, role, upstream, downstream) {
+      document.getElementById('inspector-empty').style.display = 'none';
+      const card = document.getElementById('inspector-card');
+      card.classList.add('active');
+
+      document.getElementById('insp-title').textContent = title;
+      document.getElementById('insp-subtitle').textContent = `Classification Type: ${role.toUpperCase()}`;
+      document.getElementById('insp-desc').textContent = desc;
+
+      const roleBadge = document.getElementById('insp-role');
+      roleBadge.textContent = role;
+      roleBadge.className = 'inspector-role-badge';
+      roleBadge.style.background = getRoleColor(role);
+
+      // Render links for upstream and downstream dependencies
+      renderConnections('insp-upstream', upstream);
+      renderConnections('insp-downstream', downstream);
+
+      // Set active highlight on SVG node
+      document.querySelectorAll('svg g[onclick]').forEach(g => g.classList.remove('active-node'));
+      const activeNode = Array.from(document.querySelectorAll('svg g[onclick]')).find(g => g.innerHTML.includes(title));
+      if (activeNode) activeNode.classList.add('active-node');
+    }
+
+    function renderConnections(elementId, steps) {
+      const container = document.getElementById(elementId);
+      container.innerHTML = '';
+      if (!steps || steps.length === 0) {
+        container.innerHTML = '<span class="connection-pill" style="cursor:default;">None</span>';
+        return;
+      }
+      steps.forEach(step => {
+        const pill = document.createElement('span');
+        pill.className = 'connection-pill';
+        pill.textContent = step;
+        pill.onclick = () => jumpToNode(step);
+        container.appendChild(pill);
+      });
+    }
+
+    function getRoleColor(role) {
+      switch (role.toLowerCase()) {
+        case 'guest': return 'var(--role-guest)';
+        case 'buyer': return 'var(--role-buyer)';
+        case 'dealer': return 'var(--role-dealer)';
+        case 'seller': return 'var(--role-seller)';
+        case 'service': return 'var(--role-service)';
+        case 'admin': return 'var(--role-admin)';
+        default: return 'var(--role-shared)';
+      }
+    }
+
+    function jumpToNode(nodeTitle) {
+      // Find where this node resides
+      const elements = document.querySelectorAll('svg g[onclick]');
+      let foundNode = null;
+      elements.forEach(g => {
+        if (g.innerHTML.includes(nodeTitle)) {
+          foundNode = g;
+        }
+      });
+
+      if (foundNode) {
+        const parentFlow = foundNode.closest('.viewport-content');
+        if (parentFlow) {
+          const flowId = parentFlow.id.replace('flow-', '');
+          switchFlow(flowId);
+          
+          // Trigger click function programmatically
+          foundNode.dispatchEvent(new Event('click'));
+          
+          // Fit & Pan canvas center to the selected node
+          const rect = foundNode.querySelector('rect');
+          if (rect) {
+            const x = parseFloat(rect.getAttribute('x'));
+            const y = parseFloat(rect.getAttribute('y'));
+            const svgWidth = 680;
+            const svgHeight = 720;
+            
+            const viewB = viewport.getBoundingClientRect();
+            zoomScale = 1.0;
+            panX = (viewB.width / 2) - x - 100;
+            panY = (viewB.height / 2) - y - 24;
+            applyTransform();
+          }
+        }
+      }
+    }
+
+    // Search System
+    function handleSearch(query) {
+      clearHighlights();
+      if (!query || query.trim() === '') return;
+      
+      const term = query.toLowerCase().trim();
+      const elements = document.querySelectorAll('svg g[onclick]');
+      let matchCount = 0;
+      
+      elements.forEach(g => {
+        const text = g.textContent.toLowerCase();
+        if (text.includes(term)) {
+          g.classList.add('searched-highlight');
+          matchCount++;
+          
+          // Auto switch to the tab of the first match found
+          if (matchCount === 1) {
+            const parent = g.closest('.viewport-content');
+            if (parent) {
+              const tabId = parent.id.replace('flow-', '');
+              if (tabId !== activeFlowId) {
+                switchFlow(tabId);
+              }
+            }
+          }
+        }
+      });
+    }
+
+    function clearHighlights() {
+      document.querySelectorAll('svg g[onclick]').forEach(g => {
+        g.classList.remove('searched-highlight');
+      });
+    }
+
+    function clearSearch() {
+      document.getElementById('canvas-search').value = '';
+      clearHighlights();
+    }
+  </script>
+</body>
+</html>
