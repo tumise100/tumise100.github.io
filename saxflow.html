@@ -640,115 +640,116 @@
 
         <!-- 1. ONBOARDING -->
         <div id="flow-onboard" class="viewport-content active">
-          <svg width="100%" height="100%" viewBox="0 0 680 760" id="svg-onboard">
+          <svg width="100%" height="100%" viewBox="0 0 780 850" id="svg-onboard">
             <defs><marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
             
             <g class="c-gray" role-type="shared" onclick="inspectNode('Splash Screen', 'Splashscreen of the app showing company identity logo and launching trigger animations.', 'shared', ['Onboarding Carousel'])">
-              <rect x="230" y="20" width="220" height="48" rx="8"/><text class="th" x="340" y="40" text-anchor="middle" dominant-baseline="central">Splash screen</text><text class="ts" x="340" y="56" text-anchor="middle" dominant-baseline="central">Logo + loading animation</text>
+              <rect x="280" y="20" width="220" height="48" rx="8"/><text class="th" x="390" y="40" text-anchor="middle" dominant-baseline="central">Splash screen</text><text class="ts" x="390" y="56" text-anchor="middle" dominant-baseline="central">Logo + loading animation</text>
             </g>
             
-            <line x1="340" y1="68" x2="340" y2="92" class="arr" marker-end="url(#ar)"/>
+            <line x1="390" y1="68" x2="390" y2="92" class="arr" marker-end="url(#ar)"/>
             
             <g class="c-gray" role-type="shared" onclick="inspectNode('Onboarding Carousel', 'Introductory slides explaining key app values. Can be skipped.', 'shared', ['Splash Screen'], ['Auth Gateway'])">
-              <rect x="230" y="92" width="220" height="48" rx="8"/><text class="th" x="340" y="112" text-anchor="middle" dominant-baseline="central">Onboarding carousel</text><text class="ts" x="340" y="128" text-anchor="middle" dominant-baseline="central">3 intro slides · skip options</text>
+              <rect x="280" y="92" width="220" height="48" rx="8"/><text class="th" x="390" y="112" text-anchor="middle" dominant-baseline="central">Onboarding carousel</text><text class="ts" x="390" y="128" text-anchor="middle" dominant-baseline="central">3 intro slides · skip options</text>
             </g>
             
-            <line x1="340" y1="140" x2="340" y2="164" class="arr" marker-end="url(#ar)"/>
+            <line x1="390" y1="140" x2="390" y2="175" class="arr" marker-end="url(#ar)"/>
             
             <g class="c-gray" role-type="shared" onclick="inspectNode('Auth Gateway', 'First entry selection where user chooses to log in, register, or browse as a guest.', 'shared', ['Onboarding Carousel'], ['Sign In', 'Create Account', 'Guest Mode'])">
-              <rect x="160" y="164" width="360" height="48" rx="8"/><text class="th" x="340" y="184" text-anchor="middle" dominant-baseline="central">Auth gateway</text><text class="ts" x="340" y="200" text-anchor="middle" dominant-baseline="central">Sign in · Sign up · Browse as guest</text>
+              <rect x="210" y="175" width="360" height="48" rx="8"/><text class="th" x="390" y="195" text-anchor="middle" dominant-baseline="central">Auth gateway</text><text class="ts" x="390" y="211" text-anchor="middle" dominant-baseline="central">Sign in · Sign up · Browse as guest</text>
             </g>
             
-            <line x1="220" y1="212" x2="130" y2="248" class="arr" marker-end="url(#ar)"/>
-            <line x1="340" y1="212" x2="340" y2="248" class="arr" marker-end="url(#ar)"/>
-            <line x1="460" y1="212" x2="550" y2="248" class="arr" marker-end="url(#ar)"/>
+            <line x1="270" y1="223" x2="135" y2="265" class="arr" marker-end="url(#ar)"/>
+            <line x1="390" y1="223" x2="390" y2="265" class="arr" marker-end="url(#ar)"/>
+            <line x1="510" y1="223" x2="645" y2="265" class="arr" marker-end="url(#ar)"/>
             
             <g class="c-blue" role-type="buyer" onclick="inspectNode('Sign In', 'Direct credential validation form supporting email + passwords, Google or Apple SSO keys.', 'buyer', ['Auth Gateway'], ['Forgot Password'])">
-              <rect x="40" y="248" width="170" height="56" rx="8"/><text class="th" x="125" y="268" text-anchor="middle" dominant-baseline="central">Sign in</text><text class="ts" x="125" y="285" text-anchor="middle" dominant-baseline="central">Email · Google · Apple</text>
+              <rect x="30" y="265" width="210" height="56" rx="8"/><text class="th" x="135" y="285" text-anchor="middle" dominant-baseline="central">Sign in</text><text class="ts" x="135" y="302" text-anchor="middle" dominant-baseline="central">Email · Google · Apple</text>
             </g>
             
             <g class="c-teal" role-type="dealer" onclick="inspectNode('Create Account', 'Initial role signup portal routing individual profiles.', 'dealer', ['Auth Gateway'], ['Role Selection'])">
-              <rect x="250" y="248" width="180" height="56" rx="8"/><text class="th" x="340" y="268" text-anchor="middle" dominant-baseline="central">Create account</text><text class="ts" x="340" y="285" text-anchor="middle" dominant-baseline="central">Select role first</text>
+              <rect x="285" y="265" width="210" height="56" rx="8"/><text class="th" x="390" y="285" text-anchor="middle" dominant-baseline="central">Create account</text><text class="ts" x="390" y="302" text-anchor="middle" dominant-baseline="central">Select role first</text>
             </g>
             
             <g class="c-green" role-type="guest" onclick="inspectNode('Guest Mode', 'Allows browsing available luxury listings without needing to complete registration.', 'guest', ['Auth Gateway'], ['App Home Page'])">
-              <rect x="470" y="248" width="170" height="56" rx="8"/><text class="th" x="555" y="268" text-anchor="middle" dominant-baseline="central">Guest mode</text><text class="ts" x="555" y="285" text-anchor="middle" dominant-baseline="central">Browse only · no login</text>
+              <rect x="540" y="265" width="210" height="56" rx="8"/><text class="th" x="645" y="285" text-anchor="middle" dominant-baseline="central">Guest mode</text><text class="ts" x="645" y="302" text-anchor="middle" dominant-baseline="central">Browse only · no login</text>
             </g>
             
-            <line x1="125" y1="304" x2="125" y2="332" class="arr" marker-end="url(#ar)"/>
+            <line x1="135" y1="321" x2="135" y2="355" class="arr" marker-end="url(#ar)"/>
             <g class="c-blue" role-type="buyer" onclick="inspectNode('Forgot Password', 'Allows email recovery resets to be fired for forgotten profile keys.', 'buyer', ['Sign In'])">
-              <rect x="40" y="332" width="170" height="44" rx="8"/><text class="th" x="125" y="350" text-anchor="middle" dominant-baseline="central">Forgot password</text><text class="ts" x="125" y="365" text-anchor="middle" dominant-baseline="central">Email reset link</text>
+              <rect x="30" y="355" width="210" height="44" rx="8"/><text class="th" x="135" y="373" text-anchor="middle" dominant-baseline="central">Forgot password</text><text class="ts" x="135" y="388" text-anchor="middle" dominant-baseline="central">Email reset link</text>
             </g>
             
-            <line x1="340" y1="304" x2="340" y2="332" class="arr" marker-end="url(#ar)"/>
+            <line x1="390" y1="321" x2="390" y2="355" class="arr" marker-end="url(#ar)"/>
             
             <g class="c-teal" role-type="dealer" onclick="inspectNode('Role Selection', 'Core classification step. Changes user experience permissions (Buyer vs Dealer vs Owner Seller vs Service provider).', 'dealer', ['Create Account'], ['Buyer Registration', 'Dealer Registration', 'Seller Registration', 'Provider Registration'])">
-              <rect x="230" y="332" width="220" height="48" rx="8"/><text class="th" x="340" y="352" text-anchor="middle" dominant-baseline="central">Role selection</text><text class="ts" x="340" y="368" text-anchor="middle" dominant-baseline="central">Buyer · Dealer · Seller · Provider</text>
+              <rect x="270" y="355" width="240" height="48" rx="8"/><text class="th" x="390" y="375" text-anchor="middle" dominant-baseline="central">Role selection</text><text class="ts" x="390" y="391" text-anchor="middle" dominant-baseline="central">Buyer · Dealer · Seller · Provider</text>
             </g>
             
-            <line x1="270" y1="380" x2="80" y2="418" class="arr" marker-end="url(#ar)"/>
-            <line x1="310" y1="380" x2="230" y2="418" class="arr" marker-end="url(#ar)"/>
-            <line x1="370" y1="380" x2="450" y2="418" class="arr" marker-end="url(#ar)"/>
-            <line x1="410" y1="380" x2="590" y2="418" class="arr" marker-end="url(#ar)"/>
+            <line x1="310" y1="403" x2="95" y2="455" class="arr" marker-end="url(#ar)"/>
+            <line x1="350" y1="403" x2="270" y2="455" class="arr" marker-end="url(#ar)"/>
+            <line x1="430" y1="403" x2="510" y2="455" class="arr" marker-end="url(#ar)"/>
+            <line x1="470" y1="403" x2="685" y2="455" class="arr" marker-end="url(#ar)"/>
             
             <g class="c-blue" role-type="buyer" onclick="inspectNode('Buyer Registration', 'Registration for buyers collecting phone, name, email and state locations.', 'buyer', ['Role Selection'], ['App Home Page'])">
-              <rect x="20" y="418" width="140" height="56" rx="8"/><text class="th" x="90" y="438" text-anchor="middle" dominant-baseline="central">Buyer reg.</text><text class="ts" x="90" y="455" text-anchor="middle" dominant-baseline="central">Name · phone · location</text>
+              <rect x="15" y="455" width="160" height="56" rx="8"/><text class="th" x="95" y="475" text-anchor="middle" dominant-baseline="central">Buyer reg.</text><text class="ts" x="95" y="492" text-anchor="middle" dominant-baseline="central">Name · phone · location</text>
             </g>
             
             <g class="c-teal" role-type="dealer" onclick="inspectNode('Dealer Registration', 'Registration form for official dealerships requesting company registry info.', 'dealer', ['Role Selection'], ['Doc Upload'])">
-              <rect x="170" y="418" width="150" height="56" rx="8"/><text class="th" x="245" y="438" text-anchor="middle" dominant-baseline="central">Dealer reg.</text><text class="ts" x="245" y="455" text-anchor="middle" dominant-baseline="central">Business details</text>
+              <rect x="190" y="455" width="160" height="56" rx="8"/><text class="th" x="270" y="475" text-anchor="middle" dominant-baseline="central">Dealer reg.</text><text class="ts" x="270" y="492" text-anchor="middle" dominant-baseline="central">Business details</text>
             </g>
             
             <g class="c-amber" role-type="seller" onclick="inspectNode('Seller Registration', 'Scan setup for private owners requesting biometric photo ID matches.', 'seller', ['Role Selection'], ['ID Verification'])">
-              <rect x="370" y="418" width="150" height="56" rx="8"/><text class="th" x="445" y="438" text-anchor="middle" dominant-baseline="central">Seller reg.</text><text class="ts" x="445" y="455" text-anchor="middle" dominant-baseline="central">ID · selfie · proof</text>
+              <rect x="430" y="455" width="160" height="56" rx="8"/><text class="th" x="510" y="475" text-anchor="middle" dominant-baseline="central">Seller reg.</text><text class="ts" x="510" y="492" text-anchor="middle" dominant-baseline="central">ID · selfie · proof</text>
             </g>
             
             <g class="c-pink" role-type="service" onclick="inspectNode('Provider Registration', 'CAC business file upload forms for services partners.', 'service', ['Role Selection'], ['CAC Docs'])">
-              <rect x="530" y="418" width="130" height="56" rx="8"/><text class="th" x="595" y="438" text-anchor="middle" dominant-baseline="central">Provider reg.</text><text class="ts" x="595" y="455" text-anchor="middle" dominant-baseline="central">CAC · profile</text>
+              <rect x="605" y="455" width="160" height="56" rx="8"/><text class="th" x="685" y="475" text-anchor="middle" dominant-baseline="central">Provider reg.</text><text class="ts" x="685" y="492" text-anchor="middle" dominant-baseline="central">CAC · profile</text>
             </g>
             
-            <line x1="245" y1="474" x2="245" y2="510" class="arr" marker-end="url(#ar)"/>
-            <line x1="445" y1="474" x2="445" y2="510" class="arr" marker-end="url(#ar)"/>
-            <line x1="595" y1="474" x2="595" y2="510" class="arr" marker-end="url(#ar)"/>
+            <line x1="270" y1="511" x2="270" y2="550" class="arr" marker-end="url(#ar)"/>
+            <line x1="510" y1="511" x2="510" y2="550" class="arr" marker-end="url(#ar)"/>
+            <line x1="685" y1="511" x2="685" y2="550" class="arr" marker-end="url(#ar)"/>
             
             <g class="c-teal" role-type="dealer" onclick="inspectNode('Doc Upload', 'Business operation certificate uploads (e.g. state license file or tax records).', 'dealer', ['Dealer Registration'], ['Admin Review'])">
-              <rect x="170" y="510" width="150" height="56" rx="8"/><text class="th" x="245" y="530" text-anchor="middle" dominant-baseline="central">Doc upload</text><text class="ts" x="245" y="547" text-anchor="middle" dominant-baseline="central">JPG/PNG · max 5 MB</text>
+              <rect x="190" y="550" width="160" height="56" rx="8"/><text class="th" x="270" y="570" text-anchor="middle" dominant-baseline="central">Doc upload</text><text class="ts" x="270" y="587" text-anchor="middle" dominant-baseline="central">JPG/PNG · max 5 MB</text>
             </g>
             
             <g class="c-amber" role-type="seller" onclick="inspectNode('ID Verification', 'Verifies identity matching details using NIN or passport file records.', 'seller', ['Seller Registration'], ['Admin Review'])">
-              <rect x="370" y="510" width="150" height="56" rx="8"/><text class="th" x="445" y="530" text-anchor="middle" dominant-baseline="central">ID + selfie</text><text class="ts" x="445" y="547" text-anchor="middle" dominant-baseline="central">Ownership proof</text>
+              <rect x="430" y="550" width="160" height="56" rx="8"/><text class="th" x="510" y="570" text-anchor="middle" dominant-baseline="central">ID + selfie</text><text class="ts" x="510" y="587" text-anchor="middle" dominant-baseline="central">Ownership proof</text>
             </g>
             
             <g class="c-pink" role-type="service" onclick="inspectNode('CAC Docs', 'CAC registration scans to authorize service wash / rentals on platform.', 'service', ['Provider Registration'], ['Admin Review'])">
-              <rect x="530" y="510" width="130" height="56" rx="8"/><text class="th" x="595" y="530" text-anchor="middle" dominant-baseline="central">CAC docs</text><text class="ts" x="595" y="547" text-anchor="middle" dominant-baseline="central">Business verify</text>
+              <rect x="605" y="550" width="160" height="56" rx="8"/><text class="th" x="685" y="570" text-anchor="middle" dominant-baseline="central">CAC docs</text><text class="ts" x="685" y="587" text-anchor="middle" dominant-baseline="central">Business verify</text>
             </g>
             
-            <line x1="245" y1="566" x2="340" y2="604" class="arr" marker-end="url(#ar)"/>
-            <line x1="445" y1="566" x2="375" y2="604" class="arr" marker-end="url(#ar)"/>
-            <line x1="595" y1="566" x2="420" y2="604" class="arr" marker-end="url(#ar)"/>
+            <line x1="270" y1="606" x2="365" y2="650" class="arr" marker-end="url(#ar)"/>
+            <line x1="510" y1="606" x2="415" y2="650" class="arr" marker-end="url(#ar)"/>
+            <line x1="685" y1="606" x2="465" y2="650" class="arr" marker-end="url(#ar)"/>
             
             <g class="c-purple" role-type="admin" onclick="inspectNode('Admin Review', 'Backoffice verification checks to approve or reject registration records.', 'admin', ['Doc Upload', 'ID Verification', 'CAC Docs'], ['Access Granted', 'Registration Rejected'])">
-              <rect x="240" y="604" width="200" height="48" rx="8"/><text class="th" x="340" y="624" text-anchor="middle" dominant-baseline="central">Admin review</text><text class="ts" x="340" y="640" text-anchor="middle" dominant-baseline="central">Approve or reject</text>
+              <rect x="290" y="650" width="200" height="48" rx="8"/><text class="th" x="390" y="670" text-anchor="middle" dominant-baseline="central">Admin review</text><text class="ts" x="390" y="686" text-anchor="middle" dominant-baseline="central">Approve or reject</text>
             </g>
             
-            <line x1="295" y1="652" x2="200" y2="686" class="arr" marker-end="url(#ar)"/>
-            <line x1="385" y1="652" x2="480" y2="686" class="arr" marker-end="url(#ar)"/>
+            <line x1="340" y1="698" x2="215" y2="740" class="arr" marker-end="url(#ar)"/>
+            <line x1="440" y1="698" x2="565" y2="740" class="arr" marker-end="url(#ar)"/>
             
             <g class="c-teal" role-type="dealer" onclick="inspectNode('Access Granted', 'Credentials validated successfully. Seller panels are unlocked.', 'dealer', ['Admin Review'], ['App Home Page'])">
-              <rect x="110" y="686" width="170" height="44" rx="8"/><text class="th" x="195" y="708" text-anchor="middle" dominant-baseline="central">Verified · access granted</text>
+              <rect x="115" y="740" width="200" height="44" rx="8"/><text class="th" x="215" y="762" text-anchor="middle" dominant-baseline="central">Verified · access granted</text>
             </g>
             
             <g class="c-red" role-type="shared" onclick="inspectNode('Registration Rejected', 'Incomplete registration notification containing re-upload links.', 'shared', ['Admin Review'])">
-              <rect x="395" y="686" width="170" height="44" rx="8"/><text class="th" x="480" y="708" text-anchor="middle" dominant-baseline="central">Rejected · notification</text>
+              <rect x="465" y="740" width="200" height="44" rx="8"/><text class="th" x="565" y="762" text-anchor="middle" dominant-baseline="central">Rejected · notification</text>
             </g>
             
-            <line x1="90" y1="474" x2="90" y2="730" class="arr" marker-end="url(#ar)"/>
-            <line x1="555" y1="304" x2="555" y2="730" class="arr" marker-end="url(#ar)"/>
-            <line x1="195" y1="730" x2="200" y2="730" class="arr"/>
-            <line x1="480" y1="730" x2="470" y2="730" class="arr"/>
+            <line x1="95" y1="511" x2="95" y2="795" class="arr"/>
+            <line x1="95" y1="795" x2="250" y2="795" class="arr" marker-end="url(#ar)"/>
+            <line x1="645" y1="321" x2="645" y2="795" class="arr"/>
+            <line x1="645" y1="795" x2="530" y2="795" class="arr" marker-end="url(#ar)"/>
+            <line x1="215" y1="784" x2="215" y2="795" class="arr"/>
             
             <g class="c-gray" role-type="shared" onclick="inspectNode('App Home Page', 'Consolidated home hub showing persistent navigation bars and category items.', 'shared', ['Access Granted', 'Buyer Registration', 'Guest Mode'], [])">
-              <rect x="200" y="710" width="280" height="48" rx="8"/><text class="th" x="340" y="730" text-anchor="middle" dominant-baseline="central">Home / app dashboard</text><text class="ts" x="340" y="746" text-anchor="middle" dominant-baseline="central">Tab bar · search · featured</text>
+              <rect x="250" y="775" width="280" height="48" rx="8"/><text class="th" x="390" y="795" text-anchor="middle" dominant-baseline="central">Home / app dashboard</text><text class="ts" x="390" y="811" text-anchor="middle" dominant-baseline="central">Tab bar · search · featured</text>
             </g>
           </svg>
         </div>
