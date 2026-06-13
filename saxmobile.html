@@ -1,0 +1,1732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sax Auto Trading Mobile App Prototype</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <style>
+    /* ═══════════════════════════════════════════════════════ PREMIUM DESIGN SYSTEM */
+    :root {
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-display: 'Outfit', sans-serif;
+      
+      /* Premium Dark UI (Default Mobile App theme) */
+      --bg-app: #090a0f;
+      --bg-surface: #121420;
+      --bg-surface-elevated: #1b1e30;
+      --border-color: rgba(255, 255, 255, 0.08);
+      
+      --color-brand: #d4af37; /* Luxury Gold */
+      --color-brand-rgb: 212, 175, 55;
+      --color-accent: #00f2fe; /* Digital Cyan */
+      --color-accent-rgb: 0, 242, 254;
+      --color-danger: #ff4d4d;
+      --color-success: #10b981;
+      
+      --text-primary: #ffffff;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      
+      --radius-sm: 8px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      
+      --shadow-premium: 0 10px 30px rgba(0, 0, 0, 0.5);
+      --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+
+    body {
+      background: #020205;
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      overflow-x: hidden;
+      padding: 20px 0;
+    }
+
+    /* ═══════════════════════════════════════════════════════ PHONE WRAPPER & CONTAINER */
+    .phone-container {
+      width: 412px;
+      height: 846px;
+      background: var(--bg-app);
+      border-radius: 40px;
+      box-shadow: 0 0 0 12px #1e202c, 0 20px 60px rgba(0,0,0,0.8);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      border: 2px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* Dynamic Island / Status Bar */
+    .status-bar {
+      height: 44px;
+      background: var(--bg-app);
+      padding: 0 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      z-index: 100;
+    }
+    .status-time {
+      font-family: var(--font-sans);
+    }
+    .status-icons {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+    .island {
+      position: absolute;
+      left: 50%;
+      top: 10px;
+      transform: translateX(-50%);
+      width: 110px;
+      height: 28px;
+      background: #000;
+      border-radius: 20px;
+      z-index: 101;
+    }
+
+    /* Bottom Home Indicator */
+    .home-indicator-bar {
+      height: 24px;
+      background: var(--bg-app);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 100;
+    }
+    .home-indicator {
+      width: 130px;
+      height: 5px;
+      background: rgba(255, 255, 255, 0.5);
+      border-radius: 10px;
+    }
+
+    /* ═══════════════════════════════════════════════════════ SCREEN MANAGER */
+    .screen-content {
+      flex: 1;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      scrollbar-width: none;
+      padding-bottom: 20px;
+    }
+    .screen-content::-webkit-scrollbar {
+      display: none;
+    }
+
+    .app-screen {
+      display: none;
+      animation: screenFade var(--transition-smooth);
+      flex: 1;
+      flex-direction: column;
+    }
+    .app-screen.active {
+      display: flex;
+    }
+
+    @keyframes screenFade {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ═══════════════════════════════════════════════════════ HEADER NAV */
+    .app-header {
+      padding: 12px 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(9, 10, 15, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-color);
+      position: sticky;
+      top: 0;
+      z-index: 99;
+    }
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .logo-badge {
+      background: linear-gradient(135deg, var(--color-brand), #ffea9f);
+      color: #000;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 0.95rem;
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+    .logo-text {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1rem;
+      letter-spacing: 0.5px;
+      background: linear-gradient(to right, #fff, var(--text-secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .action-icons {
+      display: flex;
+      gap: 12px;
+      color: var(--text-primary);
+      font-size: 1.15rem;
+      cursor: pointer;
+    }
+
+    /* ═══════════════════════════════════════════════════════ HERO BANNER & SEARCH */
+    .hero-container {
+      position: relative;
+      padding: 20px 18px;
+      background: linear-gradient(180deg, rgba(212, 175, 55, 0.1) 0%, rgba(9, 10, 15, 0) 100%);
+      text-align: center;
+    }
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 4px;
+      color: #fff;
+    }
+    .hero-subtitle {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      margin-bottom: 16px;
+    }
+
+    /* Search Container */
+    .app-search-box {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      box-shadow: var(--shadow-premium);
+    }
+    .search-row {
+      display: flex;
+      gap: 8px;
+    }
+    .search-tab {
+      flex: 1;
+      padding: 8px;
+      text-align: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+      border-radius: var(--radius-sm);
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+    }
+    .search-tab.active {
+      background: var(--bg-surface-elevated);
+      color: var(--color-brand);
+      border: 1px solid rgba(212, 175, 55, 0.15);
+    }
+    .search-input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .search-input-field {
+      width: 100%;
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      padding: 10px 12px 10px 34px;
+      color: #fff;
+      font-size: 0.8rem;
+      outline: none;
+    }
+    .search-input-icon {
+      position: absolute;
+      left: 10px;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+    .btn-search-trigger {
+      background: linear-gradient(135deg, var(--color-brand), #b58d24);
+      color: #000;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.85rem;
+      padding: 10px;
+      border: none;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: var(--transition-smooth);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-search-trigger:hover {
+      filter: brightness(1.1);
+    }
+
+    /* ═══════════════════════════════════════════════════════ CATEGORIES GRID */
+    .section-title-wrapper {
+      padding: 12px 18px 4px 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .section-link {
+      font-size: 0.75rem;
+      color: var(--color-brand);
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      padding: 8px 18px;
+    }
+    .category-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      padding: 10px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+    }
+    .category-card:active {
+      transform: scale(0.95);
+      background: var(--bg-surface-elevated);
+    }
+    .category-icon {
+      font-size: 1.4rem;
+    }
+    .category-label {
+      font-size: 0.65rem;
+      font-weight: 600;
+      text-align: center;
+      color: var(--text-secondary);
+    }
+
+    /* ═══════════════════════════════════════════════════════ VEHICLE LISTINGS GRID */
+    .listings-container {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 8px 18px;
+    }
+    .listing-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+      position: relative;
+    }
+    .listing-card:active {
+      transform: scale(0.98);
+    }
+    .listing-image-wrapper {
+      position: relative;
+      height: 180px;
+      background: #1e2130;
+    }
+    .listing-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .listing-badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: linear-gradient(135deg, var(--color-brand), #ffea9f);
+      color: #000;
+      font-size: 0.6rem;
+      font-weight: 800;
+      padding: 2px 6px;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+    .listing-fav-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 0.9rem;
+      border: none;
+      cursor: pointer;
+      backdrop-filter: blur(4px);
+    }
+    .listing-info {
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .listing-title {
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #fff;
+    }
+    .listing-price-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .listing-price {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--color-brand);
+    }
+    .listing-old-price {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-decoration: line-through;
+      margin-left: 6px;
+    }
+    .listing-meta-row {
+      display: flex;
+      gap: 12px;
+      font-size: 0.7rem;
+      color: var(--text-secondary);
+      border-top: 1px solid rgba(255,255,255,0.04);
+      padding-top: 8px;
+      margin-top: 4px;
+    }
+    .listing-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .listing-seller-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-top: 4px;
+      width: fit-content;
+    }
+    .seller-dealer {
+      background: rgba(0, 242, 254, 0.1);
+      color: var(--color-accent);
+    }
+    .seller-private {
+      background: rgba(254, 159, 0, 0.1);
+      color: #fe9f00;
+    }
+
+    /* ═══════════════════════════════════════════════════════ DETAILED VIEW PAGE */
+    .detail-nav {
+      padding: 12px 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-color);
+      background: var(--bg-app);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .detail-back-btn {
+      font-size: 1.2rem;
+      cursor: pointer;
+      color: var(--text-primary);
+    }
+    .detail-title-small {
+      font-family: var(--font-display);
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+    .detail-gallery {
+      height: 250px;
+      position: relative;
+      background: #111;
+    }
+    .detail-gallery img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .detail-gallery-counter {
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      background: rgba(0,0,0,0.6);
+      padding: 4px 8px;
+      border-radius: 10px;
+      font-size: 0.65rem;
+      font-weight: 700;
+    }
+    .detail-body {
+      padding: 16px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .detail-price-box {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      background: var(--bg-surface);
+      padding: 14px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-color);
+    }
+    .detail-action-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+    .detail-action-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      padding: 10px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+    }
+    .detail-action-card:active {
+      background: var(--bg-surface-elevated);
+    }
+    .detail-action-icon {
+      font-size: 1.2rem;
+      color: var(--color-brand);
+    }
+    .detail-action-label {
+      font-size: 0.6rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+    }
+
+    .detail-specs-table {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      margin-top: 10px;
+    }
+    .specs-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 14px;
+      font-size: 0.75rem;
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+    }
+    .specs-row:last-child {
+      border-bottom: none;
+    }
+    .specs-label {
+      color: var(--text-secondary);
+    }
+    .specs-value {
+      font-weight: 600;
+      color: #fff;
+    }
+
+    /* Seller Profile Card details */
+    .detail-seller-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .seller-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .seller-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--bg-surface-elevated);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      color: var(--color-brand);
+      border: 1px solid rgba(212,175,55,0.2);
+    }
+    .seller-title-box h3 {
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+    .seller-title-box p {
+      font-size: 0.7rem;
+      color: var(--text-secondary);
+    }
+
+    .btn-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 6px;
+    }
+    .btn-outline-call {
+      border: 1px solid var(--border-color);
+      background: transparent;
+      color: #fff;
+      padding: 10px;
+      border-radius: var(--radius-sm);
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .btn-solid-chat {
+      background: #25d366; /* WhatsApp Green */
+      color: #fff;
+      border: none;
+      padding: 10px;
+      border-radius: var(--radius-sm);
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    /* Warning disclaimer card */
+    .disclaimer-card {
+      background: rgba(255, 77, 77, 0.08);
+      border: 1px dashed rgba(255, 77, 77, 0.2);
+      border-radius: var(--radius-md);
+      padding: 12px;
+      font-size: 0.7rem;
+      line-height: 1.4;
+      color: #ff9999;
+      display: flex;
+      gap: 8px;
+    }
+
+    /* ═══════════════════════════════════════════════════════ UPLOAD/WIZARD SCREEN */
+    .wizard-steps {
+      display: flex;
+      justify-content: space-between;
+      padding: 14px 24px;
+      border-bottom: 1px solid var(--border-color);
+      background: var(--bg-surface);
+    }
+    .step-indicator {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-weight: 700;
+    }
+    .step-indicator.active {
+      color: var(--color-brand);
+    }
+    .step-number {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--bg-surface-elevated);
+      color: var(--text-muted);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 0.65rem;
+    }
+    .step-indicator.active .step-number {
+      background: var(--color-brand);
+      color: #000;
+    }
+
+    .form-wrapper {
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .form-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+    }
+    .form-input {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      padding: 10px 12px;
+      color: #fff;
+      font-size: 0.8rem;
+      outline: none;
+    }
+    .form-input:focus {
+      border-color: var(--color-brand);
+    }
+    .form-select {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      padding: 10px 12px;
+      color: #fff;
+      font-size: 0.8rem;
+      outline: none;
+    }
+    .form-checkbox-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+    .form-checkbox {
+      accent-color: var(--color-brand);
+    }
+    .form-upload-area {
+      border: 2px dashed var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      color: var(--text-secondary);
+    }
+    .form-upload-area:hover {
+      border-color: var(--color-brand);
+    }
+
+    /* ═══════════════════════════════════════════════════════ SERVICE PROFILE SCREEN */
+    .service-banner {
+      height: 120px;
+      background: linear-gradient(135deg, rgba(131, 24, 67, 0.2), rgba(9, 10, 15, 0));
+      padding: 18px;
+      display: flex;
+      align-items: flex-end;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .service-title-box h2 {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 800;
+    }
+    .service-title-box p {
+      font-size: 0.75rem;
+      color: var(--color-accent);
+    }
+    .catalog-section {
+      padding: 14px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .catalog-item {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .catalog-item-info h4 {
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+    .catalog-item-info p {
+      font-size: 0.7rem;
+      color: var(--text-secondary);
+      margin-top: 2px;
+    }
+    .catalog-item-price {
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--color-brand);
+    }
+
+    /* ═══════════════════════════════════════════════════════ BOTTOM NAVIGATION BAR */
+    .app-bottom-nav {
+      height: 64px;
+      background: rgba(18, 20, 32, 0.95);
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      position: sticky;
+      bottom: 0;
+      z-index: 99;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      color: var(--text-secondary);
+      transition: var(--transition-smooth);
+    }
+    .nav-item.active {
+      color: var(--color-brand);
+    }
+    .nav-item-icon {
+      font-size: 1.2rem;
+    }
+    .nav-item-label {
+      font-size: 0.6rem;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════════════ PHONE CONTAINER -->
+  <div class="phone-container">
+    
+    <!-- Dynamic Island Mock -->
+    <div class="island"></div>
+
+    <!-- Status Bar -->
+    <div class="status-bar">
+      <div class="status-time" id="status-time">14:58</div>
+      <div class="status-icons">
+        <span>📶</span>
+        <span>🛜</span>
+        <span>🔋</span>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════ MAIN SCREEN CONTENT -->
+    <div class="screen-content" id="screen-container">
+
+      <!-- ════════════════════════════ SCREEN 1: DISCOVERY / HOME -->
+      <div class="app-screen active" id="screen-discovery">
+        <!-- Header -->
+        <div class="app-header">
+          <div class="logo-container">
+            <div class="logo-badge">SAX</div>
+            <div class="logo-text">AutoTrading</div>
+          </div>
+          <div class="action-icons">
+            <span onclick="switchTab('inbox')">🔔</span>
+          </div>
+        </div>
+
+        <!-- Hero Section -->
+        <div class="hero-container">
+          <h1 class="hero-title">Find Your Perfect Ride</h1>
+          <p class="hero-subtitle">Nigeria's Premium Automotive &amp; Services Marketplace</p>
+
+          <!-- Search Widget -->
+          <div class="app-search-box">
+            <div class="search-row">
+              <button class="search-tab active" id="search-tab-buy" onclick="toggleSearchTab('buy')">Buy Cars</button>
+              <button class="search-tab" id="search-tab-rent" onclick="toggleSearchTab('rent')">Rent Cars</button>
+              <button class="search-tab" id="search-tab-service" onclick="toggleSearchTab('service')">Find Services</button>
+            </div>
+            <div class="search-input-wrapper">
+              <span class="search-input-icon">🔍</span>
+              <input type="text" class="search-input-field" id="search-input" placeholder="Search by Brand, Model or Location...">
+            </div>
+            <button class="btn-search-trigger" onclick="runSearchQuery()">
+              <span>Search Database</span> <span>➔</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Categories Grid -->
+        <div class="section-title-wrapper">
+          <h3 class="section-title">Explore Categories</h3>
+          <span class="section-link">View All</span>
+        </div>
+        <div class="category-grid">
+          <div class="category-card" onclick="setSearchFilter('Luxury')">
+            <span class="category-icon">👑</span>
+            <span class="category-label">Luxury</span>
+          </div>
+          <div class="category-card" onclick="setSearchFilter('Supercar')">
+            <span class="category-icon">⚡</span>
+            <span class="category-label">Supercars</span>
+          </div>
+          <div class="category-card" onclick="setSearchFilter('Modified')">
+            <span class="category-icon">⚙️</span>
+            <span class="category-label">Modified</span>
+          </div>
+          <div class="category-card" onclick="switchTab('services')">
+            <span class="category-icon">🧼</span>
+            <span class="category-label">Services</span>
+          </div>
+        </div>
+
+        <!-- Featured Listings Section -->
+        <div class="section-title-wrapper">
+          <h3 class="section-title">Featured Listings</h3>
+          <span class="section-link">See all</span>
+        </div>
+        <div class="listings-container" id="listings-feed">
+          <!-- Inject dynamic listings here -->
+        </div>
+      </div>
+
+      <!-- ════════════════════════════ SCREEN 2: DETAILS PAGE -->
+      <div class="app-screen" id="screen-details">
+        <div class="detail-nav">
+          <span class="detail-back-btn" onclick="backToHome()">⬅️</span>
+          <span class="detail-title-small" id="detail-nav-title">Toyota Avalon Limited</span>
+          <span>🔗</span>
+        </div>
+        
+        <!-- Gallery Slide -->
+        <div class="detail-gallery">
+          <img src="" id="detail-hero-image" alt="Car Detail">
+          <span class="detail-gallery-counter">1 of 12 Photos</span>
+        </div>
+
+        <div class="detail-body">
+          <div class="detail-price-box">
+            <h2 class="listing-title" id="detail-title" style="font-size:1.3rem;">Toyota Avalon Limited 2020</h2>
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <span class="listing-price" id="detail-price">₦30,000,000</span>
+              <span class="listing-seller-badge seller-dealer" id="detail-seller-badge">DEALER</span>
+            </div>
+            <div class="listing-meta-row">
+              <span id="detail-meta-miles">📍 Lagos • 45,000 Mi</span>
+            </div>
+          </div>
+
+          <!-- Utility CTA Grid -->
+          <div class="detail-action-grid">
+            <div class="detail-action-card" onclick="triggerAlert('View4You inspection booked for this vehicle!')">
+              <span class="detail-action-icon">🔍</span>
+              <span class="detail-action-label">View4You</span>
+            </div>
+            <div class="detail-action-card" onclick="triggerAlert('Comparison active: Car added to comparison grid.')">
+              <span class="detail-action-icon">⚖️</span>
+              <span class="detail-action-label">Compare</span>
+            </div>
+            <div class="detail-action-card" onclick="triggerAlert('Escrow Lock initialized. Proceeding under Protected Purchase.')">
+              <span class="detail-action-icon">🛡️</span>
+              <span class="detail-action-label">Protected</span>
+            </div>
+            <div class="detail-action-card" onclick="openFinanceCalculator()">
+              <span class="detail-action-icon">📊</span>
+              <span class="detail-action-label">Finance</span>
+            </div>
+          </div>
+
+          <!-- Specifications Table -->
+          <h3 class="section-title" style="margin-top:10px;">Specifications</h3>
+          <div class="detail-specs-table">
+            <div class="specs-row"><span class="specs-label">Make</span><span class="specs-value" id="spec-make">Toyota</span></div>
+            <div class="specs-row"><span class="specs-label">Model</span><span class="specs-value" id="spec-model">Avalon</span></div>
+            <div class="specs-row"><span class="specs-label">Variant</span><span class="specs-value" id="spec-variant">Limited Edition</span></div>
+            <div class="specs-row"><span class="specs-label">Transmission</span><span class="specs-value" id="spec-trans">Automatic</span></div>
+            <div class="specs-row"><span class="specs-label">Fuel Type</span><span class="specs-value" id="spec-fuel">Petrol</span></div>
+          </div>
+
+          <!-- Seller Info Card -->
+          <h3 class="section-title" style="margin-top:10px;">Seller Contact Information</h3>
+          <div class="detail-seller-card" id="detail-seller-card">
+            <!-- Dynamic inject details -->
+          </div>
+
+          <!-- Warning Notice displayed for private sellers -->
+          <div class="disclaimer-card" id="private-warning" style="display:none;">
+            <span>⚠️</span>
+            <span><strong>Private Seller Notice:</strong> Please inspect and confirm the vehicle condition carefully before making payment to a private seller. SaxAutoTrading is not liable for issues arising from transactions with private sellers.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ════════════════════════════ SCREEN 3: CAR LOAN CALCULATOR -->
+      <div class="app-screen" id="screen-calculator">
+        <div class="detail-nav">
+          <span class="detail-back-btn" onclick="backToDetails()">⬅️</span>
+          <span class="detail-title-small">Car Finance Calculator</span>
+          <span></span>
+        </div>
+        <div class="form-wrapper">
+          <div class="form-group">
+            <label class="form-label">Vehicle Price (₦)</label>
+            <input type="number" class="form-input" id="calc-price" value="30000000" oninput="calculatePayments()">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Down Payment (₦)</label>
+            <input type="number" class="form-input" id="calc-down" value="6000000" oninput="calculatePayments()">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Loan Tenure (Months)</label>
+            <select class="form-select" id="calc-tenure" onchange="calculatePayments()">
+              <option value="12">12 Months (1 Year)</option>
+              <option value="24">24 Months (2 Years)</option>
+              <option value="36" selected>36 Months (3 Years)</option>
+              <option value="48">48 Months (4 Years)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Interest Rate (% APR)</label>
+            <input type="number" class="form-input" id="calc-rate" value="12" oninput="calculatePayments()">
+          </div>
+
+          <div class="detail-price-box" style="margin-top:10px; border-color:var(--color-brand); text-align:center;">
+            <p class="hero-subtitle" style="margin-bottom:6px;">Estimated Monthly Repayment</p>
+            <h2 class="listing-price" id="calc-result" style="font-size:1.6rem; color:var(--color-brand);">₦780,000 / month</h2>
+            <p class="hero-subtitle" style="font-size:0.65rem; margin-top:6px; margin-bottom:0;">Terms are subject to bank validation reviews.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ════════════════════════════ SCREEN 4: SERVICES LISTINGS -->
+      <div class="app-screen" id="screen-services">
+        <div class="app-header">
+          <div class="logo-container">
+            <div class="logo-badge" style="background:linear-gradient(135deg, var(--color-accent), #00f2fe);">SRV</div>
+            <div class="logo-text">AutoServices</div>
+          </div>
+          <div class="action-icons">📍 Lagos</div>
+        </div>
+
+        <div class="hero-container">
+          <h2 class="hero-title" style="font-size:1.3rem;">Automotive Services</h2>
+          <p class="hero-subtitle">CAC-verified shops &amp; maintenance packages</p>
+        </div>
+
+        <div class="listings-container" id="services-feed">
+          <!-- Dynamic inject detailing, wash, mods, rentals -->
+        </div>
+      </div>
+
+      <!-- ════════════════════════════ SCREEN 5: SERVICE PROFILE SCREEN -->
+      <div class="app-screen" id="screen-service-profile">
+        <div class="detail-nav">
+          <span class="detail-back-btn" onclick="switchTab('services')">⬅️</span>
+          <span class="detail-title-small" id="service-nav-title">Saki Global Auto Detailing</span>
+          <span></span>
+        </div>
+
+        <div class="service-banner">
+          <div class="service-title-box">
+            <h2 id="srv-profile-name">Seff Premium Auto Care</h2>
+            <p id="srv-profile-cat">Auto Detailing &amp; Custom Wrapping</p>
+          </div>
+        </div>
+
+        <div class="detail-body" style="padding-bottom:0;">
+          <div class="detail-seller-card">
+            <p style="font-size:0.75rem;" id="srv-profile-desc">CAC-verified detailing studio specializing in ceramic coatings and interior recovery.</p>
+            <div class="btn-row">
+              <button class="btn-outline-call" onclick="triggerAlert('Calling provider...')">📞 Call Shop</button>
+              <button class="btn-solid-chat" onclick="triggerAlert('WhatsApp redirection initialized...')">💬 WhatsApp</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-title-wrapper">
+          <h3 class="section-title">Service Menu &amp; Packages</h3>
+        </div>
+        <div class="catalog-section" id="srv-catalog-menu">
+          <!-- Menu details go here -->
+        </div>
+      </div>
+
+      <!-- ════════════════════════════ SCREEN 6: WIZARD UPLOAD (SELLER/DEALER) -->
+      <div class="app-screen" id="screen-wizard">
+        <div class="app-header">
+          <span class="detail-back-btn" onclick="backToHome()">⬅️</span>
+          <div class="logo-text" style="font-size:1rem;">Add Listing (3-Step Wizard)</div>
+          <span></span>
+        </div>
+
+        <!-- Stepper Indicator -->
+        <div class="wizard-steps">
+          <div class="step-indicator active" id="step-ind-1">
+            <span class="step-number">1</span> Details
+          </div>
+          <div class="step-indicator" id="step-ind-2">
+            <span class="step-number">2</span> Contacts
+          </div>
+          <div class="step-indicator" id="step-ind-3">
+            <span class="step-number">3</span> Media
+          </div>
+        </div>
+
+        <!-- Step 1 Layout -->
+        <div class="form-wrapper" id="wizard-step-1">
+          <div class="form-group">
+            <label class="form-label">Asking Price (₦)</label>
+            <input type="number" class="form-input" id="wiz-price" placeholder="e.g. 15,000,000">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Car Model &amp; Specifications</label>
+            <input type="text" class="form-input" id="wiz-model" placeholder="e.g. Mercedes-Benz C300 2018">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Condition Badge</label>
+            <select class="form-select" id="wiz-badge">
+              <option value="Luxury">Luxury Listing</option>
+              <option value="Featured">Featured Offer</option>
+              <option value="Modified">Modified Version</option>
+              <option value="Rare">Rare Collector</option>
+            </select>
+          </div>
+          <button class="btn-search-trigger" style="margin-top:10px;" onclick="goToWizardStep(2)">
+            <span>Next: Contact Information</span> <span>➔</span>
+          </button>
+        </div>
+
+        <!-- Step 2 Layout -->
+        <div class="form-wrapper" id="wizard-step-2" style="display:none;">
+          <div class="form-group">
+            <label class="form-label">Primary Phone Number</label>
+            <input type="text" class="form-input" id="wiz-phone" value="+234">
+          </div>
+          <div class="form-group">
+            <label class="form-label">WhatsApp Number for Direct Leads</label>
+            <input type="text" class="form-input" id="wiz-whatsapp" value="+234">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Location coordinates (State / City)</label>
+            <input type="text" class="form-input" id="wiz-location" placeholder="e.g. Lagos, Lekki Phase 1">
+          </div>
+          <div class="btn-row" style="margin-top:10px;">
+            <button class="btn-outline-call" onclick="goToWizardStep(1)">Back</button>
+            <button class="btn-search-trigger" onclick="goToWizardStep(3)">Next: Media Upload</button>
+          </div>
+        </div>
+
+        <!-- Step 3 Layout -->
+        <div class="form-wrapper" id="wizard-step-3" style="display:none;">
+          <div class="form-group">
+            <label class="form-label">Upload Vehicle Gallery (Max 5MB per file)</label>
+            <div class="form-upload-area" onclick="triggerAlert('Select files from device gallery...')">
+              <span style="font-size:2rem;">📁</span>
+              <span>Select PNG or JPG images</span>
+              <span style="font-size:0.65rem; color:var(--text-muted);">Max file size: 5MB</span>
+            </div>
+          </div>
+          <div class="form-checkbox-row">
+            <input type="checkbox" class="form-checkbox" id="wiz-auto-pub" checked>
+            <label for="wiz-auto-pub" class="form-label" style="cursor:pointer;">Auto-publish directly to connected Facebook &amp; Instagram channels</label>
+          </div>
+          <button class="btn-search-trigger" style="margin-top:20px; background:linear-gradient(135deg, var(--color-success), #059669); color:#fff;" onclick="submitWizardForm()">
+            <span>Complete &amp; Submit Listing</span> <span>✓</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- ════════════════════════════ SCREEN 7: INBOX CHATS -->
+      <div class="app-screen" id="screen-inbox">
+        <div class="app-header">
+          <div class="logo-text" style="font-size:1.1rem; font-family:var(--font-display); font-weight:800;">My Inquiries &amp; Messages</div>
+          <span></span>
+        </div>
+        <div class="listings-container" style="gap:10px; padding-top:14px;">
+          <div class="catalog-item" onclick="triggerAlert('Opening chat thread...')">
+            <div class="catalog-item-info">
+              <span class="listing-seller-badge seller-dealer" style="margin-bottom:4px;">INQUIRY RECEIVER</span>
+              <h4>Ajayi Ayobami Joshua (Ayo@email.com)</h4>
+              <p>RE: Toyota Avalon Limited — 'Is this car available for mechanical inspection?'</p>
+            </div>
+            <span>💬</span>
+          </div>
+          <div class="catalog-item">
+            <div class="catalog-item-info">
+              <span class="listing-seller-badge seller-private" style="margin-bottom:4px;">SERVICE REQUEST</span>
+              <h4>Saki Detailing center</h4>
+              <p>Inquiry: VIP Detailing service pricing package details.</p>
+            </div>
+            <span>💬</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════ APP BOTTOM NAVIGATION -->
+    <div class="app-bottom-nav">
+      <div class="nav-item active" id="nav-home" onclick="switchTab('discovery')">
+        <span class="nav-item-icon">🏠</span>
+        <span class="nav-item-label">Home</span>
+      </div>
+      <div class="nav-item" id="nav-services" onclick="switchTab('services')">
+        <span class="nav-item-icon">🧼</span>
+        <span class="nav-item-label">Services</span>
+      </div>
+      <div class="nav-item" id="nav-add" onclick="launchUploadWizard()">
+        <span class="nav-item-icon" style="font-size:1.4rem; color:var(--color-brand);">➕</span>
+        <span class="nav-item-label">Sell Car</span>
+      </div>
+      <div class="nav-item" id="nav-inbox" onclick="switchTab('inbox')">
+        <span class="nav-item-icon">💬</span>
+        <span class="nav-item-label">Chats</span>
+      </div>
+    </div>
+
+    <!-- Bottom Indicator -->
+    <div class="home-indicator-bar">
+      <div class="home-indicator"></div>
+    </div>
+
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════ JAVASCRIPT LOGIC -->
+  <script>
+    // 1. DATA RECORDS
+    const vehicleListings = [
+      {
+        id: 1,
+        title: "Toyota Avalon Limited 2020",
+        price: 30000000,
+        oldPrice: 32000000,
+        badge: "Featured",
+        image: "https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?q=80&w=600&auto=format&fit=crop",
+        location: "Lekki, Lagos",
+        miles: "45,000 Mi",
+        sellerType: "dealer",
+        sellerName: "Saki Global Dealership",
+        sellerMail: "ayo@email.com",
+        sellerPhone: "+2348138941155",
+        sellerWhatsApp: "+2348101667299",
+        desc: "Dealer-managed premium Toyota Avalon Limited. Full option interior leather seats, smart sensors, and active service tracker.",
+        make: "Toyota",
+        model: "Avalon",
+        variant: "Limited Edition",
+        trans: "Automatic",
+        fuel: "Petrol"
+      },
+      {
+        id: 2,
+        title: "Bentley Brooklands V8 2016",
+        price: 300000000,
+        badge: "Luxury",
+        image: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?q=80&w=600&auto=format&fit=crop",
+        location: "Victoria Island, Lagos",
+        miles: "12,000 Mi",
+        sellerType: "dealer",
+        sellerName: "Seff Premium Auto Group",
+        sellerMail: "sales@seffauto.com",
+        sellerPhone: "+234803991200",
+        sellerWhatsApp: "+234803991200",
+        desc: "Super luxury Bentley coupe with rare custom color trim. Single owner, CAC registered vehicle.",
+        make: "Bentley",
+        model: "Brooklands",
+        variant: "6.8 V8 Coupe AT",
+        trans: "Automatic",
+        fuel: "Petrol"
+      },
+      {
+        id: 3,
+        title: "Ford Mustang Shelby GT500",
+        price: 85000000,
+        badge: "Modified",
+        image: "https://images.unsplash.com/photo-1611245801314-e0a5dbf97b3d?q=80&w=600&auto=format&fit=crop",
+        location: "Abuja, Wuse 2",
+        miles: "8,500 Mi",
+        sellerType: "private",
+        sellerName: "Ajayi Ayobami Joshua",
+        sellerMail: "josh@private-seller.ng",
+        sellerPhone: "+2349012345678",
+        sellerWhatsApp: "+2349012345678",
+        desc: "Private seller custom modified muscle cruiser. Exhaust bypass tuning and custom wrap. Please inspect condition before payment.",
+        make: "Ford",
+        model: "Mustang",
+        variant: "Shelby GT500 Custom",
+        trans: "Manual",
+        fuel: "Petrol"
+      }
+    ];
+
+    const serviceProviders = [
+      {
+        id: 1,
+        name: "Saki Global Car Wash",
+        category: "Car Wash",
+        desc: "Strictly limited to 1 public profile listing. We provide premium wash packages using automated power jets.",
+        startingPrice: 5000,
+        menu: [
+          { name: "Basic Wash (Exterior Spray)", price: 5000 },
+          { name: "Deluxe Polish (Interior + Tire shine)", price: 12000 },
+          { name: "Executive Underbody Wash", price: 20000 }
+        ]
+      },
+      {
+        id: 2,
+        name: "Seff Premium Detailing Studio",
+        category: "Auto Detailing",
+        desc: "Strictly limited to 1 public profile listing. Specialists in paint restoration, ceramic glass coatings, and interior extraction.",
+        startingPrice: 45000,
+        menu: [
+          { name: "Single Stage Polish", price: 45000 },
+          { name: "Full Ceramic Coating Protection", price: 150000 },
+          { name: "Deep Interior Extraction Wash", price: 60000 }
+        ]
+      },
+      {
+        id: 3,
+        name: "ArmorMod Custom Garage",
+        category: "Vehicle Modification",
+        desc: "Strictly limited to 1 public profile listing. Providing wrap alignments, armor plating, and engine performance tuning.",
+        startingPrice: 250000,
+        menu: [
+          { name: "Matte Black Body Vinyl Wrap", price: 250000 },
+          { name: "Lightweight Bulletproof Armoring", price: 1500000 },
+          { name: "Stage 2 ECU Remap Tuning", price: 450000 }
+        ]
+      },
+      {
+        id: 4,
+        name: "Sax Auto Rentals & Fleets",
+        category: "Car Rental Fleet",
+        desc: "Rental Fleet Company. Multi-listing vehicle operator supporting daily, weekly, or monthly luxury lease catalogs.",
+        startingPrice: 85000,
+        menu: [
+          { name: "Toyota Camry 2021 daily lease", price: 85000 },
+          { name: "Range Rover Sport chauffeur lease", price: 250000 }
+        ]
+      }
+    ];
+
+    // 2. NAV & ROUTING LOGIC
+    let currentSelectedVehicle = null;
+
+    function renderFeedListings() {
+      const feed = document.getElementById('listings-feed');
+      feed.innerHTML = '';
+      vehicleListings.forEach(car => {
+        const div = document.createElement('div');
+        div.className = 'listing-card';
+        div.onclick = () => showCarDetails(car.id);
+        div.innerHTML = `
+          <div class="listing-image-wrapper">
+            <img class="listing-image" src="${car.image}" alt="${car.title}">
+            <span class="listing-badge">${car.badge}</span>
+            <button class="listing-fav-btn" onclick="event.stopPropagation(); triggerAlert('Car added to Saved Bookmarks!')">❤️</button>
+          </div>
+          <div class="listing-info">
+            <h3 class="listing-title">${car.title}</h3>
+            <div class="listing-price-row">
+              <span class="listing-price">₦${car.price.toLocaleString()}</span>
+              ${car.oldPrice ? `<span class="listing-old-price">₦${car.oldPrice.toLocaleString()}</span>` : ''}
+            </div>
+            <div class="listing-seller-badge ${car.sellerType === 'dealer' ? 'seller-dealer' : 'seller-private'}">
+              ${car.sellerType === 'dealer' ? '👑 Verified Dealer' : '👤 Private Seller'}
+            </div>
+            <div class="listing-meta-row">
+              <span class="listing-meta-item">📍 ${car.location}</span>
+              <span class="listing-meta-item">• ${car.miles}</span>
+            </div>
+          </div>
+        `;
+        feed.appendChild(div);
+      });
+    }
+
+    function renderServicesListings() {
+      const feed = document.getElementById('services-feed');
+      feed.innerHTML = '';
+      serviceProviders.forEach(prov => {
+        const div = document.createElement('div');
+        div.className = 'listing-card';
+        div.onclick = () => showServiceProvider(prov.id);
+        div.innerHTML = `
+          <div class="listing-info" style="gap:10px;">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+              <div>
+                <span class="listing-seller-badge seller-dealer" style="margin-bottom:4px; background:rgba(212,175,55,0.1); color:var(--color-brand);">${prov.category}</span>
+                <h3 class="listing-title" style="font-size:1rem;">${prov.name}</h3>
+              </div>
+              <span class="listing-price" style="font-size:0.95rem;">From ₦${prov.startingPrice.toLocaleString()}</span>
+            </div>
+            <p style="font-size:0.75rem; color:var(--text-secondary); line-height:1.4;">${prov.desc}</p>
+            <div class="listing-meta-row" style="margin-top:0; padding-top:6px;">
+              <span>⭐ 4.8 Rating (Admin Verified)</span>
+              <span>• Limit: Exactly 1 Shop Profile</span>
+            </div>
+          </div>
+        `;
+        feed.appendChild(div);
+      });
+    }
+
+    function showCarDetails(carId) {
+      const car = vehicleListings.find(c => c.id === carId);
+      if (!car) return;
+      currentSelectedVehicle = car;
+
+      document.getElementById('detail-nav-title').textContent = car.title;
+      document.getElementById('detail-title').textContent = car.title;
+      document.getElementById('detail-price').textContent = `₦${car.price.toLocaleString()}`;
+      document.getElementById('detail-hero-image').src = car.image;
+
+      // Meta values
+      document.getElementById('detail-meta-miles').textContent = `📍 ${car.location} • ${car.miles}`;
+
+      // Specs mapping
+      document.getElementById('spec-make').textContent = car.make;
+      document.getElementById('spec-model').textContent = car.model;
+      document.getElementById('spec-variant').textContent = car.variant;
+      document.getElementById('spec-trans').textContent = car.trans;
+      document.getElementById('spec-fuel').textContent = car.fuel;
+
+      // Badges
+      const sellerBadge = document.getElementById('detail-seller-badge');
+      const pWarning = document.getElementById('private-warning');
+      const sellerCard = document.getElementById('detail-seller-card');
+
+      if (car.sellerType === 'dealer') {
+        sellerBadge.textContent = 'VERIFIED DEALER';
+        sellerBadge.className = 'listing-seller-badge seller-dealer';
+        pWarning.style.display = 'none';
+
+        // Dealer Card details
+        sellerCard.innerHTML = `
+          <div class="seller-header">
+            <div class="seller-avatar">🏢</div>
+            <div class="seller-title-box">
+              <h3>${car.sellerName}</h3>
+              <p>Certified Partner • Leads routed dynamically to Ayo@email.com</p>
+            </div>
+          </div>
+          <div class="btn-row">
+            <button class="btn-outline-call" onclick="triggerAlert('Calling Sales Rep: Ajayi Ayobami Joshua (+2348138941155)...')">📞 Call Ayo</button>
+            <button class="btn-solid-chat" onclick="triggerAlert('Launching WhatsApp chat with Ayo (+2348101667299)...')">💬 WhatsApp</button>
+          </div>
+        `;
+      } else {
+        sellerBadge.textContent = 'PRIVATE SELLER';
+        sellerBadge.className = 'listing-seller-badge seller-private';
+        pWarning.style.display = 'flex';
+
+        // Private Seller Card details (no public profile pages!)
+        sellerCard.innerHTML = `
+          <div class="seller-header">
+            <div class="seller-avatar">👤</div>
+            <div class="seller-title-box">
+              <h3>Private Seller (Details Hidden)</h3>
+              <p>Location: ${car.location} • NIN Verified</p>
+            </div>
+          </div>
+          <div class="btn-row">
+            <button class="btn-outline-call" onclick="triggerAlert('Calling Private Owner (+2349012345678)...')">📞 Call Seller</button>
+            <button class="btn-solid-chat" onclick="triggerAlert('WhatsApp chat redirected directly for safety...')">💬 WhatsApp</button>
+          </div>
+        `;
+      }
+
+      switchScreen('screen-details');
+    }
+
+    function showServiceProvider(provId) {
+      const prov = serviceProviders.find(p => p.id === provId);
+      if (!prov) return;
+
+      document.getElementById('service-nav-title').textContent = prov.name;
+      document.getElementById('srv-profile-name').textContent = prov.name;
+      document.getElementById('srv-profile-cat').textContent = `${prov.category} • Certified Provider`;
+      document.getElementById('srv-profile-desc').textContent = prov.desc;
+
+      // Render pricing blocks
+      const menuBox = document.getElementById('srv-catalog-menu');
+      menuBox.innerHTML = '';
+      prov.menu.forEach(item => {
+        const itemDiv = document.createElement('div');
+        itemDiv.className = 'catalog-item';
+        itemDiv.innerHTML = `
+          <div class="catalog-item-info">
+            <h4>${item.name}</h4>
+            <p>Admin approved pricing package</p>
+          </div>
+          <span class="catalog-item-price">₦${item.price.toLocaleString()}</span>
+        `;
+        menuBox.appendChild(itemDiv);
+      });
+
+      switchScreen('screen-service-profile');
+    }
+
+    function switchScreen(screenId) {
+      document.querySelectorAll('.app-screen').forEach(scr => scr.classList.remove('active'));
+      document.getElementById(screenId).classList.add('active');
+    }
+
+    function backToHome() {
+      switchScreen('screen-discovery');
+    }
+
+    function backToDetails() {
+      switchScreen('screen-details');
+    }
+
+    // Tab Bar click routing
+    function switchTab(tab) {
+      document.querySelectorAll('.nav-item').forEach(btn => btn.classList.remove('active'));
+      if (tab === 'discovery') {
+        document.getElementById('nav-home').classList.add('active');
+        switchScreen('screen-discovery');
+      } else if (tab === 'services') {
+        document.getElementById('nav-services').classList.add('active');
+        switchScreen('screen-services');
+      } else if (tab === 'inbox') {
+        document.getElementById('nav-inbox').classList.add('active');
+        switchScreen('screen-inbox');
+      }
+    }
+
+    // 3. SERVICE FILTER & SEARCH MOCK QUERY
+    function toggleSearchTab(mode) {
+      document.querySelectorAll('.search-tab').forEach(btn => btn.classList.remove('active'));
+      if (mode === 'buy') {
+        document.getElementById('search-tab-buy').classList.add('active');
+        document.getElementById('search-input').placeholder = "Search by Brand, Model or Location...";
+      } else if (mode === 'rent') {
+        document.getElementById('search-tab-rent').classList.add('active');
+        document.getElementById('search-input').placeholder = "Enter target Rental city or car class...";
+      } else if (mode === 'service') {
+        document.getElementById('search-tab-service').classList.add('active');
+        document.getElementById('search-input').placeholder = "Search wash, detail, mods, mechanics...";
+      }
+    }
+
+    function runSearchQuery() {
+      const query = document.getElementById('search-input').value.toLowerCase().trim();
+      if (query === '') {
+        renderFeedListings();
+        return;
+      }
+      const filtered = vehicleListings.filter(car => 
+        car.title.toLowerCase().includes(query) || 
+        car.make.toLowerCase().includes(query) || 
+        car.location.toLowerCase().includes(query)
+      );
+      
+      const feed = document.getElementById('listings-feed');
+      feed.innerHTML = '';
+      if (filtered.length === 0) {
+        feed.innerHTML = '<p style="text-align:center; padding: 20px; color:var(--text-muted); font-size:0.8rem;">No matching listings found in Nigeria database.</p>';
+      } else {
+        filtered.forEach(car => {
+          const div = document.createElement('div');
+          div.className = 'listing-card';
+          div.onclick = () => showCarDetails(car.id);
+          div.innerHTML = `
+            <div class="listing-image-wrapper">
+              <img class="listing-image" src="${car.image}" alt="${car.title}">
+              <span class="listing-badge">${car.badge}</span>
+            </div>
+            <div class="listing-info">
+              <h3 class="listing-title">${car.title}</h3>
+              <span class="listing-price">₦${car.price.toLocaleString()}</span>
+              <div class="listing-meta-row">
+                <span>📍 ${car.location}</span>
+                <span>• ${car.miles}</span>
+              </div>
+            </div>
+          `;
+          feed.appendChild(div);
+        });
+      }
+      triggerAlert(`Search matching database: ${filtered.length} listings found.`);
+    }
+
+    function setSearchFilter(badge) {
+      const filtered = vehicleListings.filter(car => car.badge === badge);
+      const feed = document.getElementById('listings-feed');
+      feed.innerHTML = '';
+      filtered.forEach(car => {
+        const div = document.createElement('div');
+        div.className = 'listing-card';
+        div.onclick = () => showCarDetails(car.id);
+        div.innerHTML = `
+          <div class="listing-image-wrapper">
+            <img class="listing-image" src="${car.image}" alt="${car.title}">
+            <span class="listing-badge">${car.badge}</span>
+          </div>
+          <div class="listing-info">
+            <h3 class="listing-title">${car.title}</h3>
+            <span class="listing-price">₦${car.price.toLocaleString()}</span>
+            <div class="listing-meta-row">
+              <span>📍 ${car.location}</span>
+            </div>
+          </div>
+        `;
+        feed.appendChild(div);
+      });
+      triggerAlert(`Filtered by Category: ${badge}`);
+    }
+
+    // 4. WIZARD STEPPER NAVIGATION
+    function launchUploadWizard() {
+      switchScreen('screen-wizard');
+      goToWizardStep(1);
+    }
+
+    function goToWizardStep(step) {
+      document.getElementById('wizard-step-1').style.display = 'none';
+      document.getElementById('wizard-step-2').style.display = 'none';
+      document.getElementById('wizard-step-3').style.display = 'none';
+      
+      document.getElementById('step-ind-1').classList.remove('active');
+      document.getElementById('step-ind-2').classList.remove('active');
+      document.getElementById('step-ind-3').classList.remove('active');
+
+      document.getElementById(`wizard-step-${step}`).style.display = 'flex';
+      document.getElementById(`step-ind-${step}`).classList.add('active');
+    }
+
+    function submitWizardForm() {
+      const price = parseFloat(document.getElementById('wiz-price').value);
+      const title = document.getElementById('wiz-model').value;
+      const badge = document.getElementById('wiz-badge').value;
+      const location = document.getElementById('wiz-location').value;
+
+      if (!price || !title || !location) {
+        alert("Please fill all mandatory fields to publish your vehicle!");
+        return;
+      }
+
+      // Append new mock listing
+      const newCar = {
+        id: vehicleListings.length + 1,
+        title: title,
+        price: price,
+        badge: badge,
+        image: "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?q=80&w=600&auto=format&fit=crop",
+        location: location,
+        miles: "0 Mi (Brand New)",
+        sellerType: "private",
+        sellerName: "Joshua Private Seller",
+        sellerMail: "joshua@mail.com",
+        sellerPhone: "+23481234567",
+        sellerWhatsApp: "+23481234567",
+        desc: "Newly added listing through mobile wizard portal.",
+        make: "Custom",
+        model: "Vehicle",
+        variant: "Standard",
+        trans: "Automatic",
+        fuel: "Petrol"
+      };
+
+      vehicleListings.unshift(newCar);
+      renderFeedListings();
+      goToWizardStep(1);
+      switchTab('discovery');
+      triggerAlert("Listing submitted successfully! Live in marketplace after quick moderation checks.");
+    }
+
+    // 5. FINANCE CALCULATOR
+    function openFinanceCalculator() {
+      if (currentSelectedVehicle) {
+        document.getElementById('calc-price').value = currentSelectedVehicle.price;
+        document.getElementById('calc-down').value = currentSelectedVehicle.price * 0.2; // 20% down default
+      }
+      calculatePayments();
+      switchScreen('screen-calculator');
+    }
+
+    function calculatePayments() {
+      const price = parseFloat(document.getElementById('calc-price').value) || 0;
+      const down = parseFloat(document.getElementById('calc-down').value) || 0;
+      const months = parseInt(document.getElementById('calc-tenure').value) || 12;
+      const rate = parseFloat(document.getElementById('calc-rate').value) || 0;
+
+      const principal = price - down;
+      if (principal <= 0) {
+        document.getElementById('calc-result').textContent = "₦0 / month";
+        return;
+      }
+
+      // Simple Interest Formula divided by tenure
+      const totalInterest = principal * (rate / 100) * (months / 12);
+      const totalRepay = principal + totalInterest;
+      const monthly = Math.round(totalRepay / months);
+
+      document.getElementById('calc-result').textContent = `₦${monthly.toLocaleString()} / month`;
+    }
+
+    // 6. UTILITY ALERTS
+    function triggerAlert(msg) {
+      alert(msg);
+    }
+
+    // Init values
+    window.onload = () => {
+      renderFeedListings();
+      renderServicesListings();
+
+      // Update time dynamically
+      setInterval(() => {
+        const d = new Date();
+        const hrs = String(d.getHours()).padStart(2, '0');
+        const mins = String(d.getMinutes()).padStart(2, '0');
+        document.getElementById('status-time').textContent = `${hrs}:${mins}`;
+      }, 1000);
+    };
+  </script>
+
+</body>
+</html>
