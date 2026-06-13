@@ -186,6 +186,7 @@
       overflow-y: auto;
       scrollbar-width: none;
       background: var(--bg-app);
+      flex-direction: column;
       padding-bottom: 80px; /* buffer for bottom nav */
     }
     .app-screen::-webkit-scrollbar {
@@ -195,11 +196,6 @@
     .app-screen.active {
       display: block;
       animation: screenFade 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
-
-    .app-screen.flex-screen.active {
-      display: flex;
-      flex-direction: column;
     }
 
     @keyframes screenFade {
@@ -656,7 +652,7 @@
       margin-bottom: 16px;
     }
     
-    /* Search Widget & Custom Tab system like saxautotrading.ng */
+    /* Search Widget */
     .app-search-box {
       background: var(--bg-surface);
       border: 1px solid var(--border-color);
@@ -1473,6 +1469,7 @@
       align-items: center;
       gap: 12px;
       margin-bottom: 10px;
+      position: relative;
     }
     .rep-avatar {
       width: 52px;
@@ -1614,16 +1611,214 @@
       color: #000;
     }
 
-    /* ═══════════════════════════════════════════════════════ SAVED BOOKMARKS SCREEN */
-    #screen-saved {
+    /* ═══════════════════════════════════════════════════════ PROFILE SCREEN */
+    #screen-profile {
       background: var(--bg-app);
     }
-    
-    .saved-container {
-      padding: 14px 20px;
+    .profile-card-glow {
+      background: linear-gradient(135deg, rgba(212,175,55,0.1) 0%, rgba(255,255,255,0.02) 100%);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 16px;
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 12px;
+      margin: 16px 20px;
+    }
+    .profile-avatar-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .profile-name-box h3 {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 800;
+    }
+    .profile-name-box p {
+      font-size: 0.72rem;
+      color: var(--text-secondary);
+    }
+    .role-badge-glow {
+      background: var(--color-brand);
+      color: #000;
+      font-size: 0.6rem;
+      font-weight: 900;
+      padding: 3px 8px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      display: inline-block;
+      margin-top: 4px;
+    }
+    .dashboard-menu-section {
+      padding: 0 20px 20px 20px;
+    }
+    .dashboard-menu-title {
+      font-family: var(--font-display);
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+    .dashboard-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .dashboard-item {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+    }
+    .dashboard-item:active {
+      background: var(--bg-surface-elevated);
+      border-color: var(--color-brand);
+    }
+    .dashboard-item-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .dashboard-item-left svg {
+      color: var(--color-brand);
+    }
+    .dashboard-item-label {
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+    .dashboard-item-value {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    /* Switcher controls */
+    .console-switch-row {
+      display: flex;
+      background: rgba(255, 255, 255, 0.03);
+      padding: 4px;
+      border-radius: var(--radius-sm);
+      gap: 3px;
+      margin: 4px 15px 16px 15px;
+      border: 1px solid var(--border-color);
+    }
+    .console-switch-tab {
+      flex: 1;
+      padding: 6px 2px;
+      text-align: center;
+      font-size: 0.58rem;
+      font-weight: 800;
+      color: var(--text-secondary);
+      border-radius: 6px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+    .console-switch-tab.active {
+      background: var(--bg-surface-elevated);
+      color: var(--color-brand);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+      border: 1px solid rgba(212,175,55,0.15);
+    }
+
+    /* General Drawer Overlay Component */
+    .app-drawer {
+      position: absolute;
+      bottom: -100%;
+      left: 0;
+      width: 100%;
+      height: 82%;
+      background: var(--bg-surface-elevated);
+      border-top: 1.5px solid var(--border-color);
+      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+      z-index: 2100;
+      transition: bottom 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 -10px 40px rgba(0,0,0,0.8);
+    }
+    .app-drawer.active {
+      bottom: 0;
+    }
+    .app-drawer-header {
+      padding: 16px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .app-drawer-title {
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-weight: 800;
+    }
+    .app-drawer-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .app-drawer-footer {
+      padding: 16px 20px;
+      border-top: 1px solid var(--border-color);
+      background: var(--bg-surface);
+      display: flex;
+      gap: 10px;
+    }
+
+    /* Toggle visibility switch */
+    .switch-toggle-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(255, 255, 255, 0.01);
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-color);
+    }
+    .switch-btn {
+      width: 44px;
+      height: 24px;
+      border-radius: 20px;
+      background: var(--bg-surface-elevated);
+      position: relative;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+      border: 1px solid var(--border-color);
+    }
+    .switch-btn::before {
+      content: "";
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--text-secondary);
+      transition: var(--transition-smooth);
+    }
+    .switch-btn.active {
+      background: var(--color-success);
+    }
+    .switch-btn.active::before {
+      left: 22px;
+      background: #000;
     }
 
     /* ═══════════════════════════════════════════════════════ BOTTOM NAVIGATION BAR */
@@ -1834,7 +2029,7 @@
       </div>
 
       <!-- ════════════════════════════ SCREEN 2: AUTH SCREEN -->
-      <div class="app-screen flex-screen" id="screen-auth">
+      <div class="app-screen" id="screen-auth">
         <!-- Custom Back icon -->
         <div class="auth-back-btn" onclick="switchScreen('screen-onboarding')">
           <svg class="icon-stroke" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
@@ -1864,6 +2059,10 @@
             <div class="role-card" onclick="selectAuthRole('service')">
               <svg viewBox="0 0 24 24" class="role-icon-svg icon-stroke"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
               <span class="role-label">Auto Shop</span>
+            </div>
+            <div class="role-card" onclick="selectAuthRole('rental')">
+              <svg viewBox="0 0 24 24" class="role-icon-svg icon-stroke"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7.5" cy="17" r="2.5"/><circle cx="16.5" cy="17" r="2.5"/></svg>
+              <span class="role-label">Rental Co</span>
             </div>
           </div>
 
@@ -1927,7 +2126,7 @@
           <h1 class="hero-title">Find Your Next Car</h1>
           <p class="hero-subtitle">Nigeria's premium automotive &amp; services network</p>
 
-          <!-- Search Widget with individual service tabs like saxautotrading.ng -->
+          <!-- Search Widget -->
           <div class="app-search-box">
             <div class="search-row-wrap">
               <div class="search-row">
@@ -2125,7 +2324,7 @@
       <!-- ════════════════════════════ SCREEN 6: CAR LOAN CALCULATOR -->
       <div class="app-screen" id="screen-calculator">
         <div class="detail-nav">
-          <div class="detail-back-btn" onclick="backToDetails()">
+          <div class="detail-back-btn" onclick="switchTab('profile')">
             <svg class="icon-stroke" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
           </div>
           <span class="detail-title-small">Finance Loan Calculator</span>
@@ -2177,12 +2376,23 @@
           </div>
         </div>
 
-        <div class="hero-container">
+        <div class="hero-container" style="padding-bottom:5px;">
           <h2 class="hero-title" style="font-size:1.3rem;">Verified Service Providers</h2>
           <p class="hero-subtitle">CAC-registered detailing, washes, wrapping &amp; rentals</p>
+          
+          <!-- Services Category Tabs -->
+          <div class="search-row-wrap" style="margin-top:6px;">
+            <div class="search-row">
+              <button class="search-tab active" id="srv-tab-all" onclick="filterServicesTab('All')">All Directories</button>
+              <button class="search-tab" id="srv-tab-wash" onclick="filterServicesTab('Car Wash')">Car Wash</button>
+              <button class="search-tab" id="srv-tab-detail" onclick="filterServicesTab('Auto Detailing')">Detailing</button>
+              <button class="search-tab" id="srv-tab-mods" onclick="filterServicesTab('Vehicle Modification')">Modification</button>
+              <button class="search-tab" id="srv-tab-rent" onclick="filterServicesTab('Car Rental Fleet')">Rentals</button>
+            </div>
+          </div>
         </div>
 
-        <div class="listings-container" id="services-feed">
+        <div class="listings-container" id="services-feed" style="margin-top:10px;">
           <!-- Dynamic Service Profiles -->
         </div>
       </div>
@@ -2337,17 +2547,44 @@
         </div>
       </div>
 
-      <!-- ════════════════════════════ SCREEN 10: SAVED BOOKMARKS AND COMPARE GRID -->
-      <div class="app-screen" id="screen-saved">
+      <!-- ════════════════════════════ SCREEN 10: DYNAMIC PROFILE DASHBOARD -->
+      <div class="app-screen" id="screen-profile">
         <div class="app-header">
-          <div class="logo-text" style="font-size:1.05rem; font-weight:800;">Saved &amp; Comparison</div>
-          <div></div>
-        </div>
-        <div class="saved-container">
-          <h3 class="section-title">Compared Vehicles</h3>
-          <div class="listings-container" style="padding: 0; gap: 10px;" id="compare-items-list">
-            <!-- Active comparisons items here -->
+          <div class="logo-text" style="font-size:1.1rem; font-weight:800; font-family:var(--font-display);">My Control Panel</div>
+          <div class="header-btn" onclick="triggerNotification('Signing out...')">
+            <svg viewBox="0 0 24 24" class="icon-stroke icon-sm"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
           </div>
+        </div>
+
+        <!-- Interactive User Role Switcher at the top of profile -->
+        <div style="padding: 14px 20px 4px 20px;">
+          <p class="dashboard-menu-title" style="margin-bottom:6px;">Interactive Role Sandbox</p>
+        </div>
+        <div class="console-switch-row">
+          <button class="console-switch-tab active" id="role-tab-buyer" onclick="sandboxSwitchRole('buyer')">Buyer</button>
+          <button class="console-switch-tab" id="role-tab-private" onclick="sandboxSwitchRole('private')">Private</button>
+          <button class="console-switch-tab" id="role-tab-dealer" onclick="sandboxSwitchRole('dealer')">Dealer</button>
+          <button class="console-switch-tab" id="role-tab-service" onclick="sandboxSwitchRole('service')">AutoShop</button>
+          <button class="console-switch-tab" id="role-tab-rental" onclick="sandboxSwitchRole('rental')">RentalCo</button>
+        </div>
+
+        <!-- User profile display card -->
+        <div class="profile-card-glow">
+          <div class="profile-avatar-row">
+            <div class="seller-avatar-wrap" style="width:52px; height:52px; border-color:var(--color-brand);">
+              <svg viewBox="0 0 24 24" class="icon-stroke" style="width:28px; height:28px; color:var(--color-brand);"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div class="profile-name-box">
+              <h3 id="profile-display-name">Ajayi Ayobami</h3>
+              <p id="profile-display-email">ajayi@saxautotrading.ng</p>
+              <span class="role-badge-glow" id="profile-display-badge">Buyer Account</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- DYNAMIC DASHBOARD SECTIONS -->
+        <div class="dashboard-menu-section" id="profile-dashboard-content">
+          <!-- JS injects role specific directories -->
         </div>
       </div>
 
@@ -2389,7 +2626,7 @@
 
     </div>
 
-    <!-- ═══════════════════════════════════════════════════════ REDESIGNED 5-TAB APP BOTTOM NAVIGATION -->
+    <!-- ═══════════════════════════════════════════════════════ 5-TAB APP BOTTOM NAVIGATION (REDO TO INCLUDE PROFILE) -->
     <div class="app-bottom-nav">
       <div class="nav-item active" id="nav-home" onclick="switchTab('discovery')">
         <div class="nav-item-icon">
@@ -2409,17 +2646,282 @@
         </div>
         <span class="nav-item-label" style="color:var(--color-brand);">Sell</span>
       </div>
-      <div class="nav-item" id="nav-saved" onclick="switchTab('saved')">
-        <div class="nav-item-icon">
-          <svg viewBox="0 0 24 24" class="icon-stroke"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-        </div>
-        <span class="nav-item-label">Saved</span>
-      </div>
       <div class="nav-item" id="nav-inbox" onclick="switchTab('inbox')">
         <div class="nav-item-icon">
           <svg viewBox="0 0 24 24" class="icon-stroke"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
         </div>
         <span class="nav-item-label">Chats</span>
+      </div>
+      <div class="nav-item" id="nav-profile" onclick="switchTab('profile')">
+        <div class="nav-item-icon">
+          <svg viewBox="0 0 24 24" class="icon-stroke"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </div>
+        <span class="nav-item-label">Profile</span>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════ OVERLAY DRAWERS (BOUNDED INSIDE PHONE) -->
+    
+    <!-- Drawer 1: Inspections -->
+    <div class="app-drawer" id="drawer-inspections">
+      <div class="app-drawer-header">
+        <span class="app-drawer-title">View4You Inspections</span>
+        <div class="header-btn" onclick="closeAppDrawer('drawer-inspections')">
+          <svg viewBox="0 0 24 24" class="icon-stroke icon-sm"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </div>
+      </div>
+      <div class="app-drawer-body">
+        <div class="disclaimer-card" style="margin-bottom: 10px;">
+          <svg viewBox="0 0 24 24" class="icon-stroke icon-sm" style="stroke:var(--color-brand);"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          <span style="font-size:0.68rem;">Professional mechanics inspect vehicles and upload reports.</span>
+        </div>
+        <div class="dashboard-list">
+          <div class="dashboard-item" style="flex-direction: column; align-items: flex-start; gap: 4px; padding: 12px; height:auto;">
+            <div style="display:flex; justify-content:space-between; width:100%;">
+              <strong style="font-size:0.75rem; color:#fff;">Bentley Brooklands 2016</strong>
+              <span style="font-size:0.62rem; color:var(--color-success); font-weight:700;">Completed</span>
+            </div>
+            <p style="font-size:0.65rem; color:var(--text-secondary); margin: 2px 0;">Inspector: Engr. Kunle Alao</p>
+            <p style="font-size:0.64rem; color:var(--text-muted); line-height:1.3; margin:0;">Report: Tires 85%, Engine compression normal, paint correction needed on rear fender. Diagnostic report attached.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Drawer 2: Price Alerts -->
+    <div class="app-drawer" id="drawer-price-alerts">
+      <div class="app-drawer-header">
+        <span class="app-drawer-title">My Price Alerts</span>
+        <div class="header-btn" onclick="closeAppDrawer('drawer-price-alerts')">
+          <svg viewBox="0 0 24 24" class="icon-stroke icon-sm"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </div>
+      </div>
+      <div class="app-drawer-body">
+        <div class="dashboard-list">
+          <div class="dashboard-item" style="padding:12px; height:auto; justify-content: space-between; align-items: center;">
+            <div>
+              <strong style="font-size:0.75rem; color:#fff;">Toyota Avalon 2020</strong>
+              <p style="font-size:0.62rem; color:var(--text-secondary); margin: 2px 0 0 0;">Alert when price drops below ₦45,000,000</p>
+            </div>
+            <div class="switch-toggle-wrap" style="padding:0; border:none; background:none;">
+              <div class="switch-btn active" onclick="this.classList.toggle('active'); triggerNotification('Price alert updated');"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Drawer 3: Custom Requests -->
+    <div class="app-drawer" id="drawer-custom-requests">
+      <div class="app-drawer-header">
+        <span class="app-drawer-title">Custom Vehicle Requests</span>
+        <div class="header-btn" onclick="closeAppDrawer('drawer-custom-requests')">
+          <svg viewBox="0 0 24 24" class="icon-stroke icon-sm"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </div>
+      </div>
+      <div class="app-drawer-body">
+        <p class="dashboard-menu-title" style="margin:0 0 6px 0;">Submit Custom Request</p>
+        <div class="form-wrapper" style="padding:0; gap:10px; display:flex; flex-direction:column;">
+          <div class="form-group">
+            <label class="form-label" style="font-size:0.65rem;">Vehicle Description</label>
+            <input type="text" class="form-input" id="req-desc" placeholder="e.g. Mercedes G63 AMG 2021 Black">
+          </div>
+          <div class="form-group">
+            <label class="form-label" style="font-size:0.65rem;">Max Budget (₦)</label>
+            <input type="number" class="form-input" id="req-budget" placeholder="e.g. 220000000">
+          </div>
+          <button class="btn-search-trigger" style="margin-top:4px;" onclick="addCustomVehicleRequest()">
+            <span>Post Request</span>
+          </button>
+        </div>
+        
+        <p class="dashboard-menu-title" style="margin-top:14px; margin-bottom:6px;">My Active Requests</p>
+        <div class="dashboard-list" id="requests-list-container" style="gap:8px; display:flex; flex-direction:column;">
+          <!-- Requests injected here -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Drawer 4: NIN Verification -->
+    <div class="app-drawer" id="drawer-nin-verify">
+      <div class="app-drawer-header">
+        <span class="app-drawer-title">NIN Identity Verification</span>
+        <div class="header-btn" onclick="closeAppDrawer('drawer-nin-verify')">
+          <svg viewBox="0 0 24 24" class="icon-stroke icon-sm"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </div>
+      </div>
+      <div class="app-drawer-body">
+        <div class="form-wrapper" style="padding:0; gap:12px; display:flex; flex-direction:column;">
+          <div class="form-group">
+            <label class="form-label" style="font-size:0.65rem;">National Identification Number (NIN)</label>
+            <input type="text" class="form-input" id="nin-number-input" placeholder="Enter 11-digit NIN" value="10293847561">
+          </div>
+          <div class="form-group">
+            <label class="form-label" style="font-size:0.65rem;">Upload NIN Document / Slip</label>
+            <div class="form-upload-area" style="padding:12px;" onclick="triggerNotification('Document selected')">
+              <svg viewBox="0 0 24 24" class="icon-stroke icon-md"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              <span style="font-size:0.65rem; font-weight:700; margin-top:4px;">Click to Upload NIN slip</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" style="font-size:0.65rem;">Live Selfie Check</label>
+            <div class="form-upload-area" style="padding:12px; border-color:var(--color-success);" onclick="triggerNotification('Camera active - snapshot taken!')">
+              <svg viewBox="0 0 24 24" class="icon-stroke icon-md" style="stroke:var(--color-success);"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+              <span style="font-size:0.65rem; color:var(--color-success); font-weight:700; margin-top:4px;">Verify Facial Match (Selfie)</span>
+            </div>
+          </div>
+          <button class="btn-search-trigger" style="background:var(--color-success); color:#fff; margin-top:4px;" onclick="submitNINVerification()">
+            <span>Submit for Verification</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Drawer 5: Add Sales Rep -->
+    <div class="app-drawer" id="drawer-add-rep">
+      <div class="app-drawer-header">
+        <span class="app-drawer-title">Add Dealership Agent</span>
+        <div class="header-btn" onclick="closeAppDrawer('drawer-add-rep')">
+          <svg viewBox="0 0 24 24" class="icon-stroke icon-sm"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </div>
+      </div>
+      <div class="app-drawer-body">
+        <div class="form-wrapper" style="padding:0; gap:10px; display:flex; flex-direction:column;">
+          <div class="form-group">
+            <label class="form-label" style="font-size:0.65rem;">Full Name</label>
+            <input type="text" class="form-input" id="rep-name-input" placeholder="e.g. Salami Tunde">
+          </div>
+          <div class="form-group">
+            <label class="form-label" style="font-size:0.65rem;">Email Address</label>
+            <input type="email" class="form-input" id="rep-email-input" placeholder="e.g. tunde@sakiauto.ng">
+          </div>
+          <div class="form-group">
+            <label class="form-label" style="font-size:0.65rem;">Mobile Number</label>
+            <input type="text" class="form-input" id="rep-phone-input" placeholder="e.g. +2348011223344">
+          </div>
+          <div class="form-group">
+            <label class="form-label" style="font-size:0.65rem;">WhatsApp Router Line</label>
+            <input type="text" class="form-input" id="rep-wa-input" placeholder="e.g. +2348011223344">
+          </div>
+          <button class="btn-search-trigger" style="margin-top:4px;" onclick="addSalesRep()">
+            <span>Register Representative</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Drawer 6: Dealer Analytics -->
+    <div class="app-drawer" id="drawer-dealer-analytics">
+      <div class="app-drawer-header">
+        <span class="app-drawer-title">Dealership Traffic Stats</span>
+        <div class="header-btn" onclick="closeAppDrawer('drawer-dealer-analytics')">
+          <svg viewBox="0 0 24 24" class="icon-stroke icon-sm"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </div>
+      </div>
+      <div class="app-drawer-body">
+        <div class="detail-price-box" style="margin-top:0; margin-bottom:14px; text-align:center; padding:10px; border-color:var(--border-color);">
+          <p style="font-size:0.65rem; color:var(--text-muted); margin: 0 0 2px 0;">Total Inquiries Routed</p>
+          <h2 style="font-size:1.6rem; color:var(--color-brand); margin:0; font-family:var(--font-display);">84 Leads</h2>
+        </div>
+        
+        <p class="dashboard-menu-title" style="margin: 0 0 8px 0;">Engagement Metrics (Monthly)</p>
+        <div style="display:flex; flex-direction:column; gap:12px;">
+          <div>
+            <div style="display:flex; justify-content:space-between; font-size:0.68rem; margin-bottom:4px;">
+              <span style="color:var(--text-secondary);">Listing Views</span>
+              <strong style="color:#fff;">1,420 views</strong>
+            </div>
+            <div style="width:100%; height:6px; background:rgba(255,255,255,0.05); border-radius:3px;">
+              <div style="width:75%; height:100%; background:var(--color-brand); border-radius:3px;"></div>
+            </div>
+          </div>
+          <div>
+            <div style="display:flex; justify-content:space-between; font-size:0.68rem; margin-bottom:4px;">
+              <span style="color:var(--text-secondary);">WhatsApp Clicks</span>
+              <strong style="color:#fff;">54 triggers</strong>
+            </div>
+            <div style="width:100%; height:6px; background:rgba(255,255,255,0.05); border-radius:3px;">
+              <div style="width:45%; height:100%; background:var(--color-warning); border-radius:3px;"></div>
+            </div>
+          </div>
+          <div>
+            <div style="display:flex; justify-content:space-between; font-size:0.68rem; margin-bottom:4px;">
+              <span style="color:var(--text-secondary);">Call Clicks</span>
+              <strong style="color:#fff;">30 actions</strong>
+            </div>
+            <div style="width:100%; height:6px; background:rgba(255,255,255,0.05); border-radius:3px;">
+              <div style="width:25%; height:100%; background:var(--color-success); border-radius:3px;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Drawer 7: Dealer Services Toggler -->
+    <div class="app-drawer" id="drawer-dealer-services">
+      <div class="app-drawer-header">
+        <span class="app-drawer-title">Dealer Services &amp; Rental</span>
+        <div class="header-btn" onclick="closeAppDrawer('drawer-dealer-services')">
+          <svg viewBox="0 0 24 24" class="icon-stroke icon-sm"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </div>
+      </div>
+      <div class="app-drawer-body">
+        <div class="disclaimer-card" style="margin-bottom:10px;">
+          <span style="font-size:0.65rem;">Enable detailing, wash, or rental fleets linked directly to your dealer profile.</span>
+        </div>
+        <div class="dashboard-list" style="display:flex; flex-direction:column; gap:8px;">
+          <div class="dashboard-item" style="padding:12px; height:auto; justify-content: space-between; align-items: center;">
+            <div>
+              <strong style="font-size:0.78rem; color:#fff;">Saki Custom Detailing Service</strong>
+              <p style="font-size:0.62rem; color:var(--text-secondary); margin: 2px 0 0 0;">Offer premium detailing packages</p>
+            </div>
+            <div class="switch-toggle-wrap" style="padding:0; border:none; background:none;">
+              <div class="switch-btn" onclick="this.classList.toggle('active'); triggerNotification('Detailing service toggle updated');"></div>
+            </div>
+          </div>
+          <div class="dashboard-item" style="padding:12px; height:auto; justify-content: space-between; align-items: center;">
+            <div>
+              <strong style="font-size:0.78rem; color:#fff;">Saki Chauffeur Car Rental</strong>
+              <p style="font-size:0.62rem; color:var(--text-secondary); margin: 2px 0 0 0;">Offer luxury rental fleet access</p>
+            </div>
+            <div class="switch-toggle-wrap" style="padding:0; border:none; background:none;">
+              <div class="switch-btn active" onclick="this.classList.toggle('active'); triggerNotification('Chauffeur rental toggle updated');"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Drawer 8: Upload Rental Fleet Car -->
+    <div class="app-drawer" id="drawer-upload-rental">
+      <div class="app-drawer-header">
+        <span class="app-drawer-title">Upload Rental Fleet Car</span>
+        <div class="header-btn" onclick="closeAppDrawer('drawer-upload-rental')">
+          <svg viewBox="0 0 24 24" class="icon-stroke icon-sm"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </div>
+      </div>
+      <div class="app-drawer-body">
+        <div class="form-wrapper" style="padding:0; gap:10px; display:flex; flex-direction:column;">
+          <div class="form-group">
+            <label class="form-label" style="font-size:0.65rem;">Rental Car Model</label>
+            <input type="text" class="form-input" id="rental-model-input" placeholder="e.g. Mercedes Benz S550 2021">
+          </div>
+          <div class="form-group">
+            <label class="form-label" style="font-size:0.65rem;">Daily Lease Price (₦)</label>
+            <input type="number" class="form-input" id="rental-price-input" placeholder="e.g. 180000">
+          </div>
+          <div class="form-group">
+            <label class="form-label" style="font-size:0.65rem;">Fleet Image URL</label>
+            <input type="text" class="form-input" id="rental-img-input" value="https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?q=80&w=600&auto=format&fit=crop" placeholder="Image URL">
+          </div>
+          <div class="form-checkbox-row">
+            <input type="checkbox" class="form-checkbox" id="rental-chauffeur-input" checked>
+            <label for="rental-chauffeur-input" class="form-label" style="cursor:pointer; font-size:0.68rem;">Include Chauffeur Driver Service</label>
+          </div>
+          <button class="btn-search-trigger" style="margin-top:4px;" onclick="uploadRentalCar()">
+            <span>Add to Fleet Catalog</span>
+          </button>
+        </div>
       </div>
     </div>
 
@@ -2441,11 +2943,19 @@
       <button class="control-btn" onclick="switchScreen('screen-discovery'); switchTab('discovery');">Main Marketplace <span class="control-badge">Home</span></button>
       <button class="control-btn" onclick="showCarDetails(1)">Bentley Detail View <span class="control-badge">Dealer</span></button>
       <button class="control-btn" onclick="showCarDetails(3)">Mustang Detail View <span class="control-badge">Private</span></button>
-      <button class="control-btn" onclick="openFinanceCalculator()">Finance Calculator <span class="control-badge">Calc</span></button>
-      <button class="control-btn" onclick="switchTab('services')">Auto Services <span class="control-badge">Shop</span></button>
+      <button class="control-btn" onclick="switchTab('services')">Auto Services Directory <span class="control-badge">Shop</span></button>
       <button class="control-btn" onclick="launchUploadWizard()">3-Step Upload Wizard <span class="control-badge">Sell</span></button>
-      <button class="control-btn" onclick="switchTab('saved')">Saved &amp; Compare <span class="control-badge">Saved</span></button>
+      <button class="control-btn" onclick="switchTab('profile')">Profile Dashboard <span class="control-badge">User</span></button>
       <button class="control-btn" onclick="switchTab('inbox')">Inbox Messages <span class="control-badge">Chats</span></button>
+    </div>
+    
+    <div class="control-desc" style="margin-top:10px; border-top:1px solid rgba(255,255,255,0.08); padding-top:10px; font-weight: 700;">Login Simulation Sandbox:</div>
+    <div class="control-btn-list">
+      <button class="control-btn" style="background:#1e3a8a; color:#fff;" onclick="simulateLogin('buyer')">Login as Buyer <span class="control-badge" style="background:#fff; color:#000;">User</span></button>
+      <button class="control-btn" style="background:#78350f; color:#fff;" onclick="simulateLogin('private')">Login as Private Seller <span class="control-badge" style="background:#fff; color:#000;">Owner</span></button>
+      <button class="control-btn" style="background:#065f46; color:#fff;" onclick="simulateLogin('dealer')">Login as Dealer Admin <span class="control-badge" style="background:#fff; color:#000;">Dealership</span></button>
+      <button class="control-btn" style="background:#831843; color:#fff;" onclick="simulateLogin('service')">Login as AutoShop <span class="control-badge" style="background:#fff; color:#000;">Service</span></button>
+      <button class="control-btn" style="background:#5b21b6; color:#fff;" onclick="simulateLogin('rental')">Login as Rental Company <span class="control-badge" style="background:#fff; color:#000;">Fleet</span></button>
     </div>
   </div>
 
@@ -2644,12 +3154,27 @@
   let currentSelectedVehicle = null;
   let activeOnboardingSlide = 1;
   let currentActiveChatId = 101;
-  let comparedVehicles = [];
+  let comparedVehicles = [1, 2]; // default mock comparison items
   let currentSearchMode = 'buy';
+  let activeUserRole = 'buyer'; // 'buyer', 'private', 'dealer', 'service', 'rental'
+  let currentServicesFilter = 'All';
+
+  // Verification states
+  let ninVerified = true;
+  let cacVerified = true;
+
+  // Mock buyer custom vehicle requests
+  let customVehicleRequests = [
+    { id: 1, make: "Mercedes-Benz", model: "G63 AMG", year: "2021", budget: 220000000, status: "Active - Matchmaking" }
+  ];
+
+  // Sales representatives settings
+  let activeSalesReps = [
+    { id: 1, name: "Ajayi Ayobami Joshua", phone: "+2348138941155", whatsapp: "+2348101667299", email: "ayo@email.com", visible: true }
+  ];
 
   // Splash Screen auto-redirect timer
   setTimeout(() => {
-    // Check if we are still on the splash screen
     const splash = document.getElementById('screen-splash');
     if (splash.classList.contains('active')) {
       startOnboarding(1);
@@ -2661,6 +3186,7 @@
     renderFeedListings();
     renderServicesListings();
     renderInboxThreads();
+    renderDashboardRoleUI();
     
     // Auto status clock update
     setInterval(() => {
@@ -2691,11 +3217,535 @@
     } else if (tab === 'inbox') {
       document.getElementById('nav-inbox').classList.add('active');
       switchScreen('screen-inbox');
-    } else if (tab === 'saved') {
-      document.getElementById('nav-saved').classList.add('active');
-      renderSavedTab();
-      switchScreen('screen-saved');
+    } else if (tab === 'profile') {
+      document.getElementById('nav-profile').classList.add('active');
+      renderDashboardRoleUI();
+      switchScreen('screen-profile');
     }
+  }
+
+  // ════════════════════════════ ROLE SWITCHER FOR DEMO WORKFLOWS
+  function sandboxSwitchRole(role) {
+    activeUserRole = role;
+    document.querySelectorAll('.console-switch-tab').forEach(btn => btn.classList.remove('active'));
+    document.getElementById(`role-tab-${role}`).classList.add('active');
+    
+    // Update user profile display metadata
+    const nameEl = document.getElementById('profile-display-name');
+    const emailEl = document.getElementById('profile-display-email');
+    const badgeEl = document.getElementById('profile-display-badge');
+
+  // ════════════════════════════ ROLE SWITCHER FOR DEMO WORKFLOWS
+  function sandboxSwitchRole(role) {
+    activeUserRole = role;
+    
+    // Update profile switcher row active status
+    document.querySelectorAll('.console-switch-tab').forEach(btn => btn.classList.remove('active'));
+    const activeTab = document.getElementById(`role-tab-${role}`);
+    if (activeTab) activeTab.classList.add('active');
+    
+    // Update user profile display metadata
+    const nameEl = document.getElementById('profile-display-name');
+    const emailEl = document.getElementById('profile-display-email');
+    const badgeEl = document.getElementById('profile-display-badge');
+
+    if (role === 'buyer') {
+      nameEl.textContent = "Ajayi Ayobami";
+      emailEl.textContent = "buyer@saxautotrading.ng";
+      badgeEl.textContent = "Buyer Account";
+    } else if (role === 'private') {
+      nameEl.textContent = "Joshua Private Seller";
+      emailEl.textContent = "joshua@owner.ng";
+      badgeEl.textContent = ninVerified ? "Private Seller (NIN Verified)" : "Private Seller (Unverified)";
+    } else if (role === 'dealer') {
+      nameEl.textContent = "Saki Global Dealership";
+      emailEl.textContent = "leads@sakiauto.ng";
+      badgeEl.textContent = "Verified Dealership Admin";
+    } else if (role === 'service') {
+      nameEl.textContent = "Seff Detailing Studio";
+      emailEl.textContent = "detailing@seffstudio.com";
+      badgeEl.textContent = "Verified Service Provider";
+    } else if (role === 'rental') {
+      nameEl.textContent = "Sax Auto Rentals & Fleets";
+      emailEl.textContent = "rentals@saxautotrading.ng";
+      badgeEl.textContent = "Verified Fleet Operator";
+    }
+
+    renderDashboardRoleUI();
+    triggerNotification(`Switched workspace to ${role.toUpperCase()}`);
+  }
+
+  function simulateLogin(role) {
+    triggerNotification(`Access Granted! Logged in as ${role.toUpperCase()}.`);
+    sandboxSwitchRole(role);
+    if (role === 'buyer') {
+      switchScreen('screen-discovery');
+      switchTab('discovery');
+    } else {
+      switchScreen('screen-profile');
+      switchTab('profile');
+    }
+  }
+
+  function openAppDrawer(drawerId) {
+    const drawer = document.getElementById(drawerId);
+    if (drawer) {
+      drawer.classList.add('active');
+      if (drawerId === 'drawer-custom-requests') {
+        renderCustomVehicleRequests();
+      }
+    }
+  }
+
+  function closeAppDrawer(drawerId) {
+    const drawer = document.getElementById(drawerId);
+    if (drawer) {
+      drawer.classList.remove('active');
+    }
+  }
+
+  // Buyer custom requests helper
+  function addCustomVehicleRequest() {
+    const desc = document.getElementById('req-desc').value.trim();
+    const budget = document.getElementById('req-budget').value.trim();
+    if (!desc || !budget) {
+      triggerNotification("Please fill in both fields");
+      return;
+    }
+    const newReq = {
+      id: Date.now(),
+      make: desc.split(' ')[0] || "Custom",
+      model: desc,
+      year: "Any",
+      budget: parseInt(budget),
+      status: "Active - Matchmaking"
+    };
+    customVehicleRequests.push(newReq);
+    renderCustomVehicleRequests();
+    document.getElementById('req-desc').value = '';
+    document.getElementById('req-budget').value = '';
+    triggerNotification("Custom request submitted!");
+    closeAppDrawer('drawer-custom-requests');
+  }
+
+  function renderCustomVehicleRequests() {
+    const list = document.getElementById('requests-list-container');
+    if (!list) return;
+    list.innerHTML = '';
+    if (customVehicleRequests.length === 0) {
+      list.innerHTML = `<p style="font-size:0.7rem; color:var(--text-muted); text-align:center;">No active requests.</p>`;
+      return;
+    }
+    customVehicleRequests.forEach(req => {
+      const item = document.createElement('div');
+      item.className = 'dashboard-item';
+      item.style.padding = '10px';
+      item.style.height = 'auto';
+      item.style.flexDirection = 'column';
+      item.style.alignItems = 'flex-start';
+      item.style.gap = '2px';
+      item.innerHTML = `
+        <div style="display:flex; justify-content:space-between; width:100%; font-size:0.75rem;">
+          <strong style="color:#fff;">${req.model}</strong>
+          <span style="color:var(--color-brand); font-weight:700;">₦${req.budget.toLocaleString()}</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; width:100%; font-size:0.6rem; color:var(--text-secondary);">
+          <span>Status: ${req.status}</span>
+          <span style="color:var(--color-danger); cursor:pointer;" onclick="deleteCustomRequest(${req.id})">Remove</span>
+        </div>
+      `;
+      list.appendChild(item);
+    });
+  }
+
+  function deleteCustomRequest(id) {
+    customVehicleRequests = customVehicleRequests.filter(r => r.id !== id);
+    renderCustomVehicleRequests();
+    triggerNotification("Request deleted");
+  }
+
+  // NIN verify helper
+  function submitNINVerification() {
+    ninVerified = true;
+    triggerNotification("NIN identity verified successfully!");
+    closeAppDrawer('drawer-nin-verify');
+    sandboxSwitchRole('private');
+  }
+
+  // Rep register helper
+  function addSalesRep() {
+    const name = document.getElementById('rep-name-input').value.trim();
+    const email = document.getElementById('rep-email-input').value.trim();
+    const phone = document.getElementById('rep-phone-input').value.trim();
+    const wa = document.getElementById('rep-wa-input').value.trim();
+
+    if (!name || !email || !phone || !wa) {
+      triggerNotification("All fields are required");
+      return;
+    }
+
+    const newRep = {
+      id: Date.now(),
+      name: name,
+      email: email,
+      phone: phone,
+      whatsapp: wa,
+      visible: true
+    };
+    activeSalesReps.push(newRep);
+    
+    // reset inputs
+    document.getElementById('rep-name-input').value = '';
+    document.getElementById('rep-email-input').value = '';
+    document.getElementById('rep-phone-input').value = '';
+    document.getElementById('rep-wa-input').value = '';
+    
+    triggerNotification(`Representative ${name} registered!`);
+    closeAppDrawer('drawer-add-rep');
+    renderDashboardRoleUI();
+  }
+
+  function toggleRepVisibility(repId) {
+    const rep = activeSalesReps.find(r => r.id === repId);
+    if (rep) {
+      rep.visible = !rep.visible;
+      const toggleBtn = document.getElementById(`rep-switch-${repId}`);
+      if (toggleBtn) {
+        if (rep.visible) {
+          toggleBtn.classList.add('active');
+        } else {
+          toggleBtn.classList.remove('active');
+        }
+      }
+      triggerNotification(`Rep routing configured.`);
+    }
+  }
+
+  // Manage Inventory Helpers
+  function editListingPrice(listingId) {
+    const car = vehicleListings.find(c => c.id === listingId);
+    if (!car) return;
+    const newPrice = prompt(`Enter new price (₦) for ${car.title}:`, car.price);
+    if (newPrice !== null && !isNaN(newPrice) && newPrice.trim() !== '') {
+      car.price = parseInt(newPrice);
+      renderFeedListings();
+      renderDashboardRoleUI();
+      triggerNotification("Price updated successfully!");
+    }
+  }
+
+  function deleteListing(listingId) {
+    if (confirm("Are you sure you want to delete this listing from the database?")) {
+      const idx = vehicleListings.findIndex(c => c.id === listingId);
+      if (idx > -1) {
+        vehicleListings.splice(idx, 1);
+        renderFeedListings();
+        renderDashboardRoleUI();
+        triggerNotification("Vehicle listing deleted");
+      }
+    }
+  }
+
+  // Service Pricing Updates
+  function saveServicePrice(provId, itemIndex) {
+    const input = document.getElementById(`srv-price-input-${provId}-${itemIndex}`);
+    if (input) {
+      const prov = serviceProviders.find(p => p.id === provId);
+      if (prov && prov.menu[itemIndex]) {
+        const val = parseInt(input.value);
+        if (!isNaN(val) && val > 0) {
+          prov.menu[itemIndex].price = val;
+          triggerNotification("Service catalog price saved!");
+          renderServicesListings();
+          renderDashboardRoleUI();
+        }
+      }
+    }
+  }
+
+  // Upload rental car helpers
+  function uploadRentalCar() {
+    const model = document.getElementById('rental-model-input').value.trim();
+    const price = document.getElementById('rental-price-input').value.trim();
+    const img = document.getElementById('rental-img-input').value.trim();
+    const chauffeur = document.getElementById('rental-chauffeur-input').checked;
+
+    if (!model || !price) {
+      triggerNotification("Model and daily rate are required");
+      return;
+    }
+
+    const prov = serviceProviders.find(p => p.id === 4); // rentals provider
+    if (prov) {
+      prov.menu.push({
+        name: `${model}${chauffeur ? ' (Chauffeur)' : ' (Self Drive)'}`,
+        price: parseInt(price)
+      });
+      document.getElementById('rental-model-input').value = '';
+      document.getElementById('rental-price-input').value = '';
+      
+      triggerNotification("Rental car added to fleet!");
+      closeAppDrawer('drawer-upload-rental');
+      renderServicesListings();
+      renderDashboardRoleUI();
+    }
+  }
+
+  // Render role specific directories & features inside Profile Dashboard
+  function renderDashboardRoleUI() {
+    const dashboard = document.getElementById('profile-dashboard-content');
+    dashboard.innerHTML = '';
+
+    if (activeUserRole === 'buyer') {
+      dashboard.innerHTML = `
+        <p class="dashboard-menu-title" style="margin-top:0;">Buyer Utilities</p>
+        <div class="dashboard-list">
+          <div class="dashboard-item" onclick="openFinanceCalculator()">
+            <div class="dashboard-item-left">
+              <svg viewBox="0 0 24 24" class="icon-stroke icon-sm"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+              <span class="dashboard-item-label">Finance Calculator</span>
+            </div>
+            <span class="dashboard-item-value" style="color:var(--color-brand);">Open</span>
+          </div>
+          <div class="dashboard-item" onclick="openAppDrawer('drawer-inspections')">
+            <div class="dashboard-item-left">
+              <svg viewBox="0 0 24 24" class="icon-stroke icon-sm"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              <span class="dashboard-item-label">View4You Inspections</span>
+            </div>
+            <span class="dashboard-item-value">1 Active</span>
+          </div>
+          <div class="dashboard-item" onclick="openAppDrawer('drawer-price-alerts')">
+            <div class="dashboard-item-left">
+              <svg viewBox="0 0 24 24" class="icon-stroke icon-sm"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+              <span class="dashboard-item-label">My Price Alerts</span>
+            </div>
+            <span class="dashboard-item-value">1 Active</span>
+          </div>
+          <div class="dashboard-item" onclick="openAppDrawer('drawer-custom-requests')">
+            <div class="dashboard-item-left">
+              <svg viewBox="0 0 24 24" class="icon-stroke icon-sm"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+              <span class="dashboard-item-label">Custom Car Requests</span>
+            </div>
+            <span class="dashboard-item-value" style="color:var(--color-brand); font-weight:700;">Post Request</span>
+          </div>
+        </div>
+
+        <p class="dashboard-menu-title">Bookmarks &amp; Comparisons</p>
+        <div class="dashboard-list" id="buyer-wishlist-cards">
+          <!-- Bookmarks feed -->
+        </div>
+      `;
+      
+      // Render wishlist bookmarks
+      const wishFeed = document.getElementById('buyer-wishlist-cards');
+      if (comparedVehicles.length === 0) {
+        wishFeed.innerHTML = `<p style="font-size:0.75rem; color:var(--text-secondary); text-align:center; padding:10px;">Your wishlist is empty.</p>`;
+      } else {
+        comparedVehicles.forEach(id => {
+          const car = vehicleListings.find(c => c.id === id);
+          if (car) {
+            const div = document.createElement('div');
+            div.className = 'dashboard-item';
+            div.onclick = () => showCarDetails(car.id);
+            div.innerHTML = `
+              <div class="dashboard-item-left">
+                <svg viewBox="0 0 24 24" class="icon-stroke icon-sm"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                <span class="dashboard-item-label" style="font-size:0.75rem;">${car.title}</span>
+              </div>
+              <span class="dashboard-item-value" style="color:var(--color-brand); font-size:0.72rem; font-weight:700;">₦${car.price.toLocaleString()}</span>
+            `;
+            wishFeed.appendChild(div);
+          }
+        });
+      }
+
+    } else if (activeUserRole === 'private') {
+      dashboard.innerHTML = `
+        <p class="dashboard-menu-title" style="margin-top:0;">Private Seller Dashboard</p>
+        <div class="dashboard-list" style="display:flex; flex-direction:column; gap:8px;">
+          <div class="dashboard-item" onclick="openAppDrawer('drawer-nin-verify')">
+            <div class="dashboard-item-left">
+              <svg viewBox="0 0 24 24" class="icon-stroke icon-sm" style="stroke:${ninVerified ? 'var(--color-success)' : 'var(--color-warning)'};"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              <span class="dashboard-item-label">Identity Status</span>
+            </div>
+            <span class="dashboard-item-value" style="color:${ninVerified ? 'var(--color-success)' : 'var(--color-warning)'}; font-weight:700;">${ninVerified ? 'NIN Verified' : 'Action Required'}</span>
+          </div>
+        </div>
+
+        <p class="dashboard-menu-title">My Active Listings</p>
+        <div class="dashboard-list" style="display:flex; flex-direction:column; gap:8px;">
+          ${vehicleListings.filter(c => c.sellerType === 'private').map(car => `
+            <div class="dashboard-item" style="height:auto; padding:10px; display:flex; flex-direction:column; align-items:flex-start; gap:4px;">
+              <div style="display:flex; justify-content:space-between; width:100%; font-size:0.75rem;">
+                <strong style="color:#fff; cursor:pointer;" onclick="showCarDetails(${car.id})">${car.title}</strong>
+                <span style="color:var(--color-brand); font-weight:700;">₦${car.price.toLocaleString()}</span>
+              </div>
+              <div style="display:flex; justify-content:space-between; width:100%; font-size:0.6rem; color:var(--text-secondary);">
+                <span>📈 Stats: 14 views • 4 inquiries</span>
+                <div style="display:flex; gap:10px;">
+                  <span style="color:var(--color-brand); cursor:pointer;" onclick="editListingPrice(${car.id})">Edit</span>
+                  <span style="color:var(--color-danger); cursor:pointer;" onclick="deleteListing(${car.id})">Delete</span>
+                </div>
+              </div>
+            </div>
+          `).join('') || `<p style="font-size:0.72rem; color:var(--text-muted); padding:10px; text-align:center;">No active listings.</p>`}
+        </div>
+
+        <div class="disclaimer-card" style="margin-top:14px;">
+          <svg viewBox="0 0 24 24" class="icon-stroke icon-sm" style="stroke:var(--color-warning);"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <span style="font-size:0.65rem; line-height:1.35;"><strong>Escrow Caution Active:</strong> Escrow warning tags will display prominently on all your private listings. Clean bank escrow guarantees safe payouts.</span>
+        </div>
+      `;
+    } else if (activeUserRole === 'dealer') {
+      dashboard.innerHTML = `
+        <p class="dashboard-menu-title" style="margin-top:0;">Dealership Inventory</p>
+        <div class="dashboard-list" style="display:flex; flex-direction:column; gap:8px;">
+          <div class="dashboard-item" onclick="launchUploadWizard()">
+            <div class="dashboard-item-left">
+              <svg viewBox="0 0 24 24" class="icon-stroke icon-sm" style="stroke:var(--color-brand);"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+              <span class="dashboard-item-label" style="color:var(--color-brand); font-weight:700;">Upload New Inventory</span>
+            </div>
+            <span class="dashboard-item-value" style="color:var(--color-brand);">Post Car</span>
+          </div>
+          
+          ${vehicleListings.filter(c => c.sellerType === 'dealer').map(car => `
+            <div class="dashboard-item" style="height:auto; padding:10px; display:flex; flex-direction:column; align-items:flex-start; gap:4px;">
+              <div style="display:flex; justify-content:space-between; width:100%; font-size:0.75rem;">
+                <strong style="color:#fff; cursor:pointer;" onclick="showCarDetails(${car.id})">${car.title}</strong>
+                <span style="color:var(--color-brand); font-weight:700;">₦${car.price.toLocaleString()}</span>
+              </div>
+              <div style="display:flex; justify-content:space-between; width:100%; font-size:0.6rem; color:var(--text-secondary);">
+                <span>📈 Leads: 8 Views • 2 Chats</span>
+                <div style="display:flex; gap:10px;">
+                  <span style="color:var(--color-brand); cursor:pointer;" onclick="editListingPrice(${car.id})">Edit Price</span>
+                  <span style="color:var(--color-danger); cursor:pointer;" onclick="deleteListing(${car.id})">Delete</span>
+                </div>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:14px; margin-bottom:6px;">
+          <p class="dashboard-menu-title" style="margin:0;">Sales Representatives Router</p>
+          <span style="font-size:0.65rem; color:var(--color-brand); cursor:pointer; font-weight:700;" onclick="openAppDrawer('drawer-add-rep')">+ Add Rep</span>
+        </div>
+        <div class="dashboard-list" style="display:flex; flex-direction:column; gap:6px;">
+          ${activeSalesReps.map(rep => `
+            <div class="rep-card" style="margin-bottom:0; border-radius:var(--radius-sm); padding:8px 10px; height:auto;">
+              <div class="rep-avatar" style="width:30px; height:30px;">
+                <svg viewBox="0 0 24 24" class="icon-stroke" style="width:16px; height:16px; color:var(--color-brand);"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              </div>
+              <div class="rep-info">
+                <div class="rep-name" style="font-size:0.7rem; color:#fff;">${rep.name}</div>
+                <div class="rep-role" style="font-size:0.55rem; color:var(--text-secondary);">${rep.email} • ${rep.phone}</div>
+              </div>
+              <div class="switch-toggle-wrap" style="padding:0; border:none; background:none;">
+                <div class="switch-btn ${rep.visible ? 'active' : ''}" id="rep-switch-${rep.id}" onclick="toggleRepVisibility(${rep.id})"></div>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+
+        <p class="dashboard-menu-title" style="margin-top:14px;">Analytics &amp; Services</p>
+        <div class="dashboard-list">
+          <div class="dashboard-item" onclick="openAppDrawer('drawer-dealer-analytics')">
+            <div class="dashboard-item-left">
+              <svg viewBox="0 0 24 24" class="icon-stroke icon-sm"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+              <span class="dashboard-item-label">View Traffic Analytics</span>
+            </div>
+            <span class="dashboard-item-value" style="color:var(--color-brand);">Open</span>
+          </div>
+          <div class="dashboard-item" onclick="openAppDrawer('drawer-dealer-services')">
+            <div class="dashboard-item-left">
+              <svg viewBox="0 0 24 24" class="icon-stroke icon-sm"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+              <span class="dashboard-item-label">Dealer Linked Services</span>
+            </div>
+            <span class="dashboard-item-value" style="color:var(--color-brand);">Configure</span>
+          </div>
+        </div>
+      `;
+    } else if (activeUserRole === 'service') {
+      const studio = serviceProviders.find(p => p.id === 2); // Seff Detailing Studio
+      dashboard.innerHTML = `
+        <p class="dashboard-menu-title" style="margin-top:0;">Auto Services Partner Panel</p>
+        <div class="dashboard-list">
+          <div class="dashboard-item" onclick="showServiceProfile(2)">
+            <div class="dashboard-item-left">
+              <svg viewBox="0 0 24 24" class="icon-stroke icon-sm"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+              <span class="dashboard-item-label">View Public Shop Profile</span>
+            </div>
+            <span class="dashboard-item-value" style="color:var(--color-success); font-weight:700;">CAC Approved</span>
+          </div>
+        </div>
+
+        <div class="disclaimer-card" style="margin-top:10px; margin-bottom:14px;">
+          <span style="font-size:0.65rem; color:var(--text-muted);">
+            ⚠️ <strong>Listing Constraint Rule:</strong> Detailing/wash providers are restricted to exactly 1 public shop profile list. Uploading multiple listings requires a Rental Fleet Company subscription.
+          </span>
+        </div>
+
+        <p class="dashboard-menu-title">Manage Services Menu Catalog</p>
+        <div class="dashboard-list" style="display:flex; flex-direction:column; gap:8px;">
+          ${studio.menu.map((item, idx) => `
+            <div class="dashboard-item" style="height:auto; padding:10px; justify-content:space-between; align-items:center;">
+              <div style="flex:1;">
+                <strong style="font-size:0.75rem; color:#fff;">${item.name}</strong>
+              </div>
+              <div style="display:flex; align-items:center; gap:6px;">
+                <span style="font-size:0.7rem; color:var(--text-secondary);">₦</span>
+                <input type="number" class="form-input" id="srv-price-input-2-${idx}" value="${item.price}" style="width:75px; padding:3px 6px; font-size:0.7rem; text-align:right;">
+                <button class="btn-solid-chat" style="padding:4px 8px; font-size:0.65rem; border-radius:4px; height:auto; background:var(--color-brand); color:#000;" onclick="saveServicePrice(2, ${idx})">Save</button>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      `;
+    } else if (activeUserRole === 'rental') {
+      const rental = serviceProviders.find(p => p.id === 4); // Sax Auto Rentals & Fleets
+      dashboard.innerHTML = `
+        <p class="dashboard-menu-title" style="margin-top:0;">Rental Fleet operator Dashboard</p>
+        <div class="dashboard-list">
+          <div class="dashboard-item" onclick="openAppDrawer('drawer-upload-rental')">
+            <div class="dashboard-item-left">
+              <svg viewBox="0 0 24 24" class="icon-stroke icon-sm" style="stroke:var(--color-brand);"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+              <span class="dashboard-item-label" style="color:var(--color-brand); font-weight:700;">Add Car to Fleet Catalog</span>
+            </div>
+            <span class="dashboard-item-value" style="color:var(--color-brand);">Add Fleet</span>
+          </div>
+          <div class="dashboard-item">
+            <div class="dashboard-item-left">
+              <svg viewBox="0 0 24 24" class="icon-stroke icon-sm" style="stroke:var(--color-success);"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              <span class="dashboard-item-label">CAC Corporate Verification</span>
+            </div>
+            <span class="dashboard-item-value" style="color:var(--color-success); font-weight:700;">Verified Company</span>
+          </div>
+        </div>
+
+        <div class="disclaimer-card" style="margin-top:10px; margin-bottom:14px; border-color:var(--color-success); background:rgba(16,185,129,0.02);">
+          <span style="font-size:0.65rem; color:var(--text-secondary);">
+            ✅ <strong>Fleet Privilege:</strong> Verification approves multiple public listing assets. Add all sedan or SUV catalog vehicles.
+          </span>
+        </div>
+
+        <p class="dashboard-menu-title">Manage Rental Fleet &amp; Daily Rates</p>
+        <div class="dashboard-list" style="display:flex; flex-direction:column; gap:8px;">
+          ${rental.menu.map((item, idx) => `
+            <div class="dashboard-item" style="height:auto; padding:10px; justify-content:space-between; align-items:center;">
+              <div style="flex:1;">
+                <strong style="font-size:0.75rem; color:#fff;">${item.name}</strong>
+                <p style="font-size:0.55rem; color:var(--text-secondary); margin:2px 0 0 0;">Lease price per day</p>
+              </div>
+              <div style="display:flex; align-items:center; gap:6px;">
+                <span style="font-size:0.7rem; color:var(--text-secondary);">₦</span>
+                <input type="number" class="form-input" id="srv-price-input-4-${idx}" value="${item.price}" style="width:75px; padding:3px 6px; font-size:0.7rem; text-align:right;">
+                <button class="btn-solid-chat" style="padding:4px 8px; font-size:0.65rem; border-radius:4px; height:auto; background:var(--color-brand); color:#000;" onclick="saveServicePrice(4, ${idx})">Save</button>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      `;
+    }
+  }
   }
 
   // ════════════════════════════ ONBOARDING
@@ -2768,8 +3818,14 @@
 
   function handleAuthSubmit() {
     triggerNotification("Access granted! Authenticated successfully.");
-    switchScreen('screen-discovery');
-    switchTab('discovery');
+    sandboxSwitchRole(selectedAuthRole);
+    if (selectedAuthRole === 'buyer') {
+      switchScreen('screen-discovery');
+      switchTab('discovery');
+    } else {
+      switchScreen('screen-profile');
+      switchTab('profile');
+    }
   }
 
   // ════════════════════════════ MARKETPLACE FEED
@@ -2854,19 +3910,19 @@
     // Check tabs
     if (currentSearchMode === 'rent') {
       switchTab('services');
-      showServiceProfile(4); // Rentals detail directly
+      filterServicesTab('Car Rental Fleet');
       return;
     } else if (currentSearchMode === 'wash') {
       switchTab('services');
-      showServiceProfile(1); // Wash detail directly
+      filterServicesTab('Car Wash');
       return;
     } else if (currentSearchMode === 'detail') {
       switchTab('services');
-      showServiceProfile(2); // Detailing detail directly
+      filterServicesTab('Auto Detailing');
       return;
     } else if (currentSearchMode === 'mods') {
       switchTab('services');
-      showServiceProfile(3); // Mods detail directly
+      filterServicesTab('Vehicle Modification');
       return;
     }
 
@@ -2922,7 +3978,6 @@
       renderFeedListings();
     } else if (mode === 'rent') {
       input.placeholder = "Search luxury rental fleets...";
-      // Filter feed for rentals
       feed.innerHTML = '';
       const rental = serviceProviders.find(p => p.id === 4);
       const div = document.createElement('div');
@@ -3104,12 +4159,13 @@
     const idx = comparedVehicles.indexOf(id);
     if (idx > -1) {
       comparedVehicles.splice(idx, 1);
-      triggerNotification("Listing removed from comparison bookmarks");
+      triggerNotification("Listing removed from bookmarks");
     } else {
       comparedVehicles.push(id);
-      triggerNotification("Listing added to comparison bookmarks");
+      triggerNotification("Listing added to bookmarks");
     }
     renderFeedListings();
+    renderDashboardRoleUI();
   }
 
   function toggleComparison() {
@@ -3127,41 +4183,13 @@
       label.textContent = "Compared";
       triggerNotification("Added to comparison grid (Active)");
     }
-  }
-
-  // Render Saved bookmarks tab
-  function renderSavedTab() {
-    const list = document.getElementById('compare-items-list');
-    list.innerHTML = '';
-    
-    if (comparedVehicles.length === 0) {
-      list.innerHTML = `<p style="padding:30px; text-align:center; color:var(--text-secondary); font-size:0.8rem;">No bookmarked items to compare. Mark vehicles on feed first!</p>`;
-      return;
-    }
-    
-    comparedVehicles.forEach(carId => {
-      const car = vehicleListings.find(c => c.id === carId);
-      if (!car) return;
-      
-      const div = document.createElement('div');
-      div.className = 'catalog-item';
-      div.onclick = () => showCarDetails(car.id);
-      div.innerHTML = `
-        <div class="catalog-item-info">
-          <h4>${car.title}</h4>
-          <p>₦${car.price.toLocaleString()} • ${car.location}</p>
-        </div>
-        <span class="catalog-item-price">View</span>
-      `;
-      list.appendChild(div);
-    });
+    renderDashboardRoleUI();
   }
 
   // ════════════════════════════ DEALER STORE PROFILE
   function viewDealerProfile(dealerName) {
     const dlrLogo = document.getElementById('dlr-logo');
     const dlrNameText = document.getElementById('dlr-name');
-    const dlrLocText = document.getElementById('dlr-location');
     
     dlrNameText.textContent = dealerName;
     dlrLogo.textContent = dealerName.charAt(0);
@@ -3218,11 +4246,40 @@
   }
 
   // ════════════════════════════ SERVICES
+  function filterServicesTab(category) {
+    currentServicesFilter = category;
+    document.querySelectorAll('#screen-services .search-tab').forEach(t => t.classList.remove('active'));
+    
+    if (category === 'All') {
+      document.getElementById('srv-tab-all').classList.add('active');
+    } else if (category === 'Car Wash') {
+      document.getElementById('srv-tab-wash').classList.add('active');
+    } else if (category === 'Auto Detailing') {
+      document.getElementById('srv-tab-detail').classList.add('active');
+    } else if (category === 'Vehicle Modification') {
+      document.getElementById('srv-tab-mods').classList.add('active');
+    } else if (category === 'Car Rental Fleet') {
+      document.getElementById('srv-tab-rent').classList.add('active');
+    }
+    
+    renderServicesListings();
+  }
+
   function renderServicesListings() {
     const feed = document.getElementById('services-feed');
     feed.innerHTML = '';
     
-    serviceProviders.forEach(prov => {
+    let filtered = serviceProviders;
+    if (currentServicesFilter !== 'All') {
+      filtered = serviceProviders.filter(p => p.category === currentServicesFilter);
+    }
+    
+    if (filtered.length === 0) {
+      feed.innerHTML = `<p style="padding: 20px; text-align: center; color: var(--text-secondary); font-size: 0.8rem;">No providers matching this category.</p>`;
+      return;
+    }
+
+    filtered.forEach(prov => {
       const card = document.createElement('div');
       card.className = 'listing-card';
       card.onclick = () => showServiceProfile(prov.id);
@@ -3375,11 +4432,9 @@
   }
 
   function openActiveChatThread(userName) {
-    // Find thread
     let t = chatThreads.find(x => x.user.includes(userName) || userName.includes(x.user));
     
     if (!t) {
-      // create new thread on demand
       t = {
         id: Date.now(),
         user: userName,
@@ -3398,7 +4453,6 @@
     currentActiveChatId = t.id;
     document.getElementById('chat-active-user-name').textContent = t.user;
     
-    // render history
     const log = document.getElementById('chat-message-log');
     log.innerHTML = '';
     
@@ -3427,7 +4481,6 @@
     const d = new Date();
     const timeStr = `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
     
-    // Push message
     t.history.push({ sender: "out", text: txt, time: timeStr });
     t.lastMsg = txt;
     t.time = timeStr;
@@ -3435,7 +4488,6 @@
     
     openActiveChatThread(t.user);
     
-    // Simulate auto-response
     setTimeout(() => {
       t.history.push({ sender: "in", text: "Got your message. Let's arrange a view inspection.", time: timeStr });
       t.lastMsg = "Got your message. Let's arrange a view inspection.";
@@ -3451,7 +4503,6 @@
     document.getElementById('filter-drawer').classList.add('active');
   }
 
-  // Close filter panel drawer
   function closeFilterDrawer() {
     document.getElementById('filter-drawer').classList.remove('active');
   }
