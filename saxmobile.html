@@ -652,7 +652,7 @@
       margin-bottom: 16px;
     }
     
-    /* Search Widget */
+    /* Search Widget & Custom Tab system like saxautotrading.ng */
     .app-search-box {
       background: var(--bg-surface);
       border: 1px solid var(--border-color);
@@ -664,16 +664,28 @@
       box-shadow: var(--shadow-premium);
     }
     
+    .search-row-wrap {
+      overflow-x: auto;
+      scrollbar-width: none;
+      display: flex;
+      margin-bottom: 2px;
+    }
+    .search-row-wrap::-webkit-scrollbar {
+      display: none;
+    }
+    
     .search-row {
       display: flex;
       background: rgba(255, 255, 255, 0.04);
       padding: 4px;
       border-radius: var(--radius-sm);
       gap: 4px;
+      white-space: nowrap;
+      width: max-content;
     }
+    
     .search-tab {
-      flex: 1;
-      padding: 8px;
+      padding: 8px 14px;
       text-align: center;
       font-size: 0.72rem;
       font-weight: 800;
@@ -1598,6 +1610,18 @@
       color: #000;
     }
 
+    /* ═══════════════════════════════════════════════════════ SAVED BOOKMARKS SCREEN */
+    #screen-saved {
+      background: var(--bg-app);
+    }
+    
+    .saved-container {
+      padding: 14px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
     /* ═══════════════════════════════════════════════════════ BOTTOM NAVIGATION BAR */
     .app-bottom-nav {
       height: 68px;
@@ -1899,12 +1923,16 @@
           <h1 class="hero-title">Find Your Next Car</h1>
           <p class="hero-subtitle">Nigeria's premium automotive &amp; services network</p>
 
-          <!-- Search Widget -->
+          <!-- Search Widget with individual service tabs like saxautotrading.ng -->
           <div class="app-search-box">
-            <div class="search-row">
-              <button class="search-tab active" id="search-tab-buy" onclick="toggleSearchTab('buy')">Buy Cars</button>
-              <button class="search-tab" id="search-tab-rent" onclick="toggleSearchTab('rent')">Rentals</button>
-              <button class="search-tab" id="search-tab-service" onclick="toggleSearchTab('service')">Find Services</button>
+            <div class="search-row-wrap">
+              <div class="search-row">
+                <button class="search-tab active" id="search-tab-buy" onclick="toggleSearchTab('buy')">Buy Cars</button>
+                <button class="search-tab" id="search-tab-rent" onclick="toggleSearchTab('rent')">Rent Cars</button>
+                <button class="search-tab" id="search-tab-wash" onclick="toggleSearchTab('wash')">Car Wash</button>
+                <button class="search-tab" id="search-tab-detail" onclick="toggleSearchTab('detail')">Detailing</button>
+                <button class="search-tab" id="search-tab-mods" onclick="toggleSearchTab('mods')">Modification</button>
+              </div>
             </div>
             <div style="display:flex; gap:8px;">
               <div class="search-input-wrapper">
@@ -2305,7 +2333,21 @@
         </div>
       </div>
 
-      <!-- ════════════════════════════ SCREEN 10: INBOX / MESSAGES LIST -->
+      <!-- ════════════════════════════ SCREEN 10: SAVED BOOKMARKS AND COMPARE GRID -->
+      <div class="app-screen" id="screen-saved">
+        <div class="app-header">
+          <div class="logo-text" style="font-size:1.05rem; font-weight:800;">Saved &amp; Comparison</div>
+          <div></div>
+        </div>
+        <div class="saved-container">
+          <h3 class="section-title">Compared Vehicles</h3>
+          <div class="listings-container" style="padding: 0; gap: 10px;" id="compare-items-list">
+            <!-- Active comparisons items here -->
+          </div>
+        </div>
+      </div>
+
+      <!-- ════════════════════════════ SCREEN 11: INBOX / MESSAGES LIST -->
       <div class="app-screen" id="screen-inbox">
         <div class="app-header">
           <div class="logo-text" style="font-size:1.05rem; font-weight:800;">Messages &amp; Inquiries</div>
@@ -2316,7 +2358,7 @@
         </div>
       </div>
 
-      <!-- ════════════════════════════ SCREEN 11: CHAT ROOM DETAIL VIEW -->
+      <!-- ════════════════════════════ SCREEN 12: CHAT ROOM DETAIL VIEW -->
       <div class="app-screen" id="screen-chat-detail" style="padding-bottom: 64px;">
         <div class="chat-header">
           <div class="detail-back-btn" onclick="switchTab('inbox')">
@@ -2343,13 +2385,13 @@
 
     </div>
 
-    <!-- ═══════════════════════════════════════════════════════ APP BOTTOM NAVIGATION -->
+    <!-- ═══════════════════════════════════════════════════════ REDESIGNED 5-TAB APP BOTTOM NAVIGATION -->
     <div class="app-bottom-nav">
       <div class="nav-item active" id="nav-home" onclick="switchTab('discovery')">
         <div class="nav-item-icon">
           <svg viewBox="0 0 24 24" class="icon-stroke"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
         </div>
-        <span class="nav-item-label">Home</span>
+        <span class="nav-item-label">Explore</span>
       </div>
       <div class="nav-item" id="nav-services" onclick="switchTab('services')">
         <div class="nav-item-icon">
@@ -2361,7 +2403,13 @@
         <div class="nav-item-icon">
           <svg viewBox="0 0 24 24" class="icon-stroke" style="stroke:var(--color-brand);"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
         </div>
-        <span class="nav-item-label" style="color:var(--color-brand);">Sell Car</span>
+        <span class="nav-item-label" style="color:var(--color-brand);">Sell</span>
+      </div>
+      <div class="nav-item" id="nav-saved" onclick="switchTab('saved')">
+        <div class="nav-item-icon">
+          <svg viewBox="0 0 24 24" class="icon-stroke"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </div>
+        <span class="nav-item-label">Saved</span>
       </div>
       <div class="nav-item" id="nav-inbox" onclick="switchTab('inbox')">
         <div class="nav-item-icon">
@@ -2392,6 +2440,7 @@
       <button class="control-btn" onclick="openFinanceCalculator()">Finance Calculator <span class="control-badge">Calc</span></button>
       <button class="control-btn" onclick="switchTab('services')">Auto Services <span class="control-badge">Shop</span></button>
       <button class="control-btn" onclick="launchUploadWizard()">3-Step Upload Wizard <span class="control-badge">Sell</span></button>
+      <button class="control-btn" onclick="switchTab('saved')">Saved &amp; Compare <span class="control-badge">Saved</span></button>
       <button class="control-btn" onclick="switchTab('inbox')">Inbox Messages <span class="control-badge">Chats</span></button>
     </div>
   </div>
@@ -2592,6 +2641,7 @@
   let activeOnboardingSlide = 1;
   let currentActiveChatId = 101;
   let comparedVehicles = [];
+  let currentSearchMode = 'buy';
 
   // Splash Screen auto-redirect timer
   setTimeout(() => {
@@ -2637,6 +2687,10 @@
     } else if (tab === 'inbox') {
       document.getElementById('nav-inbox').classList.add('active');
       switchScreen('screen-inbox');
+    } else if (tab === 'saved') {
+      document.getElementById('nav-saved').classList.add('active');
+      renderSavedTab();
+      switchScreen('screen-saved');
     }
   }
 
@@ -2792,6 +2846,26 @@
 
   function runSearchQuery() {
     const q = document.getElementById('search-input').value.toLowerCase().trim();
+    
+    // Check tabs
+    if (currentSearchMode === 'rent') {
+      switchTab('services');
+      showServiceProfile(4); // Rentals detail directly
+      return;
+    } else if (currentSearchMode === 'wash') {
+      switchTab('services');
+      showServiceProfile(1); // Wash detail directly
+      return;
+    } else if (currentSearchMode === 'detail') {
+      switchTab('services');
+      showServiceProfile(2); // Detailing detail directly
+      return;
+    } else if (currentSearchMode === 'mods') {
+      switchTab('services');
+      showServiceProfile(3); // Mods detail directly
+      return;
+    }
+
     if (q === '') {
       renderFeedListings();
       return;
@@ -2806,7 +2880,7 @@
     document.getElementById('feed-section-title').textContent = "Search Results";
     
     if (filtered.length === 0) {
-      feed.innerHTML = `<p style="padding: 30px; text-align: center; color: var(--text-muted); font-size: 0.8rem;">No matching listings found in database.</p>`;
+      feed.innerHTML = `<p style="padding: 30px; text-align: center; color: var(--text-muted); font-size: 0.8rem;">No matching listings found in database.</p>';
     } else {
       filtered.forEach(car => {
         const div = document.createElement('div');
@@ -2831,16 +2905,94 @@
   }
 
   function toggleSearchTab(mode) {
+    currentSearchMode = mode;
     document.querySelectorAll('.search-tab').forEach(t => t.classList.remove('active'));
-    event.currentTarget.classList.add('active');
+    document.getElementById(`search-tab-${mode}`).classList.add('active');
     
     const input = document.getElementById('search-input');
+    const feed = document.getElementById('listings-feed');
+    document.getElementById('feed-section-title').textContent = "Active Market";
+
     if (mode === 'buy') {
       input.placeholder = "Search brand, location...";
+      renderFeedListings();
     } else if (mode === 'rent') {
-      input.placeholder = "Search target rental fleet city...";
-    } else {
-      input.placeholder = "Search wash, detail studios...";
+      input.placeholder = "Search luxury rental fleets...";
+      // Filter feed for rentals
+      feed.innerHTML = '';
+      const rental = serviceProviders.find(p => p.id === 4);
+      const div = document.createElement('div');
+      div.className = 'listing-card';
+      div.onclick = () => showServiceProfile(4);
+      div.innerHTML = `
+        <div class="listing-image-wrapper">
+          <img class="listing-image" src="https://images.unsplash.com/photo-1563720223185-11003d516935?q=80&w=600&auto=format&fit=crop" alt="">
+          <span class="listing-badge">Luxury Rentals</span>
+        </div>
+        <div class="listing-info">
+          <h3 class="listing-title">${rental.name}</h3>
+          <span class="listing-price">From ₦${rental.startingPrice.toLocaleString()} / daily</span>
+          <p style="font-size:0.75rem; color:var(--text-secondary); margin-top:4px;">${rental.desc}</p>
+        </div>
+      `;
+      feed.appendChild(div);
+    } else if (mode === 'wash') {
+      input.placeholder = "Search local auto washes...";
+      feed.innerHTML = '';
+      const wash = serviceProviders.find(p => p.id === 1);
+      const div = document.createElement('div');
+      div.className = 'listing-card';
+      div.onclick = () => showServiceProfile(1);
+      div.innerHTML = `
+        <div class="listing-image-wrapper">
+          <img class="listing-image" src="https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?q=80&w=600&auto=format&fit=crop" alt="">
+          <span class="listing-badge">Automated Wash</span>
+        </div>
+        <div class="listing-info">
+          <h3 class="listing-title">${wash.name}</h3>
+          <span class="listing-price">From ₦${wash.startingPrice.toLocaleString()}</span>
+          <p style="font-size:0.75rem; color:var(--text-secondary); margin-top:4px;">${wash.desc}</p>
+        </div>
+      `;
+      feed.appendChild(div);
+    } else if (mode === 'detail') {
+      input.placeholder = "Search verified detailing studios...";
+      feed.innerHTML = '';
+      const srv = serviceProviders.find(p => p.id === 2);
+      const div = document.createElement('div');
+      div.className = 'listing-card';
+      div.onclick = () => showServiceProfile(2);
+      div.innerHTML = `
+        <div class="listing-image-wrapper">
+          <img class="listing-image" src="https://images.unsplash.com/photo-1607860108855-64acf2078ed9?q=80&w=600&auto=format&fit=crop" alt="">
+          <span class="listing-badge">Paint Correction</span>
+        </div>
+        <div class="listing-info">
+          <h3 class="listing-title">${srv.name}</h3>
+          <span class="listing-price">From ₦${srv.startingPrice.toLocaleString()}</span>
+          <p style="font-size:0.75rem; color:var(--text-secondary); margin-top:4px;">${srv.desc}</p>
+        </div>
+      `;
+      feed.appendChild(div);
+    } else if (mode === 'mods') {
+      input.placeholder = "Search modification garages...";
+      feed.innerHTML = '';
+      const srv = serviceProviders.find(p => p.id === 3);
+      const div = document.createElement('div');
+      div.className = 'listing-card';
+      div.onclick = () => showServiceProfile(3);
+      div.innerHTML = `
+        <div class="listing-image-wrapper">
+          <img class="listing-image" src="https://images.unsplash.com/photo-1611245801314-e0a5dbf97b3d?q=80&w=600&auto=format&fit=crop" alt="">
+          <span class="listing-badge">Custom Wrap</span>
+        </div>
+        <div class="listing-info">
+          <h3 class="listing-title">${srv.name}</h3>
+          <span class="listing-price">From ₦${srv.startingPrice.toLocaleString()}</span>
+          <p style="font-size:0.75rem; color:var(--text-secondary); margin-top:4px;">${srv.desc}</p>
+        </div>
+      `;
+      feed.appendChild(div);
     }
   }
 
@@ -2971,6 +3123,34 @@
       label.textContent = "Compared";
       triggerNotification("Added to comparison grid (Active)");
     }
+  }
+
+  // Render Saved bookmarks tab
+  function renderSavedTab() {
+    const list = document.getElementById('compare-items-list');
+    list.innerHTML = '';
+    
+    if (comparedVehicles.length === 0) {
+      list.innerHTML = `<p style="padding:30px; text-align:center; color:var(--text-secondary); font-size:0.8rem;">No bookmarked items to compare. Mark vehicles on feed first!</p>`;
+      return;
+    }
+    
+    comparedVehicles.forEach(carId => {
+      const car = vehicleListings.find(c => c.id === carId);
+      if (!car) return;
+      
+      const div = document.createElement('div');
+      div.className = 'catalog-item';
+      div.onclick = () => showCarDetails(car.id);
+      div.innerHTML = `
+        <div class="catalog-item-info">
+          <h4>${car.title}</h4>
+          <p>₦${car.price.toLocaleString()} • ${car.location}</p>
+        </div>
+        <span class="catalog-item-price">View</span>
+      `;
+      list.appendChild(div);
+    });
   }
 
   // ════════════════════════════ DEALER STORE PROFILE
