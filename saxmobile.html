@@ -3251,12 +3251,6 @@
           </div>
           <span class="nav-item-label">Services</span>
         </div>
-        <div class="nav-item" id="nav-add" onclick="launchUploadWizard()">
-          <div class="nav-item-icon">
-            <svg viewBox="0 0 24 24" class="icon-stroke" style="stroke:var(--color-brand);"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
-          </div>
-          <span class="nav-item-label" style="color:var(--color-brand);">Sell</span>
-        </div>
         <div class="nav-item" id="nav-inbox" onclick="switchTab('inbox')">
           <div class="nav-item-icon">
             <svg viewBox="0 0 24 24" class="icon-stroke"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
@@ -4506,6 +4500,12 @@
   let wizardStep = 1;
 
   function launchUploadWizard() {
+    if (activeUserRole !== 'dealer' && activeUserRole !== 'private') {
+      triggerNotification("Access Denied: Only Private Sellers and Dealers are authorized to list vehicles for sale. Please switch your role in the Sandbox switcher on your Profile.");
+      switchScreen('screen-profile');
+      switchTab('profile');
+      return;
+    }
     switchScreen('screen-wizard');
     goToWizardStep(1);
   }
