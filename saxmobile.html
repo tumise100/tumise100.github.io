@@ -3227,17 +3227,6 @@
   // ════════════════════════════ ROLE SWITCHER FOR DEMO WORKFLOWS
   function sandboxSwitchRole(role) {
     activeUserRole = role;
-    document.querySelectorAll('.console-switch-tab').forEach(btn => btn.classList.remove('active'));
-    document.getElementById(`role-tab-${role}`).classList.add('active');
-    
-    // Update user profile display metadata
-    const nameEl = document.getElementById('profile-display-name');
-    const emailEl = document.getElementById('profile-display-email');
-    const badgeEl = document.getElementById('profile-display-badge');
-
-  // ════════════════════════════ ROLE SWITCHER FOR DEMO WORKFLOWS
-  function sandboxSwitchRole(role) {
-    activeUserRole = role;
     
     // Update profile switcher row active status
     document.querySelectorAll('.console-switch-tab').forEach(btn => btn.classList.remove('active'));
@@ -3745,7 +3734,6 @@
         </div>
       `;
     }
-  }
   }
 
   // ════════════════════════════ ONBOARDING
