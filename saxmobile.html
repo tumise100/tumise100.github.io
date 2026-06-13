@@ -186,7 +186,6 @@
       overflow-y: auto;
       scrollbar-width: none;
       background: var(--bg-app);
-      flex-direction: column;
       padding-bottom: 80px; /* buffer for bottom nav */
     }
     .app-screen::-webkit-scrollbar {
@@ -194,8 +193,13 @@
     }
     
     .app-screen.active {
-      display: flex;
+      display: block;
       animation: screenFade 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .app-screen.flex-screen.active {
+      display: flex;
+      flex-direction: column;
     }
 
     @keyframes screenFade {
@@ -1766,7 +1770,7 @@
     <div class="screen-content" id="screen-container">
 
       <!-- ════════════════════════════ SCREEN 0: SPLASH SCREEN -->
-      <div class="app-screen active" id="screen-splash">
+      <div class="app-screen flex-screen active" id="screen-splash">
         <div class="splash-logo-wrap">
           <div class="splash-logo-icon">S</div>
           <h1 class="splash-logo-title">SaxAuto</h1>
@@ -1778,7 +1782,7 @@
       </div>
 
       <!-- ════════════════════════════ SCREEN 1: ONBOARDING SCREEN -->
-      <div class="app-screen" id="screen-onboarding">
+      <div class="app-screen flex-screen" id="screen-onboarding">
         <!-- Skipping Button -->
         <div style="padding: 20px 20px 0 0; text-align: right;">
           <span class="onboarding-skip" onclick="skipOnboarding()">Skip</span>
@@ -1830,7 +1834,7 @@
       </div>
 
       <!-- ════════════════════════════ SCREEN 2: AUTH SCREEN -->
-      <div class="app-screen" id="screen-auth">
+      <div class="app-screen flex-screen" id="screen-auth">
         <!-- Custom Back icon -->
         <div class="auth-back-btn" onclick="switchScreen('screen-onboarding')">
           <svg class="icon-stroke" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
@@ -2359,7 +2363,7 @@
       </div>
 
       <!-- ════════════════════════════ SCREEN 12: CHAT ROOM DETAIL VIEW -->
-      <div class="app-screen" id="screen-chat-detail" style="padding-bottom: 64px;">
+      <div class="app-screen flex-screen" id="screen-chat-detail" style="padding-bottom: 64px;">
         <div class="chat-header">
           <div class="detail-back-btn" onclick="switchTab('inbox')">
             <svg class="icon-stroke" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
@@ -2880,7 +2884,7 @@
     document.getElementById('feed-section-title').textContent = "Search Results";
     
     if (filtered.length === 0) {
-      feed.innerHTML = `<p style="padding: 30px; text-align: center; color: var(--text-muted); font-size: 0.8rem;">No matching listings found in database.</p>';
+      feed.innerHTML = `<p style="padding: 30px; text-align: center; color: var(--text-muted); font-size: 0.8rem;">No matching listings found in database.</p>`;
     } else {
       filtered.forEach(car => {
         const div = document.createElement('div');
