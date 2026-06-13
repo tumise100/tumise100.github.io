@@ -197,6 +197,10 @@
       display: block;
       animation: screenFade 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
+    
+    .app-screen.active.flex-screen {
+      display: flex;
+    }
 
     @keyframes screenFade {
       from { opacity: 0; transform: scale(0.98) translateY(8px); }
@@ -388,14 +392,14 @@
       align-items: center;
       text-align: center;
       opacity: 0;
-      transform: translateX(50px);
+      transform: scale(0.95);
       transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
       pointer-events: none;
     }
     
     .onboarding-slide.active {
       opacity: 1;
-      transform: translateX(0);
+      transform: scale(1);
       pointer-events: auto;
     }
     
